@@ -264,8 +264,8 @@ class AppTheme {
         onBackground: Colors.black,
       ),
       textTheme: AppTypography.textTheme.copyWith(
-        bodyLarge: AppTypography.AccessibilityStyles.highContrast,
-        bodyMedium: AppTypography.AccessibilityStyles.highContrast,
+        bodyLarge: AccessibilityStyles.highContrast,
+        bodyMedium: AccessibilityStyles.highContrast,
       ),
     );
   }
