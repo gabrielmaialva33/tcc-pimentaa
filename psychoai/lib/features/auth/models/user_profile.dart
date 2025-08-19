@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import '../../../core/database/mongodb_client.dart';
 import 'user_role.dart';
 
 part 'user_profile.g.dart';
