@@ -257,13 +257,23 @@ class WelcomeScreen extends StatelessWidget {
                   subtitle: 'Quero acessar análises profissionais',
                   icon: Icons.medical_services,
                   onTap: () {
-                    // Navegar para registro/login de analista
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 32),
                 TextButton(
                   onPressed: () {
-                    // Navegar para login direto
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    );
                   },
                   child: const Text(
                     'Já tenho uma conta',
