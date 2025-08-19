@@ -16,3 +16,5 @@ key.properties
 .idea
 .claude
 .DS_Store
+
+psychoai/ios/Podfile.lock
