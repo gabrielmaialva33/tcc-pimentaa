@@ -145,7 +145,7 @@ class HeroAnimations {
   }
 
   /// Transição customizada entre páginas
-  static PageRouteBuilder buildPageRoute({
+  static PageRouteBuilder<T> buildPageRoute<T>({
     required Widget page,
     RouteSettings? settings,
     Duration duration = const Duration(milliseconds: 600),
@@ -199,7 +199,7 @@ class HeroAnimations {
   }
 
   /// Transição com efeito de breathing
-  static PageRouteBuilder buildBreathingTransition({
+  static PageRouteBuilder<T> buildBreathingTransition<T>({
     required Widget page,
     RouteSettings? settings,
     Duration duration = const Duration(milliseconds: 800),
