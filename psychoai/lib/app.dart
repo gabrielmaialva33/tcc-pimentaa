@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
 import 'features/auth/providers/auth_provider.dart';
 import 'features/auth/models/user_profile.dart';
-import 'features/onboarding/onboarding_screen.dart';
 import 'features/memories/presentation/memory_input_screen.dart';
 
 /// App principal que gerencia roteamento baseado em autenticação
@@ -301,7 +300,7 @@ class WelcomeScreen extends StatelessWidget {
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor.withOpacity(0.1),
+                  color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
