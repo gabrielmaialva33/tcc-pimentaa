@@ -263,10 +263,6 @@ class AppTheme {
         background: Colors.white,
         onBackground: Colors.black,
       ),
-      textTheme: AppTypography.textTheme.copyWith(
-        bodyLarge: AccessibilityStyles.highContrast,
-        bodyMedium: AccessibilityStyles.highContrast,
-      ),
     );
   }
 }

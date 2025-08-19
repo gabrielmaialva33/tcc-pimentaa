@@ -233,15 +233,44 @@ class ValidationResult {
 
 /// Tipos de análise disponíveis
 enum AnalysisType {
-  complete('Análise Completa', FreudianPrompts.mainAnalysisPrompt),
-  quickPattern('Padrões Rápidos', FreudianPrompts.quickPatternPrompt),
-  screenMemory('Lembranças Encobridoras', FreudianPrompts.screenMemoryPrompt),
-  defenseMechanisms('Mecanismos de Defesa', FreudianPrompts.defenseMechanismsPrompt),
-  transference('Padrões de Transferência', FreudianPrompts.transferencePrompt),
-  dreamAnalysis('Análise de Sonhos', FreudianPrompts.dreamAnalysisPrompt);
+  complete,
+  quickPattern,
+  screenMemory,
+  defenseMechanisms,
+  transference,
+  dreamAnalysis;
 
-  const AnalysisType(this.displayName, this.prompt);
+  String get displayName {
+    switch (this) {
+      case AnalysisType.complete:
+        return 'Análise Completa';
+      case AnalysisType.quickPattern:
+        return 'Padrões Rápidos';
+      case AnalysisType.screenMemory:
+        return 'Lembranças Encobridoras';
+      case AnalysisType.defenseMechanisms:
+        return 'Mecanismos de Defesa';
+      case AnalysisType.transference:
+        return 'Padrões de Transferência';
+      case AnalysisType.dreamAnalysis:
+        return 'Análise de Sonhos';
+    }
+  }
   
-  final String displayName;
-  final String prompt;
+  String get prompt {
+    switch (this) {
+      case AnalysisType.complete:
+        return FreudianPrompts.mainAnalysisPrompt;
+      case AnalysisType.quickPattern:
+        return FreudianPrompts.quickPatternPrompt;
+      case AnalysisType.screenMemory:
+        return FreudianPrompts.screenMemoryPrompt;
+      case AnalysisType.defenseMechanisms:
+        return FreudianPrompts.defenseMechanismsPrompt;
+      case AnalysisType.transference:
+        return FreudianPrompts.transferencePrompt;
+      case AnalysisType.dreamAnalysis:
+        return FreudianPrompts.dreamAnalysisPrompt;
+    }
+  }
 }
