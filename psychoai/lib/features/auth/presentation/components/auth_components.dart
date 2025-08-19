@@ -511,15 +511,19 @@ class _MaterialButtonState extends State<MaterialButton> {
                       if (widget.icon != null) ...[
                         Icon(
                           widget.icon,
-                          color: Colors.white,
+                          color: widget.backgroundColor?.computeLuminance() ?? 0 > 0.5 
+                              ? Colors.black87 
+                              : Colors.white,
                           size: 20,
                         ),
                         const SizedBox(width: 8),
                       ],
                       Text(
                         widget.text,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: widget.backgroundColor?.computeLuminance() ?? 0 > 0.5 
+                              ? Colors.black87 
+                              : Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),

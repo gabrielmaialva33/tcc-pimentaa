@@ -291,7 +291,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       Expanded(
                         child: Container(
                           height: 1,
-                          color: Colors.white.withValues(alpha: 0.3),
+                          color: Colors.grey.shade300,
                         ),
                       ),
                       Padding(
@@ -299,7 +299,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                         child: Text(
                           'Ou',
                           style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.7),
+                            color: Colors.grey.shade600,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
@@ -308,7 +308,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       Expanded(
                         child: Container(
                           height: 1,
-                          color: Colors.white.withValues(alpha: 0.3),
+                          color: Colors.grey.shade300,
                         ),
                       ),
                     ],
@@ -321,7 +321,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                   Text(
                     'Não tem uma conta?',
                     style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
+                      color: Colors.grey.shade700,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -334,22 +334,24 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                   Row(
                     children: [
                       Expanded(
-                        child: CustomGlassmorphicButton(
+                        child: MaterialButton(
                           text: 'Sou Paciente',
                           onPressed: _navigateToPatientRegistration,
                           icon: Icons.person_outline,
                           height: 48,
+                          backgroundColor: Colors.grey.shade100,
                         ).animate()
                             .fadeIn(delay: 2000.ms, duration: 600.ms)
                             .slideX(begin: -0.3, end: 0),
                       ),
                       const SizedBox(width: 16),
                       Expanded(
-                        child: CustomGlassmorphicButton(
+                        child: MaterialButton(
                           text: 'Sou Analista',
                           onPressed: _navigateToAnalystRegistration,
                           icon: Icons.medical_services_outlined,
                           height: 48,
+                          backgroundColor: Colors.grey.shade100,
                         ).animate()
                             .fadeIn(delay: 2200.ms, duration: 600.ms)
                             .slideX(begin: 0.3, end: 0),
@@ -371,13 +373,13 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                         Icon(
                           Icons.arrow_back_ios,
                           size: 16,
-                          color: Colors.white.withValues(alpha: 0.8),
+                          color: Colors.grey.shade600,
                         ),
                         const SizedBox(width: 4),
                         Text(
                           'Voltar',
                           style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.8),
+                            color: Colors.grey.shade600,
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
