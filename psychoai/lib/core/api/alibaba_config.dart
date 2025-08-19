@@ -1,5 +1,3 @@
-import 'dart:io';
-
 /// Configuração para integração com Alibaba Cloud Model Studio
 class AlibabaConfig {
   // API Key fornecida pelo usuário
