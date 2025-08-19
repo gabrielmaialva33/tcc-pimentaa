@@ -216,7 +216,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnimatedGradientBackground(
+      body: CleanBackground(
         child: SafeArea(
           child: Column(
             children: [
@@ -231,7 +231,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                           onPressed: _previousStep,
                           icon: const Icon(
                             Icons.arrow_back_ios,
-                            color: Colors.white,
+                            color: Colors.grey.shade700,
                           ),
                         ),
                         const Expanded(
@@ -240,7 +240,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -282,23 +282,24 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                   children: [
                     if (_currentStep > 0)
                       Expanded(
-                        child: CustomGlassmorphicButton(
+                        child: MaterialButton(
                           text: 'Voltar',
                           onPressed: _previousStep,
                           icon: Icons.arrow_back,
+                          backgroundColor: Colors.grey.shade200,
                         ),
                       ),
                     if (_currentStep > 0) const SizedBox(width: 16),
                     Expanded(
                       flex: _currentStep > 0 ? 1 : 2,
-                      child: CustomGlassmorphicButton(
+                      child: MaterialButton(
                         text: _currentStep == 2 ? 'Criar Conta' : 'Continuar',
                         onPressed: _isLoading ? null : _nextStep,
                         isLoading: _isLoading && _currentStep == 2,
                         icon: _currentStep == 2 
                             ? Icons.check 
                             : Icons.arrow_forward,
-                        backgroundColor: Colors.white.withValues(alpha: 0.2),
+                        backgroundColor: Theme.of(context).primaryColor,
                       ),
                     ),
                   ],
@@ -318,7 +319,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
         key: _step1FormKey,
         child: Column(
           children: [
-            CustomGlassmorphicContainer(
+            MaterialCard(
               padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,7 +329,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ).animate()
                       .fadeIn(duration: 600.ms)
@@ -340,7 +341,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                     'Digite suas informações básicas para criarmos sua conta.',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.white.withValues(alpha: 0.8),
+                      color: Colors.grey.shade700,
                     ),
                   ).animate()
                       .fadeIn(delay: 200.ms, duration: 600.ms),
@@ -401,7 +402,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
         key: _step2FormKey,
         child: Column(
           children: [
-            CustomGlassmorphicContainer(
+            MaterialCard(
               padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -411,7 +412,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ).animate()
                       .fadeIn(duration: 600.ms)
@@ -423,7 +424,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                     'Crie uma senha forte para manter suas informações seguras.',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.white.withValues(alpha: 0.8),
+                      color: Colors.grey.shade700,
                     ),
                   ).animate()
                       .fadeIn(delay: 200.ms, duration: 600.ms),
@@ -494,7 +495,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomGlassmorphicContainer(
+              MaterialCard(
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
