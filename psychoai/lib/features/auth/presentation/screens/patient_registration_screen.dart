@@ -240,7 +240,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).primaryColor,
+                              color: Colors.blue,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -329,7 +329,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.blue,
                     ),
                   ).animate()
                       .fadeIn(duration: 600.ms)
@@ -412,7 +412,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.blue,
                     ),
                   ).animate()
                       .fadeIn(duration: 600.ms)
@@ -530,7 +530,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Theme.of(context).primaryColor,
+                        color: Colors.blue,
                       ),
                     ),
                     

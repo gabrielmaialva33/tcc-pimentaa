@@ -107,7 +107,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       onPressed: _handleBackToLogin,
                       icon: const Icon(
                         Icons.arrow_back_ios,
-                        color: Theme.of(context).primaryColor,
+                        color: Colors.blue,
                       ),
                     ),
                     const Expanded(
@@ -116,7 +116,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColor,
+                          color: Colors.blue,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -145,7 +145,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     child: const Icon(
                       Icons.lock_reset,
                       size: 50,
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.blue,
                     ),
                   ).animate()
                       .scale(delay: 200.ms, duration: 600.ms)
@@ -166,7 +166,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     child: const Icon(
                       Icons.mark_email_read,
                       size: 50,
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.blue,
                     ),
                   ).animate()
                       .scale(duration: 600.ms)
@@ -182,7 +182,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   style: const TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor,
+                    color: Colors.blue,
                   ),
                   textAlign: TextAlign.center,
                 ).animate()

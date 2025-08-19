@@ -301,7 +301,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                           onPressed: _previousStep,
                           icon: const Icon(
                             Icons.arrow_back_ios,
-                            color: Theme.of(context).primaryColor,
+                            color: Colors.blue,
                           ),
                         ),
                         const Expanded(
@@ -310,7 +310,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).primaryColor,
+                              color: Colors.blue,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -408,7 +408,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).primaryColor,
+                              color: Colors.blue,
                             ),
                           ),
                         ),
@@ -505,7 +505,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).primaryColor,
+                              color: Colors.blue,
                             ),
                           ),
                         ),
@@ -707,7 +707,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).primaryColor,
+                              color: Colors.blue,
                             ),
                           ),
                         ),
