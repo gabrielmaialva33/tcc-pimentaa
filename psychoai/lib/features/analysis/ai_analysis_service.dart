@@ -2,6 +2,10 @@ import 'package:flutter/foundation.dart';
 import '../../core/api/nvidia_client.dart';
 import '../../core/api/nvidia_config.dart';
 import '../../core/services/ai_provider_service.dart';
+import '../../core/database/mongodb_client.dart';
+import '../database/repositories/memory_repository.dart';
+import '../database/repositories/analysis_repository.dart';
+import '../database/models/memory_document.dart';
 import 'prompts/freudian_prompt.dart';
 import 'models/analysis_result.dart';
 
@@ -9,10 +13,16 @@ import 'models/analysis_result.dart';
 class AIAnalysisService {
   final NvidiaClient _client;
   final AIProviderService _providerService;
+  final MongoDBClient _dbClient;
+  final MemoryRepository _memoryRepo;
+  final AnalysisRepository _analysisRepo;
 
   AIAnalysisService() : 
     _client = NvidiaClient(),
-    _providerService = AIProviderService.instance;
+    _providerService = AIProviderService.instance,
+    _dbClient = MongoDBClient.instance,
+    _memoryRepo = MemoryRepository.instance,
+    _analysisRepo = AnalysisRepository.instance;
 
   /// Analisa uma lembrança usando IA especializada em psicanálise
   Future<AnalysisResult> analyzeMemory({
