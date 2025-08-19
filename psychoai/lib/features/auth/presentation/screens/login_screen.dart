@@ -268,7 +268,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                         const SizedBox(height: 24),
                         
                         // Botão de login
-                        GlassmorphicButton(
+                        CustomGlassmorphicButton(
                           text: 'Entrar',
                           onPressed: _isLoading ? null : _handleLogin,
                           isLoading: _isLoading,
@@ -334,7 +334,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                   Row(
                     children: [
                       Expanded(
-                        child: GlassmorphicButton(
+                        child: CustomGlassmorphicButton(
                           text: 'Sou Paciente',
                           onPressed: _navigateToPatientRegistration,
                           icon: Icons.person_outline,
@@ -345,7 +345,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       ),
                       const SizedBox(width: 16),
                       Expanded(
-                        child: GlassmorphicButton(
+                        child: CustomGlassmorphicButton(
                           text: 'Sou Analista',
                           onPressed: _navigateToAnalystRegistration,
                           icon: Icons.medical_services_outlined,
