@@ -276,7 +276,7 @@ Forneça uma análise integrada e construtiva.
 
     for (final mechanism in knownMechanisms) {
       final pattern = RegExp(
-        '${mechanism}[^.]*',
+        '$mechanism[^.]*',
         caseSensitive: false,
       );
 
