@@ -362,10 +362,7 @@ class MemoryRepository {
         },
       };
       
-      final cursor = _collection.find(filter, FindOptions(
-        limit: limit * 2, // Buscar mais para filtrar
-        sort: {'createdAt': -1},
-      ));
+      final results = await _collection.find(filter).toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
       
       // Calcular similaridade e ordenar
