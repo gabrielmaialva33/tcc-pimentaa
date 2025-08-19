@@ -144,7 +144,7 @@ class MemoryDocument {
   }
 
   /// Retorna ID como string
-  String get idString => id?.toHexString() ?? '';
+  String get idString => id?.oid ?? '';
 
   /// Verifica se a memória é válida
   bool get isValid {
@@ -228,7 +228,7 @@ class MemoryDocument {
   }
 
   static dynamic _objectIdToJson(ObjectId? objectId) {
-    return objectId?.toHexString();
+    return objectId?.oid;
   }
 }
 
