@@ -295,7 +295,7 @@ class AnalysisDocument {
   }
 
   static dynamic _objectIdToJson(ObjectId? objectId) {
-    return objectId?.toHexString();
+    return objectId?.oid;
   }
 }
 
