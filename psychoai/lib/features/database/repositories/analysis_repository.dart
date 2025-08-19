@@ -263,8 +263,9 @@ class AnalysisRepository {
         filter['createdAt'] = {'\$gte': cutoffDate};
       }
       
-      final cursor = _collection.find(filter, limit: limit)
-          .sortBy({'createdAt': -1});
+      final cursor = _collection.find(filter)
+          .sort({'createdAt': -1})
+          .limit(limit);
       
       final results = await cursor.toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
