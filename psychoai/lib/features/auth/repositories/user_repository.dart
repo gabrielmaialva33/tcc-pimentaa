@@ -21,8 +21,6 @@ class UserRepository {
   /// Cria um novo usuário
   Future<UserProfile> create(UserProfile user) async {
     return await _client.executeWithRetry(() async {
-      print('💾 [USER_REPO] Criando novo usuário: ${user.email}');
-      
       if (!user.isValid) {
         throw MongoDBException('Dados do usuário são inválidos');
       }
@@ -44,7 +42,6 @@ class UserRepository {
       
       if (result.isSuccess && result.document?['_id'] != null) {
         final createdUser = user.copyWith(id: result.document?['_id']);
-        print('✅ [USER_REPO] Usuário criado com ID: ${createdUser.idString}');
         return createdUser;
       } else {
         throw MongoDBException('Falha ao criar usuário: ${result.writeError?.errmsg}');
@@ -55,8 +52,6 @@ class UserRepository {
   /// Busca usuário por Firebase UID
   Future<UserProfile?> findByUid(String uid) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [USER_REPO] Buscando usuário por UID: $uid');
-      
       final filter = {
         'uid': uid,
         'isActive': true,
@@ -66,10 +61,8 @@ class UserRepository {
       
       if (result != null) {
         final user = UserProfile.fromMongo(result);
-        print('✅ [USER_REPO] Usuário encontrado: ${user.email}');
         return user;
       } else {
-        print('❌ [USER_REPO] Usuário não encontrado: $uid');
         return null;
       }
     });
@@ -78,8 +71,6 @@ class UserRepository {
   /// Busca usuário por email
   Future<UserProfile?> findByEmail(String email) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [USER_REPO] Buscando usuário por email: $email');
-      
       final filter = {
         'email': email.toLowerCase(),
         'isActive': true,
@@ -89,10 +80,8 @@ class UserRepository {
       
       if (result != null) {
         final user = UserProfile.fromMongo(result);
-        print('✅ [USER_REPO] Usuário encontrado: ${user.uid}');
         return user;
       } else {
-        print('❌ [USER_REPO] Usuário não encontrado: $email');
         return null;
       }
     });
@@ -101,17 +90,13 @@ class UserRepository {
   /// Busca usuário por ID
   Future<UserProfile?> findById(String id) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [USER_REPO] Buscando usuário por ID: $id');
-      
       final filter = MongoDBHelper.idFilter(id);
       final result = await _collection.findOne(filter);
       
       if (result != null) {
         final user = UserProfile.fromMongo(result);
-        print('✅ [USER_REPO] Usuário encontrado: ${user.email}');
         return user;
       } else {
-        print('❌ [USER_REPO] Usuário não encontrado: $id');
         return null;
       }
     });
@@ -125,8 +110,6 @@ class UserRepository {
     bool? isVerified,
   }) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [USER_REPO] Buscando usuários do papel: ${role.displayName}');
-      
       final filter = {
         'role': role.value,
         'isActive': true,
@@ -146,7 +129,6 @@ class UserRepository {
       final results = await _collection.find(filter).toList();
       final users = results.map((doc) => UserProfile.fromMongo(doc)).toList();
       
-      print('✅ [USER_REPO] Encontrados ${users.length} usuários do papel "${role.displayName}"');
       return users;
     });
   }
