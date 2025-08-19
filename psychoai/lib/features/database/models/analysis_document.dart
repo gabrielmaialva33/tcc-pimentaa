@@ -12,7 +12,7 @@ class AnalysisDocument {
   final ObjectId? id;
   
   @JsonKey(fromJson: _objectIdFromJson, toJson: _objectIdToJson)
-  final ObjectId memoryId;
+  final ObjectId? memoryId;
   
   final String userId;
   final String analysisText;
