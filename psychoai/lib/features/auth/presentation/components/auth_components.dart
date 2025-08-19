@@ -35,22 +35,21 @@ class CustomGlassmorphicContainer extends StatelessWidget {
         height: height ?? double.infinity,
         borderRadius: borderRadius,
         blur: blur,
-        opacity: opacity,
         border: 1.5,
         linearGradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Colors.white.withOpacity(0.1),
-            Colors.white.withOpacity(0.05),
+            Colors.white.withValues(alpha: opacity),
+            Colors.white.withValues(alpha: opacity * 0.5),
           ],
         ),
         borderGradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Colors.white.withOpacity(0.3),
-            Colors.white.withOpacity(0.1),
+            Colors.white.withValues(alpha: 0.3),
+            Colors.white.withValues(alpha: 0.1),
           ],
         ),
         child: Container(
@@ -503,29 +502,28 @@ class _CustomGlassmorphicButtonState extends State<CustomGlassmorphicButton> {
         width: widget.width ?? double.infinity,
         height: widget.height,
         borderRadius: 16,
-        opacity: widget.onPressed != null ? 0.2 : 0.1,
         border: 1.5,
         linearGradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Colors.white.withOpacity(0.15),
-            Colors.white.withOpacity(0.05),
+            Colors.white.withValues(alpha: 0.15),
+            Colors.white.withValues(alpha: 0.05),
           ],
         ),
         borderGradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Colors.white.withOpacity(0.3),
-            Colors.white.withOpacity(0.1),
+            Colors.white.withValues(alpha: 0.3),
+            Colors.white.withValues(alpha: 0.1),
           ],
         ),
         blur: 20,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: widget.backgroundColor ?? Colors.white.withOpacity(0.1),
+            color: widget.backgroundColor ?? Colors.white.withValues(alpha: 0.1),
           ),
           child: Center(
             child: widget.isLoading
