@@ -199,10 +199,10 @@ class AnalysisDocument {
   }
 
   /// Retorna ID como string
-  String get idString => id?.toHexString() ?? '';
+  String get idString => id?.oid ?? '';
 
   /// Retorna memoryId como string
-  String get memoryIdString => memoryId.toHexString();
+  String get memoryIdString => memoryId.oid;
 
   /// Verifica se a análise é válida
   bool get isValid {
