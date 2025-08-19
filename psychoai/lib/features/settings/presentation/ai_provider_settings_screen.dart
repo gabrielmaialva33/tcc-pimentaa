@@ -568,12 +568,14 @@ class _AIProviderSettingsScreenState extends State<AIProviderSettingsScreen> {
         _connectionResults = results;
       });
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Erro ao testar conexões: $e'),
-          backgroundColor: AppColors.error,
-        ),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erro ao testar conexões: $e'),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
     } finally {
       setState(() {
         _isTestingConnection = false;
