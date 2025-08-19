@@ -222,7 +222,6 @@ class MicroAnimations {
         child,
         if (triggered)
           ...List.generate(8, (index) {
-            final angle = (index * 45.0) * (3.14159 / 180);
             return Positioned(
               left: 50,
               top: 50,
