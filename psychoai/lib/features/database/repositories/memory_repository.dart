@@ -130,12 +130,6 @@ class MemoryRepository {
         ],
       };
       
-      final options = MongoDBHelper.paginationOptions(
-        page: page,
-        limit: limit,
-        sort: {'createdAt': -1},
-      );
-      
       final results = await _collection.find(filter).toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
       
@@ -157,12 +151,6 @@ class MemoryRepository {
         'emotions': emotion,
         'isDeleted': false,
       };
-      
-      final options = MongoDBHelper.paginationOptions(
-        page: page,
-        limit: limit,
-        sort: {'createdAt': -1},
-      );
       
       final results = await _collection.find(filter).toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
