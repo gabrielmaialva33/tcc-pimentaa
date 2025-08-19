@@ -10,21 +10,27 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
   try {
-    // Verificar se Firebase já foi inicializado
-    if (Firebase.apps.isEmpty) {
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
-      debugPrint('✅ [MAIN] Firebase inicializado com sucesso');
+    // Tentar inicializar Firebase
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    debugPrint('✅ [MAIN] Firebase inicializado com sucesso');
+  } on FirebaseException catch (e) {
+    if (e.code == 'duplicate-app') {
+      // App já existe, o que é normal durante hot restart
+      debugPrint('ℹ️ [MAIN] Firebase já estava inicializado (hot restart)');
     } else {
-      debugPrint('ℹ️ [MAIN] Firebase já estava inicializado');
+      debugPrint('❌ [MAIN] Erro Firebase: ${e.message}');
+      runApp(const PsychoAIErrorApp());
+      return;
     }
-    
-    runApp(const PsychoAIApp());
   } catch (e) {
-    debugPrint('❌ [MAIN] Erro ao inicializar Firebase: $e');
+    debugPrint('❌ [MAIN] Erro inesperado: $e');
     runApp(const PsychoAIErrorApp());
+    return;
   }
+  
+  runApp(const PsychoAIApp());
 }
 
 class PsychoAIApp extends StatelessWidget {
