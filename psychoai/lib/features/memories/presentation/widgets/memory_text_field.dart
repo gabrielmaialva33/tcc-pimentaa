@@ -134,7 +134,7 @@ class _MemoryTextFieldState extends State<MemoryTextField>
                       style: TherapeuticStyles.memoryText,
                       decoration: InputDecoration(
                         hintText: widget.hintText ?? _getRandomHint(),
-                        hintStyle: AppTypography.TherapeuticStyles.placeholder,
+                        hintStyle: TherapeuticStyles.placeholder,
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.zero,
                       ),
@@ -303,7 +303,7 @@ class MemoryStats extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           value,
-          style: AppTypography.TherapeuticStyles.statistic.copyWith(
+          style: TherapeuticStyles.statistic.copyWith(
             fontSize: 18,
           ),
         ),
