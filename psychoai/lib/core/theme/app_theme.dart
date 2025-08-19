@@ -58,7 +58,7 @@ class AppTheme {
       ),
       
       // Configuração dos Cards
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.surface,
         surfaceTintColor: AppColors.primary,
         elevation: 2,
@@ -173,7 +173,7 @@ class AppTheme {
       ),
       
       // Configuração dos Dialogs
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: AppColors.surface,
         elevation: 8,
         shadowColor: Colors.black26,
@@ -205,7 +205,7 @@ class AppTheme {
       ),
       
       // Configuração dos Tabs
-      tabBarTheme: TabBarTheme(
+      tabBarTheme: TabBarThemeData(
         labelColor: AppColors.primary,
         unselectedLabelColor: AppColors.onSurfaceVariant,
         indicator: const UnderlineTabIndicator(
