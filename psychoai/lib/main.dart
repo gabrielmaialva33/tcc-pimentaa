@@ -3,14 +3,17 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
 import 'features/auth/providers/auth_provider.dart';
+import 'firebase_options.dart';
 import 'app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
   try {
-    // Inicializar Firebase
-    await Firebase.initializeApp();
+    // Inicializar Firebase com opções da plataforma
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     debugPrint('✅ [MAIN] Firebase inicializado com sucesso');
     
     runApp(const PsychoAIApp());
