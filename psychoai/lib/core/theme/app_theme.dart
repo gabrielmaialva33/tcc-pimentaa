@@ -24,11 +24,11 @@ class AppTheme {
         secondaryContainer: AppColors.secondaryLight,
         onSecondaryContainer: AppColors.secondaryDark,
         
-        background: AppColors.background,
-        onBackground: AppColors.onBackground,
+        surface: AppColors.background,
+        onSurface: AppColors.onBackground,
         surface: AppColors.surface,
         onSurface: AppColors.onSurface,
-        surfaceVariant: AppColors.surfaceVariant,
+        surfaceContainerHighest: AppColors.surfaceVariant,
         onSurfaceVariant: AppColors.onSurfaceVariant,
         
         error: AppColors.error,
@@ -75,7 +75,7 @@ class AppTheme {
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.onPrimary,
           elevation: 3,
-          shadowColor: AppColors.primary.withOpacity(0.3),
+          shadowColor: AppColors.primary.withValues(alpha: 0.3),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -134,7 +134,7 @@ class AppTheme {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(
-            color: AppColors.onSurfaceVariant.withOpacity(0.3),
+            color: AppColors.onSurfaceVariant.withValues(alpha: 0.3),
             width: 1,
           ),
         ),
@@ -163,7 +163,7 @@ class AppTheme {
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.surfaceVariant,
         selectedColor: AppColors.primaryLight,
-        disabledColor: AppColors.onSurfaceVariant.withOpacity(0.1),
+        disabledColor: AppColors.onSurfaceVariant.withValues(alpha: 0.1),
         deleteIconColor: AppColors.onSurfaceVariant,
         labelStyle: TherapeuticStyles.emotionLabel,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -190,7 +190,7 @@ class AppTheme {
       
       // Configuração dos Dividers
       dividerTheme: DividerThemeData(
-        color: AppColors.onSurfaceVariant.withOpacity(0.2),
+        color: AppColors.onSurfaceVariant.withValues(alpha: 0.2),
         thickness: 1,
         space: 1,
       ),
@@ -231,8 +231,8 @@ class AppTheme {
       colorScheme: const ColorScheme.dark(
         primary: AppColors.darkPrimary,
         onPrimary: AppColors.darkOnSurface,
-        background: AppColors.darkBackground,
-        onBackground: AppColors.darkOnSurface,
+        surface: AppColors.darkBackground,
+        onSurface: AppColors.darkOnSurface,
         surface: AppColors.darkSurface,
         onSurface: AppColors.darkOnSurface,
         secondary: AppColors.accent,
