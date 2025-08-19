@@ -306,31 +306,75 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
   }
 
   void _analyzeMemory() async {
+    print('🔍 Iniciando análise da lembrança...');
+    
     if (!mounted) return;
     
     setState(() {
       _isAnalyzing = true;
     });
     
-    // Simular análise (integração real com NVIDIA API será implementada)
-    await Future.delayed(const Duration(seconds: 3));
-    
-    if (!mounted) return;
-    
-    setState(() {
-      _isAnalyzing = false;
-    });
-    
-    // Mostrar resultado da análise
-    _showAnalysisResult();
+    try {
+      print('⏳ Simulando análise (3 segundos)...');
+      // Simular análise (integração real com NVIDIA API será implementada)
+      await Future.delayed(const Duration(seconds: 3));
+      
+      if (!mounted) return;
+      
+      print('✅ Análise concluída, mostrando resultado...');
+      
+      setState(() {
+        _isAnalyzing = false;
+      });
+      
+      // Mostrar resultado da análise
+      _showAnalysisResult();
+    } catch (e) {
+      print('❌ Erro na análise: $e');
+      
+      if (!mounted) return;
+      
+      setState(() {
+        _isAnalyzing = false;
+      });
+      
+      // Mostrar erro
+      _showErrorDialog();
+    }
   }
 
   void _showAnalysisResult() {
+    print('📱 Mostrando modal de resultado...');
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => _buildAnalysisModal(),
+    );
+  }
+  
+  void _showErrorDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            Icon(Icons.error_outline, color: AppColors.error),
+            const SizedBox(width: 8),
+            const Text('Erro na Análise'),
+          ],
+        ),
+        content: const Text(
+          'Não foi possível analisar a lembrança no momento. '
+          'Tente novamente mais tarde.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
     );
   }
 
