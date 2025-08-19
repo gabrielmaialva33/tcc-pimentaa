@@ -1,14 +1,18 @@
 import 'package:flutter/foundation.dart';
 import '../../core/api/nvidia_client.dart';
 import '../../core/api/nvidia_config.dart';
+import '../../core/services/ai_provider_service.dart';
 import 'prompts/freudian_prompt.dart';
 import 'models/analysis_result.dart';
 
-/// Serviço para análise de lembranças usando IA NVIDIA
+/// Serviço para análise de lembranças usando múltiplos provedores de IA
 class AIAnalysisService {
   final NvidiaClient _client;
+  final AIProviderService _providerService;
 
-  AIAnalysisService() : _client = NvidiaClient();
+  AIAnalysisService() : 
+    _client = NvidiaClient(),
+    _providerService = AIProviderService.instance;
 
   /// Analisa uma lembrança usando IA especializada em psicanálise
   Future<AnalysisResult> analyzeMemory({
@@ -52,8 +56,8 @@ $basePrompt
       // Configurar modelo baseado no tipo de análise
       final modelConfig = _getModelConfig(analysisType);
 
-      // Fazer requisição para NVIDIA API
-      final response = await _client.sendChatCompletion(
+      // Fazer requisição usando o provedor ativo (NVIDIA ou Alibaba)
+      final response = await _providerService.generateText(
         prompt: finalPrompt,
         model: modelConfig.model,
         temperature: modelConfig.temperature,
