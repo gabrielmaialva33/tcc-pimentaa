@@ -9,32 +9,46 @@ class NvidiaConfig {
   // Endpoints principais
   static const String chatCompletionsEndpoint = '/v1/chat/completions';
   
-  // Modelos recomendados para análise psicanalítica
-  static const String defaultModel = 'meta/llama-3.1-70b-instruct';
-  static const String fallbackModel = 'mistralai/mixtral-8x7b-instruct';
+  // Modelos recomendados para análise psicanalítica (atualizados 2024)
+  static const String defaultModel = 'meta/llama-3.3-70b-instruct';
+  static const String fallbackModel = 'nvidia/llama-3.1-nemotron-70b-instruct';
   
-  // Modelos disponíveis com suas especialidades
+  // Modelos disponíveis com suas especialidades (baseado na API atual)
   static const Map<String, ModelInfo> availableModels = {
-    'meta/llama-3.1-70b-instruct': ModelInfo(
-      name: 'Llama 3.1 70B',
-      description: 'Modelo principal para análise profunda e contextual',
-      maxTokens: 4096,
+    'meta/llama-3.3-70b-instruct': ModelInfo(
+      name: 'Llama 3.3 70B',
+      description: 'Modelo mais recente para análise profunda e contextual',
+      maxTokens: 8192,
       temperature: 0.7,
-      specialty: 'Análise psicanalítica detalhada',
+      specialty: 'Análise psicanalítica avançada com melhor compreensão contextual',
     ),
-    'mistralai/mixtral-8x7b-instruct': ModelInfo(
-      name: 'Mixtral 8x7B',
-      description: 'Modelo alternativo para múltiplas perspectivas',
+    'nvidia/llama-3.1-nemotron-70b-instruct': ModelInfo(
+      name: 'Nemotron 70B',
+      description: 'Modelo NVIDIA otimizado para análise detalhada',
+      maxTokens: 8192,
+      temperature: 0.6,
+      specialty: 'Análise de padrões psicológicos e insights profundos',
+    ),
+    'meta/llama-3.2-3b-instruct': ModelInfo(
+      name: 'Llama 3.2 3B',
+      description: 'Modelo compacto e eficiente para análises rápidas',
+      maxTokens: 4096,
+      temperature: 0.5,
+      specialty: 'Detecção básica de emoções e padrões',
+    ),
+    'mistralai/mixtral-8x22b-instruct': ModelInfo(
+      name: 'Mixtral 8x22B',
+      description: 'Modelo de última geração para múltiplas perspectivas',
+      maxTokens: 8192,
+      temperature: 0.6,
+      specialty: 'Análise multi-dimensional e identificação de mecanismos de defesa',
+    ),
+    'google/gemma-2-27b-it': ModelInfo(
+      name: 'Gemma 2 27B',
+      description: 'Modelo Google para análise equilibrada',
       maxTokens: 4096,
       temperature: 0.6,
-      specialty: 'Análise de padrões e insights',
-    ),
-    'google/gemma-2b-it': ModelInfo(
-      name: 'Gemma 2B',
-      description: 'Modelo leve para análises rápidas',
-      maxTokens: 2048,
-      temperature: 0.5,
-      specialty: 'Detecção básica de emoções',
+      specialty: 'Análise de lembranças encobridoras e padrões emocionais',
     ),
   };
   
@@ -66,25 +80,37 @@ class NvidiaConfig {
   static const bool enableContentFiltering = true;
   static const bool logRequests = false; // false em produção por privacidade
   
-  // Tipos de análise disponíveis
+  // Tipos de análise disponíveis (com modelos atualizados)
   static const Map<String, NvidiaAnalysisType> analysisTypes = {
     'complete': NvidiaAnalysisType(
       name: 'Análise Completa',
-      model: 'meta/llama-3.1-70b-instruct',
+      model: 'meta/llama-3.3-70b-instruct',
       temperature: 0.7,
-      maxTokens: 2048,
+      maxTokens: 3072,
     ),
     'quick': NvidiaAnalysisType(
       name: 'Análise Rápida',
-      model: 'google/gemma-2b-it',
+      model: 'meta/llama-3.2-3b-instruct',
       temperature: 0.5,
-      maxTokens: 1024,
+      maxTokens: 1536,
     ),
     'pattern': NvidiaAnalysisType(
       name: 'Detecção de Padrões',
-      model: 'mistralai/mixtral-8x7b-instruct',
+      model: 'mistralai/mixtral-8x22b-instruct',
       temperature: 0.6,
-      maxTokens: 1536,
+      maxTokens: 2048,
+    ),
+    'screen_memory': NvidiaAnalysisType(
+      name: 'Lembranças Encobridoras',
+      model: 'google/gemma-2-27b-it',
+      temperature: 0.6,
+      maxTokens: 2048,
+    ),
+    'deep_analysis': NvidiaAnalysisType(
+      name: 'Análise Profunda',
+      model: 'nvidia/llama-3.1-nemotron-70b-instruct',
+      temperature: 0.6,
+      maxTokens: 3072,
     ),
   };
 }

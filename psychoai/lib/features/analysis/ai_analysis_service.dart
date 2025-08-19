@@ -158,34 +158,39 @@ Forneça uma análise integrada e construtiva.
     }
   }
 
-  /// Configura modelo baseado no tipo de análise
+  /// Configura modelo baseado no tipo de análise (usando modelos atualizados)
   ModelConfig _getModelConfig(AnalysisType analysisType) {
     switch (analysisType) {
       case AnalysisType.complete:
         return ModelConfig(
-          model: NvidiaConfig.defaultModel,
+          model: NvidiaConfig.defaultModel, // Llama 3.3 70B
           temperature: 0.7,
-          maxTokens: 2048,
+          maxTokens: 3072,
         );
       case AnalysisType.quickPattern:
         return ModelConfig(
-          model: 'google/gemma-2b-it',
+          model: 'meta/llama-3.2-3b-instruct', // Modelo mais rápido e eficiente
           temperature: 0.5,
-          maxTokens: 1024,
+          maxTokens: 1536,
         );
       case AnalysisType.screenMemory:
+        return ModelConfig(
+          model: 'google/gemma-2-27b-it', // Especializado em análise de padrões
+          temperature: 0.6,
+          maxTokens: 2048,
+        );
       case AnalysisType.defenseMechanisms:
       case AnalysisType.transference:
         return ModelConfig(
-          model: 'mistralai/mixtral-8x7b-instruct',
+          model: 'mistralai/mixtral-8x22b-instruct', // Melhor para análises complexas
           temperature: 0.6,
-          maxTokens: 1536,
+          maxTokens: 2048,
         );
       case AnalysisType.dreamAnalysis:
         return ModelConfig(
-          model: NvidiaConfig.defaultModel,
+          model: 'nvidia/llama-3.1-nemotron-70b-instruct', // NVIDIA otimizado
           temperature: 0.8,
-          maxTokens: 1800,
+          maxTokens: 2560,
         );
     }
   }
