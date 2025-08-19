@@ -113,13 +113,7 @@ class AnalysisRepository {
         sort: sort ?? {'createdAt': -1}, // Mais recentes primeiro
       );
       
-      final cursor = _collection.find(mongoFilter);
-      
-      if (options['sort'] != null) {
-        cursor.sort(options['sort']);
-      }
-      
-      cursor.skip(options['skip']).limit(options['limit']);
+      final results = await _collection.find(mongoFilter).toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
       
       return analyses;
