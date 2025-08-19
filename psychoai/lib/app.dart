@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
 import 'features/auth/providers/auth_provider.dart';
 import 'features/auth/models/user_profile.dart';
+import 'features/auth/presentation/screens/login_screen.dart';
 import 'features/memories/presentation/memory_input_screen.dart';
 
 /// App principal que gerencia roteamento baseado em autenticação
@@ -241,7 +242,12 @@ class WelcomeScreen extends StatelessWidget {
                   subtitle: 'Quero analisar minhas memórias',
                   icon: Icons.person,
                   onTap: () {
-                    // Navegar para registro/login de paciente
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 16),
