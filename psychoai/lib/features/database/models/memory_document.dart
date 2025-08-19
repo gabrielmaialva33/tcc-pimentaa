@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import '../../../core/database/mongodb_client.dart';
 
 part 'memory_document.g.dart';
 
