@@ -195,21 +195,41 @@ Forneça uma síntese empática e orientada para o desenvolvimento pessoal, dest
       );
     }
 
-    // Verificar conteúdo potencialmente problemático
-    final problematicKeywords = [
-      'suicídio', 'suicidar', 'matar-me', 'morrer',
-      'abuso sexual', 'estupro', 'violência sexual',
-      'automutilação', 'cortar-me', 'machucar-me',
+    // Verificar conteúdo crítico que requer intervenção imediata
+    final criticalKeywords = [
+      'quero me matar', 'vou me matar', 'suicidar', 'acabar com minha vida',
+      'me cortar', 'me machucar', 'automutilação', 'cortes nos braços',
+    ];
+
+    // Verificar conteúdo sensível que pode ser analisado com avisos
+    final sensitiveKeywords = [
+      'abuso sexual', 'estupro', 'violência sexual', 'molestação',
+      'agressão física', 'violência doméstica', 'trauma',
     ];
 
     final lowerText = text.toLowerCase();
-    for (final keyword in problematicKeywords) {
+    
+    // Verificar conteúdo crítico primeiro
+    for (final keyword in criticalKeywords) {
       if (lowerText.contains(keyword)) {
         return ValidationResult(
           isValid: false,
-          message: 'Esta lembrança contém conteúdo que requer acompanhamento profissional presencial. '
-                   'Recomendamos buscar ajuda de um psicólogo ou psiquiatra.',
+          message: 'Esta lembrança contém conteúdo que indica risco imediato. '
+                   'Por favor, procure ajuda profissional urgente ou ligue 188 (CVV).',
           needsProfessionalHelp: true,
+        );
+      }
+    }
+    
+    // Verificar conteúdo sensível - permite análise com aviso
+    for (final keyword in sensitiveKeywords) {
+      if (lowerText.contains(keyword)) {
+        return ValidationResult(
+          isValid: true, // Permite análise
+          message: 'Conteúdo sensível detectado. A análise será feita com cuidado especial. '
+                   'Recomendamos discutir com um profissional qualificado.',
+          needsProfessionalHelp: false,
+          isSensitiveContent: true,
         );
       }
     }
@@ -223,11 +243,13 @@ class ValidationResult {
   final bool isValid;
   final String? message;
   final bool needsProfessionalHelp;
+  final bool isSensitiveContent;
 
   ValidationResult({
     required this.isValid,
     this.message,
     this.needsProfessionalHelp = false,
+    this.isSensitiveContent = false,
   });
 }
 
