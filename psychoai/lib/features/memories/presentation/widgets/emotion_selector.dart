@@ -96,7 +96,7 @@ class EmotionSelector extends StatelessWidget {
             const SizedBox(width: 6),
             Text(
               emotion.name,
-              style: AppTypography.TherapeuticStyles.emotionLabel.copyWith(
+              style: TherapeuticStyles.emotionLabel.copyWith(
                 color: isSelected 
                     ? AppColors.onPrimary 
                     : AppColors.onSurface,

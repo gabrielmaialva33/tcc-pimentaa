@@ -131,7 +131,7 @@ class _MemoryTextFieldState extends State<MemoryTextField>
                     TextField(
                       controller: widget.controller,
                       focusNode: widget.focusNode,
-                      style: AppTypography.TherapeuticStyles.memoryText,
+                      style: TherapeuticStyles.memoryText,
                       decoration: InputDecoration(
                         hintText: widget.hintText ?? _getRandomHint(),
                         hintStyle: AppTypography.TherapeuticStyles.placeholder,

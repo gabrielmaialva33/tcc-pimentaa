@@ -142,7 +142,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
           const SizedBox(height: 16),
           Text(
             'Escreva qualquer lembrança que venha à sua mente, sem censura. Pode ser algo recente ou distante, significativo ou aparentemente trivial.',
-            style: AppTypography.TherapeuticStyles.aiInsight.copyWith(
+            style: TherapeuticStyles.aiInsight.copyWith(
               fontStyle: FontStyle.normal,
               color: AppColors.onSurface,
             ),
@@ -169,7 +169,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
       children: [
         Text(
           'Sua Lembrança',
-          style: AppTypography.TherapeuticStyles.dashboardSection,
+          style: TherapeuticStyles.dashboardSection,
         ),
         const SizedBox(height: 16),
         MemoryTextField(
@@ -192,7 +192,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
       children: [
         Text(
           'Como você se sente sobre essa lembrança?',
-          style: AppTypography.TherapeuticStyles.dashboardSection,
+          style: TherapeuticStyles.dashboardSection,
         ),
         const SizedBox(height: 16),
         EmotionSelector(
@@ -220,7 +220,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
           children: [
             Text(
               'Intensidade Emocional',
-              style: AppTypography.TherapeuticStyles.dashboardSection,
+              style: TherapeuticStyles.dashboardSection,
             ),
             Text(
               '${(_emotionalIntensity * 10).round()}/10',
