@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "444850610910",
-    "project_id": "psychoai-app",
-    "storage_bucket": "psychoai-app.firebasestorage.app"
+    "project_number": "1043608548255",
+    "project_id": "psychoai-7a3fa",
+    "storage_bucket": "psychoai-7a3fa.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:444850610910:android:e9a173ddcf29b01a0e584f",
+        "mobilesdk_app_id": "1:1043608548255:android:538453954b58ac783503aa",
         "android_client_info": {
           "package_name": "br.com.freud.psychoai"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDaXga9b0Fb8T6RSuIELOo9Vdh-PIIUd-g"
+          "current_key": "AIzaSyAyq2f8TU4k_ckYSaiXp7dkh0S4Q9QMekU"
         }
       ],
       "services": {
