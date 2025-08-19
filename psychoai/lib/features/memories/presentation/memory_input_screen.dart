@@ -9,6 +9,7 @@ import 'widgets/memory_text_field.dart';
 import '../../analysis/ai_analysis_service.dart';
 import '../../analysis/models/analysis_result.dart';
 import '../../analysis/prompts/freudian_prompt.dart';
+import '../../settings/presentation/ai_provider_settings_screen.dart';
 
 /// Tela principal para registro de lembranças
 class MemoryInputScreen extends StatefulWidget {
@@ -66,6 +67,11 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
                   centerTitle: true,
                 ),
                 actions: [
+                  IconButton(
+                    onPressed: _showProviderSettings,
+                    icon: const Icon(Icons.settings_outlined),
+                    color: AppColors.onBackground,
+                  ),
                   IconButton(
                     onPressed: _showInfo,
                     icon: const Icon(Icons.info_outline),
@@ -360,7 +366,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
 
       // Mostrar resultado da análise
       _showAnalysisResult();
-    } catch (e, stackTrace) {
+    } catch (e) {
       if (!mounted) {
         return;
       }
@@ -739,7 +745,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
                   ),
                 ],
               ),
-            )).toList(),
+            )),
       ],
     );
   }
@@ -769,6 +775,15 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
               ),
             ],
           ),
+    );
+  }
+
+  void _showProviderSettings() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const AIProviderSettingsScreen(),
+      ),
     );
   }
 

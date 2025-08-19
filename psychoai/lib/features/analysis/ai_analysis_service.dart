@@ -91,15 +91,20 @@ $basePrompt
         defenseMechanisms: _extractDefenseMechanisms(analysisText),
         therapeuticSuggestions: _extractTherapeuticSuggestions(analysisText),
         timestamp: DateTime.now(),
-        modelUsed: modelConfig.model,
+        modelUsed: '${response.provider.displayName}:${response.model}',
         tokenUsage: TokenUsage(
-          promptTokens: response.usage?.promptTokens ?? 0,
-          completionTokens: response.usage?.completionTokens ?? 0,
-          totalTokens: response.usage?.totalTokens ?? 0,
+          promptTokens: response.usage.promptTokens,
+          completionTokens: response.usage.completionTokens,
+          totalTokens: response.usage.totalTokens,
         ),
       );
 
       return result;
+    } on AIProviderException catch (e) {
+      throw AnalysisException(
+        _translateProviderError(e.message),
+        code: e.code ?? 'PROVIDER_ERROR',
+      );
     } on NvidiaException catch (e) {
       throw AnalysisException(
         _translateNvidiaError(e.message),
@@ -151,9 +156,8 @@ Identifique:
 Forneça uma análise integrada e construtiva.
 ''';
 
-      final response = await _client.sendChatCompletion(
+      final response = await _providerService.generateText(
         prompt: prompt,
-        model: NvidiaConfig.defaultModel,
         temperature: 0.6,
         maxTokens: 1500,
       );
@@ -161,7 +165,7 @@ Forneça uma análise integrada e construtiva.
       return PatternAnalysisResult(
         id: _generateAnalysisId(),
         analysesCount: previousAnalyses.length,
-        patternsText: response.content,
+        patternsText: response.text,
         timestamp: DateTime.now(),
       );
     } catch (e) {
@@ -345,8 +349,8 @@ Forneça uma análise integrada e construtiva.
         .microsecond}';
   }
 
-  /// Verifica saúde da API
-  Future<bool> checkApiHealth() => _client.checkApiHealth();
+  /// Verifica saúde da API do provedor ativo
+  Future<bool> checkApiHealth() => _providerService.testConnection();
 
   /// Estima custo de uma análise
   double estimateAnalysisCost({
@@ -354,16 +358,43 @@ Forneça uma análise integrada e construtiva.
     required AnalysisType analysisType,
   }) {
     final config = _getModelConfig(analysisType);
-    return _client.estimateCost(
+    return _providerService.estimateCost(
       prompt: memoryText,
       maxTokens: config.maxTokens,
       model: config.model,
     );
   }
+  
+  /// Obtém informações do provedor ativo
+  ProviderInfo getActiveProviderInfo() => _providerService.getActiveProviderInfo();
+  
+  /// Define o provedor de IA a ser usado
+  void setAIProvider(AIProvider provider) => _providerService.setActiveProvider(provider);
+  
+  /// Lista provedores disponíveis
+  List<AIProvider> getAvailableProviders() => _providerService.availableProviders;
+
+  /// Traduz erros dos provedores para mensagens amigáveis
+  String _translateProviderError(String error) {
+    if (error.contains('rate limit') || error.contains('429')) {
+      return 'Muitas análises em pouco tempo. Aguarde alguns minutos antes de tentar novamente.';
+    }
+    if (error.contains('unauthorized') || error.contains('401')) {
+      return 'Erro de autenticação com o serviço de IA. Verifique a configuração da API.';
+    }
+    if (error.contains('timeout')) {
+      return 'A análise está demorando mais que o esperado. Tente novamente.';
+    }
+    if (error.contains('quota') || error.contains('exceeded')) {
+      return 'Cota da API excedida. Tente novamente mais tarde ou use outro provedor.';
+    }
+    return 'Erro no provedor de IA: $error';
+  }
 
   /// Limpa recursos
   void dispose() {
     _client.dispose();
+    _providerService.dispose();
   }
 }
 
