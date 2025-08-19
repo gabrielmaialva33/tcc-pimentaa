@@ -24,8 +24,6 @@ class AppTheme {
         secondaryContainer: AppColors.secondaryLight,
         onSecondaryContainer: AppColors.secondaryDark,
         
-        surface: AppColors.background,
-        onSurface: AppColors.onBackground,
         surface: AppColors.surface,
         onSurface: AppColors.onSurface,
         surfaceContainerHighest: AppColors.surfaceVariant,
@@ -231,8 +229,6 @@ class AppTheme {
       colorScheme: const ColorScheme.dark(
         primary: AppColors.darkPrimary,
         onPrimary: AppColors.darkOnSurface,
-        surface: AppColors.darkBackground,
-        onSurface: AppColors.darkOnSurface,
         surface: AppColors.darkSurface,
         onSurface: AppColors.darkOnSurface,
         secondary: AppColors.accent,
