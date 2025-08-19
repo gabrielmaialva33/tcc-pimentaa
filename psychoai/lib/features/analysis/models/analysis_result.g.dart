@@ -11,12 +11,12 @@ AnalysisResult _$AnalysisResultFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       memoryText: json['memoryText'] as String,
       emotions:
-      (json['emotions'] as List<dynamic>).map((e) => e as String).toList(),
+          (json['emotions'] as List<dynamic>).map((e) => e as String).toList(),
       emotionalIntensity: (json['emotionalIntensity'] as num).toDouble(),
       analysisType: $enumDecode(_$AnalysisTypeEnumMap, json['analysisType']),
       analysisText: json['analysisText'] as String,
       insights:
-      (json['insights'] as List<dynamic>).map((e) => e as String).toList(),
+          (json['insights'] as List<dynamic>).map((e) => e as String).toList(),
       screenMemoryIndicators: (json['screenMemoryIndicators'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
@@ -29,7 +29,7 @@ AnalysisResult _$AnalysisResultFromJson(Map<String, dynamic> json) =>
       timestamp: DateTime.parse(json['timestamp'] as String),
       modelUsed: json['modelUsed'] as String,
       tokenUsage:
-      TokenUsage.fromJson(json['tokenUsage'] as Map<String, dynamic>),
+          TokenUsage.fromJson(json['tokenUsage'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AnalysisResultToJson(AnalysisResult instance) =>
@@ -58,8 +58,7 @@ const _$AnalysisTypeEnumMap = {
   AnalysisType.dreamAnalysis: 'dreamAnalysis',
 };
 
-TokenUsage _$TokenUsageFromJson(Map<String, dynamic> json) =>
-    TokenUsage(
+TokenUsage _$TokenUsageFromJson(Map<String, dynamic> json) => TokenUsage(
       promptTokens: (json['promptTokens'] as num).toInt(),
       completionTokens: (json['completionTokens'] as num).toInt(),
       totalTokens: (json['totalTokens'] as num).toInt(),
@@ -73,24 +72,24 @@ Map<String, dynamic> _$TokenUsageToJson(TokenUsage instance) =>
     };
 
 PatternAnalysisResult _$PatternAnalysisResultFromJson(
-    Map<String, dynamic> json) =>
+        Map<String, dynamic> json) =>
     PatternAnalysisResult(
       id: json['id'] as String,
       analysesCount: (json['analysesCount'] as num).toInt(),
       patternsText: json['patternsText'] as String,
       timestamp: DateTime.parse(json['timestamp'] as String),
       identifiedPatterns: (json['identifiedPatterns'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList() ??
+              ?.map((e) => e as String)
+              .toList() ??
           const [],
       recommendations: (json['recommendations'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList() ??
+              ?.map((e) => e as String)
+              .toList() ??
           const [],
     );
 
 Map<String, dynamic> _$PatternAnalysisResultToJson(
-    PatternAnalysisResult instance) =>
+        PatternAnalysisResult instance) =>
     <String, dynamic>{
       'id': instance.id,
       'analysesCount': instance.analysesCount,
@@ -105,9 +104,9 @@ AnalysisStatistics _$AnalysisStatisticsFromJson(Map<String, dynamic> json) =>
       totalAnalyses: (json['totalAnalyses'] as num).toInt(),
       emotionFrequency: Map<String, int>.from(json['emotionFrequency'] as Map),
       defenseMechanismFrequency:
-      Map<String, int>.from(json['defenseMechanismFrequency'] as Map),
+          Map<String, int>.from(json['defenseMechanismFrequency'] as Map),
       averageEmotionalIntensity:
-      (json['averageEmotionalIntensity'] as num).toDouble(),
+          (json['averageEmotionalIntensity'] as num).toDouble(),
       screenMemoryCount: (json['screenMemoryCount'] as num).toInt(),
       firstAnalysis: DateTime.parse(json['firstAnalysis'] as String),
       lastAnalysis: DateTime.parse(json['lastAnalysis'] as String),
