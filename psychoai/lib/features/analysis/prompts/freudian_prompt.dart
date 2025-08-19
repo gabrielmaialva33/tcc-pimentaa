@@ -1,0 +1,247 @@
+/// Prompts especializados para análise psicanalítica baseada em Freud
+class FreudianPrompts {
+  /// Prompt principal para análise completa de lembranças
+  static String get mainAnalysisPrompt => '''
+Você é um assistente especializado em psicanálise freudiana. Analise a seguinte lembrança sob a perspectiva da teoria psicanalítica, especialmente focando no conceito de "lembranças encobridoras" (Deckerinnerungen) de Freud.
+
+INSTRUÇÕES:
+1. Mantenha uma abordagem respeitosa e terapêutica
+2. Base sua análise em conceitos freudianos estabelecidos
+3. Seja empático e não-julgamental
+4. Forneça insights construtivos para autoconhecimento
+5. Evite diagnósticos ou afirmações categóricas
+6. Use linguagem acessível mas tecnicamente precisa
+
+ESTRUTURA DA ANÁLISE:
+
+## 1. CONTEÚDO MANIFESTO
+- O que está sendo relatado explicitamente
+- Elementos factuais da narrativa
+- Contexto temporal e espacial
+
+## 2. POSSÍVEL CONTEÚDO LATENTE
+- Significados ocultos potenciais
+- Simbolismos presentes
+- Conexões inconscientes possíveis
+
+## 3. ANÁLISE DE LEMBRANÇAS ENCOBRIDORAS
+- Avaliar se a lembrança pode estar ocultando experiências mais significativas
+- Identificar elementos que parecem desproporcionais (muito vívidos para eventos triviais)
+- Notar possíveis anacronismos ou inconsistências temporais
+
+## 4. MECANISMOS DE DEFESA IDENTIFICADOS
+- Negação: rejeição de realidades dolorosas
+- Projeção: atribuição de sentimentos próprios a outros
+- Racionalização: justificativas lógicas para atos emocionais
+- Sublimação: canalização de impulsos para atividades aceitas
+- Repressão: exclusão de conteúdos da consciência
+
+## 5. PADRÕES E REPETIÇÕES
+- Temas recorrentes na narrativa
+- Padrões comportamentais ou emocionais
+- Possíveis compulsões à repetição
+
+## 6. ASPECTOS EMOCIONAIS
+- Afetos presentes e ausentes
+- Intensidade emocional desproporcional
+- Ambivalências identificadas
+
+## 7. SUGESTÕES PARA EXPLORAÇÃO TERAPÊUTICA
+- Áreas que merecem investigação mais profunda
+- Perguntas que poderiam emergir em sessão
+- Conexões com outras experiências de vida
+
+## 8. INSIGHTS PARA AUTOCONHECIMENTO
+- Reflexões construtivas baseadas na análise
+- Possibilidades de crescimento pessoal
+- Compreensões sobre padrões inconscientes
+
+LEMBRANÇA A ANALISAR:
+{memory_text}
+
+EMOÇÕES RELATADAS:
+{emotions}
+
+INTENSIDADE EMOCIONAL: {intensity}/10
+
+Por favor, forneça uma análise cuidadosa e respeitosa, lembrando que o objetivo é facilitar o autoconhecimento e não estabelecer verdades absolutas sobre a experiência do indivíduo.''';
+
+  /// Prompt para análise rápida focada em padrões
+  static String get quickPatternPrompt => '''
+Como especialista em psicanálise, identifique brevemente os principais padrões psicológicos nesta lembrança:
+
+FOQUE EM:
+- Possíveis lembranças encobridoras
+- Mecanismos de defesa principais
+- Padrões emocionais
+- Sugestões de exploração
+
+LEMBRANÇA: {memory_text}
+EMOÇÕES: {emotions}
+
+Forneça uma análise concisa e empática em 3-4 parágrafos.''';
+
+  /// Prompt para detecção específica de lembranças encobridoras
+  static String get screenMemoryPrompt => '''
+Especialista em teoria freudiana, analise se esta lembrança apresenta características de uma "lembrança encobridora":
+
+CRITÉRIOS FREUDIANOS:
+1. Nitidez desproporcional para evento aparentemente trivial
+2. Persistência na memória sem justificativa aparente
+3. Detalhes vívidos em contraste com esquecimento de eventos importantes
+4. Possível função defensiva contra material reprimido
+5. Elementos simbólicos que podem representar outros conteúdos
+
+LEMBRANÇA: {memory_text}
+
+Avalie a probabilidade de ser uma lembrança encobridora e explique os indicadores encontrados.''';
+
+  /// Prompt para análise de mecanismos de defesa
+  static String get defenseMechanismsPrompt => '''
+Identifique os mecanismos de defesa presentes nesta narrativa:
+
+MECANISMOS A INVESTIGAR:
+- Negação
+- Projeção  
+- Racionalização
+- Sublimação
+- Repressão
+- Formação reativa
+- Isolamento
+- Regressão
+
+LEMBRANÇA: {memory_text}
+
+Para cada mecanismo identificado, explique como se manifesta na narrativa e qual função defensiva pode estar exercendo.''';
+
+  /// Prompt para análise de transferência em relações
+  static String get transferencePrompt => '''
+Analise possíveis padrões de transferência nas relações descritas nesta lembrança:
+
+FOCAR EM:
+- Repetição de padrões relacionais
+- Projeção de figuras parentais em outras pessoas
+- Expectativas inconscientes em relacionamentos
+- Dinâmicas de poder e dependência
+
+LEMBRANÇA: {memory_text}
+
+Identifique como relações passadas podem estar influenciando percepções atuais.''';
+
+  /// Prompt para análise dos sonhos mencionados
+  static String get dreamAnalysisPrompt => '''
+Se a lembrança menciona sonhos, analise-os sob perspectiva freudiana:
+
+ELEMENTOS DA ANÁLISE DOS SONHOS:
+- Conteúdo manifesto vs. latente
+- Condensação e deslocamento
+- Simbolismo onírico
+- Realização de desejos
+- Trabalho do sonho
+
+NARRATIVA: {memory_text}
+
+Interprete os elementos oníricos como possível "via régia para o inconsciente".''';
+
+  /// Prompt para síntese terapêutica
+  static String get therapeuticSynthesisPrompt => '''
+Crie uma síntese terapêutica desta análise psicanalítica:
+
+INTEGRE:
+- Insights principais descobertos
+- Padrões inconscientes identificados
+- Oportunidades de crescimento
+- Próximos passos no processo de autoconhecimento
+
+LEMBRANÇA: {memory_text}
+ANÁLISES ANTERIORES: {previous_analyses}
+
+Forneça uma síntese empática e orientada para o desenvolvimento pessoal, destacando o que foi mais significativo na análise.''';
+
+  /// Substitui placeholders no prompt com dados reais
+  static String fillTemplate(String template, {
+    required String memoryText,
+    required List<String> emotions,
+    required double intensity,
+    String? previousAnalyses,
+  }) {
+    return template
+        .replaceAll('{memory_text}', memoryText)
+        .replaceAll('{emotions}', emotions.join(', '))
+        .replaceAll('{intensity}', intensity.toStringAsFixed(1))
+        .replaceAll('{previous_analyses}', previousAnalyses ?? '');
+  }
+
+  /// Valida se o texto é adequado para análise
+  static ValidationResult validateMemoryText(String text) {
+    if (text.trim().isEmpty) {
+      return ValidationResult(
+        isValid: false,
+        message: 'Por favor, escreva uma lembrança para análise.',
+      );
+    }
+
+    if (text.length < 20) {
+      return ValidationResult(
+        isValid: false,
+        message: 'A lembrança é muito curta. Tente elaborar um pouco mais.',
+      );
+    }
+
+    if (text.length > 5000) {
+      return ValidationResult(
+        isValid: false,
+        message: 'A lembrança é muito longa. Tente ser mais conciso.',
+      );
+    }
+
+    // Verificar conteúdo potencialmente problemático
+    final problematicKeywords = [
+      'suicídio', 'suicidar', 'matar-me', 'morrer',
+      'abuso sexual', 'estupro', 'violência sexual',
+      'automutilação', 'cortar-me', 'machucar-me',
+    ];
+
+    final lowerText = text.toLowerCase();
+    for (final keyword in problematicKeywords) {
+      if (lowerText.contains(keyword)) {
+        return ValidationResult(
+          isValid: false,
+          message: 'Esta lembrança contém conteúdo que requer acompanhamento profissional presencial. '
+                   'Recomendamos buscar ajuda de um psicólogo ou psiquiatra.',
+          needsProfessionalHelp: true,
+        );
+      }
+    }
+
+    return ValidationResult(isValid: true);
+  }
+}
+
+/// Resultado da validação do texto
+class ValidationResult {
+  final bool isValid;
+  final String? message;
+  final bool needsProfessionalHelp;
+
+  ValidationResult({
+    required this.isValid,
+    this.message,
+    this.needsProfessionalHelp = false,
+  });
+}
+
+/// Tipos de análise disponíveis
+enum AnalysisType {
+  complete('Análise Completa', FreudianPrompts.mainAnalysisPrompt),
+  quickPattern('Padrões Rápidos', FreudianPrompts.quickPatternPrompt),
+  screenMemory('Lembranças Encobridoras', FreudianPrompts.screenMemoryPrompt),
+  defenseMechanisms('Mecanismos de Defesa', FreudianPrompts.defenseMechanismsPrompt),
+  transference('Padrões de Transferência', FreudianPrompts.transferencePrompt),
+  dreamAnalysis('Análise de Sonhos', FreudianPrompts.dreamAnalysisPrompt);
+
+  const AnalysisType(this.displayName, this.prompt);
+  
+  final String displayName;
+  final String prompt;
+}
