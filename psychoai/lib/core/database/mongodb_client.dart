@@ -91,7 +91,7 @@ class MongoDBClient {
       }
       
       // Fazer um ping simples
-      final result = await _database!.adminDb.runCommand({
+      final result = await _database!.runCommand({
         'ping': 1
       });
       
@@ -173,7 +173,7 @@ class MongoDBClient {
         await connect();
       }
       
-      final stats = await _database!.adminDb.runCommand({
+      final stats = await _database!.runCommand({
         'dbStats': 1,
         'scale': 1024 * 1024 // MB
       });
@@ -249,13 +249,13 @@ class MongoDBException implements Exception {
 /// Helper para operações comuns
 class MongoDBHelper {
   /// Gera ObjectId como string
-  static String generateObjectId() => ObjectId().toHexString();
+  static String generateObjectId() => ObjectId().oid;
   
   /// Converte string para ObjectId
   static ObjectId stringToObjectId(String id) => ObjectId.fromHexString(id);
   
   /// Converte ObjectId para string
-  static String objectIdToString(ObjectId id) => id.toHexString();
+  static String objectIdToString(ObjectId id) => id.oid;
   
   /// Cria filtro por ID
   static Map<String, dynamic> idFilter(String id) => {'_id': stringToObjectId(id)};
