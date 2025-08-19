@@ -512,7 +512,7 @@ class _CustomMaterialButtonState extends State<CustomMaterialButton> {
                       if (widget.icon != null) ...[
                         Icon(
                           widget.icon,
-                          color: widget.backgroundColor?.computeLuminance() ?? 0 > 0.5 
+                          color: (widget.backgroundColor?.computeLuminance() ?? 0) > 0.5 
                               ? Colors.black87 
                               : Colors.white,
                           size: 20,
@@ -522,7 +522,7 @@ class _CustomMaterialButtonState extends State<CustomMaterialButton> {
                       Text(
                         widget.text,
                         style: TextStyle(
-                          color: widget.backgroundColor?.computeLuminance() ?? 0 > 0.5 
+                          color: (widget.backgroundColor?.computeLuminance() ?? 0) > 0.5 
                               ? Colors.black87 
                               : Colors.white,
                           fontSize: 16,
