@@ -322,7 +322,7 @@ class _AIProviderSettingsScreenState extends State<AIProviderSettingsScreen> {
               ),
             ),
           );
-        }).toList(),
+        }),
         
         const SizedBox(height: 20),
         
@@ -405,7 +405,7 @@ class _AIProviderSettingsScreenState extends State<AIProviderSettingsScreen> {
                       ],
                     ),
                   );
-                }).toList(),
+                }),
                 const SizedBox(height: 16),
               ],
               
