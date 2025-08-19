@@ -284,7 +284,8 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
   }
 
   Widget _buildAnalyzeButton() {
-    final canAnalyze = _memoryController.text.trim().length > 20;
+    final memoryText = _memoryController.text.trim();
+    final canAnalyze = memoryText.length >= 10; // Reduzido de 20 para 10 caracteres
     
     return CalmButton(
       onPressed: canAnalyze ? _analyzeMemory : null,

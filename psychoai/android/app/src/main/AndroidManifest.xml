@@ -1,4 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Permissão necessária para fazer chamadas HTTP/HTTPS para a API NVIDIA -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    
     <application
         android:label="psychoai"
         android:name="${applicationName}"
