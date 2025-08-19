@@ -407,7 +407,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
       builder: (context) => AlertDialog(
         title: Row(
           children: [
-            Icon(Icons.warning_outlined, color: AppColors.warning ?? Colors.orange),
+            Icon(Icons.warning_outlined, color: AppColors.warning),
             const SizedBox(width: 8),
             const Text('Conteúdo Sensível'),
           ],
