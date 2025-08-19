@@ -174,21 +174,23 @@ Forneça uma síntese empática e orientada para o desenvolvimento pessoal, dest
 
   /// Valida se o texto é adequado para análise
   static ValidationResult validateMemoryText(String text) {
-    if (text.trim().isEmpty) {
+    final trimmedText = text.trim();
+    
+    if (trimmedText.isEmpty) {
       return ValidationResult(
         isValid: false,
         message: 'Por favor, escreva uma lembrança para análise.',
       );
     }
 
-    if (text.length < 20) {
+    if (trimmedText.length < 10) {
       return ValidationResult(
         isValid: false,
-        message: 'A lembrança é muito curta. Tente elaborar um pouco mais.',
+        message: 'A lembrança é muito curta. Tente elaborar um pouco mais (mínimo 10 caracteres).',
       );
     }
 
-    if (text.length > 5000) {
+    if (trimmedText.length > 5000) {
       return ValidationResult(
         isValid: false,
         message: 'A lembrança é muito longa. Tente ser mais conciso.',
@@ -207,7 +209,7 @@ Forneça uma síntese empática e orientada para o desenvolvimento pessoal, dest
       'agressão física', 'violência doméstica', 'trauma',
     ];
 
-    final lowerText = text.toLowerCase();
+    final lowerText = trimmedText.toLowerCase();
     
     // Verificar conteúdo crítico primeiro
     for (final keyword in criticalKeywords) {
