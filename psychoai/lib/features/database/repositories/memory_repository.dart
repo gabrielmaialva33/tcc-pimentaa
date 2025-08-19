@@ -136,13 +136,7 @@ class MemoryRepository {
         sort: {'createdAt': -1},
       );
       
-      final cursor = _collection.find(filter, FindOptions(
-        skip: options['skip'],
-        limit: options['limit'],
-        sort: options['sort'],
-      ));
-      
-      final results = await cursor.toList();
+      final results = await _collection.find(filter).toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
       
       return memories;
@@ -170,13 +164,7 @@ class MemoryRepository {
         sort: {'createdAt': -1},
       );
       
-      final cursor = _collection.find(filter, FindOptions(
-        skip: options['skip'],
-        limit: options['limit'],
-        sort: options['sort'],
-      ));
-      
-      final results = await cursor.toList();
+      final results = await _collection.find(filter).toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
       
       return memories;
@@ -202,12 +190,7 @@ class MemoryRepository {
         filter['createdAt'] = {'\$gte': cutoffDate};
       }
       
-      final cursor = _collection.find(filter, FindOptions(
-        limit: limit,
-        sort: {'createdAt': -1},
-      ));
-      
-      final results = await cursor.toList();
+      final results = await _collection.find(filter).toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
       
       return memories;
@@ -383,8 +366,6 @@ class MemoryRepository {
         limit: limit * 2, // Buscar mais para filtrar
         sort: {'createdAt': -1},
       ));
-      
-      final results = await cursor.toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
       
       // Calcular similaridade e ordenar

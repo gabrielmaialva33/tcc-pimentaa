@@ -120,8 +120,6 @@ class AnalysisRepository {
       }
       
       cursor.skip(options['skip']).limit(options['limit']);
-      
-      final results = await cursor.toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
       
       return analyses;
@@ -149,13 +147,7 @@ class AnalysisRepository {
         sort: {'createdAt': -1},
       );
       
-      final cursor = _collection.find(filter, FindOptions(
-        skip: options['skip'],
-        limit: options['limit'],
-        sort: options['sort'],
-      ));
-      
-      final results = await cursor.toList();
+      final results = await _collection.find(filter).toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
       
       return analyses;
@@ -182,13 +174,7 @@ class AnalysisRepository {
         sort: {'createdAt': -1},
       );
       
-      final cursor = _collection.find(filter, FindOptions(
-        skip: options['skip'],
-        limit: options['limit'],
-        sort: options['sort'],
-      ));
-      
-      final results = await cursor.toList();
+      final results = await _collection.find(filter).toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
       
       return analyses;
@@ -216,13 +202,7 @@ class AnalysisRepository {
         sort: {'createdAt': -1},
       );
       
-      final cursor = _collection.find(filter, FindOptions(
-        skip: options['skip'],
-        limit: options['limit'],
-        sort: options['sort'],
-      ));
-      
-      final results = await cursor.toList();
+      final results = await _collection.find(filter).toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
       
       return analyses;
@@ -248,11 +228,7 @@ class AnalysisRepository {
         filter['createdAt'] = {'\$gte': cutoffDate};
       }
       
-      final cursor = _collection.find(filter)
-          
-          .limit(limit);
-      
-      final results = await cursor.toList();
+      final results = await _collection.find(filter).toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
       
       return analyses;
