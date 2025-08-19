@@ -60,6 +60,7 @@ class MongoDBClient {
         _database = null;
         
       } catch (e) {
+        // Ignore disconnect errors
       }
     }
   }
@@ -112,6 +113,7 @@ class MongoDBClient {
       }
       
     } catch (e) {
+      // Ignore collection creation errors
     }
   }
   
