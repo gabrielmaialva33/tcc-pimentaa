@@ -1,6 +1,5 @@
 import 'package:mongo_dart/mongo_dart.dart';
 import '../../../core/database/mongodb_client.dart';
-import '../../../core/database/mongodb_config.dart';
 import '../models/user_profile.dart';
 import '../models/user_role.dart';
 
