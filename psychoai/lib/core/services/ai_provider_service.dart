@@ -103,7 +103,7 @@ class AIProviderService {
         return ProviderInfo(
           provider: AIProvider.nvidia,
           isConfigured: NvidiaConfig.isConfigured(),
-          models: NvidiaConfig.getAllModels(),
+          models: NvidiaConfig.getAllModels().values.toList(),
           defaultModel: NvidiaConfig.defaultModel,
         );
       case AIProvider.alibaba:
