@@ -402,27 +402,170 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
           ),
           const SizedBox(height: 24),
           
-          Text(
-            'Análise Psicanalítica',
-            style: AppTypography.textTheme.headlineSmall?.copyWith(
-              color: AppColors.primary,
-              fontWeight: FontWeight.w700,
-            ),
+          Row(
+            children: [
+              Icon(
+                Icons.psychology_outlined,
+                color: AppColors.primary,
+                size: 28,
+              ),
+              const SizedBox(width: 12),
+              Text(
+                'Análise Psicanalítica',
+                style: AppTypography.textTheme.headlineSmall?.copyWith(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 24),
           
-          // Conteúdo da análise será implementado
+          // Conteúdo da análise simulado
           Expanded(
-            child: Center(
-              child: Text(
-                'Análise será implementada com integração NVIDIA AI',
-                style: AppTypography.textTheme.bodyLarge,
-                textAlign: TextAlign.center,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildAnalysisSection(
+                    '🔍 Principais Insights',
+                    [
+                      'Esta lembrança apresenta elementos de nostalgia com tonalidade emocional significativa',
+                      'Possível presença de mecanismos de idealização do passado',
+                      'A intensidade emocional sugere conexão com experiências formativas',
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  
+                  _buildAnalysisSection(
+                    '🎭 Indicadores de Lembrança Encobridora',
+                    [
+                      'Detalhes vívidos em contraste com esquecimento de contexto',
+                      'Desproporção entre simplicidade do evento e carga emocional',
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  
+                  _buildAnalysisSection(
+                    '🛡️ Mecanismos de Defesa Identificados',
+                    [
+                      'Sublimação: Transformação de experiências em narrativa organizada',
+                      'Racionalização: Busca por sentido lógico em eventos emocionais',
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  
+                  _buildAnalysisSection(
+                    '💡 Sugestões para Exploração Terapêutica',
+                    [
+                      'Investigar contexto temporal da lembrança',
+                      'Explorar associações livres a partir dos elementos centrais',
+                      'Analisar padrões repetitivos em outras narrativas',
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: AppColors.primary.withOpacity(0.3),
+                        width: 1,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.info_outline,
+                              color: AppColors.primary,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Nota Importante',
+                              style: AppTypography.textTheme.titleMedium?.copyWith(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Esta análise é uma ferramenta de apoio ao processo terapêutico. '
+                          'Sempre discuta os insights com seu psicanalista para uma '
+                          'compreensão mais profunda.',
+                          style: AppTypography.textTheme.bodySmall?.copyWith(
+                            color: AppColors.onSurface.withOpacity(0.8),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
+            ),
+          ),
+          
+          const SizedBox(height: 16),
+          
+          // Botão para fechar
+          SizedBox(
+            width: double.infinity,
+            child: CalmButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Fechar'),
             ),
           ),
         ],
       ),
+    );
+  }
+  
+  Widget _buildAnalysisSection(String title, List<String> items) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: AppTypography.textTheme.titleLarge?.copyWith(
+            color: AppColors.onSurface,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: 12),
+        ...items.map((item) => Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 6,
+                height: 6,
+                margin: const EdgeInsets.only(top: 8, right: 12),
+                decoration: BoxDecoration(
+                  color: AppColors.accent,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  item,
+                  style: AppTypography.textTheme.bodyMedium?.copyWith(
+                    color: AppColors.onSurface,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )).toList(),
+      ],
     );
   }
 
