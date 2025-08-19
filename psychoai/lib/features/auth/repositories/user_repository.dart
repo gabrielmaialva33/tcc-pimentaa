@@ -120,12 +120,6 @@ class UserRepository {
         filter['isProfessionalVerified'] = isVerified;
       }
       
-      final options = MongoDBHelper.paginationOptions(
-        page: page,
-        limit: limit,
-        sort: {'createdAt': -1},
-      );
-      
       final results = await _collection.find(filter).toList();
       final users = results.map((doc) => UserProfile.fromMongo(doc)).toList();
       
