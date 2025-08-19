@@ -43,3 +43,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+psychoai/psychoai-7a3fa-firebase-adminsdk-fbsvc-d03c5a1e44.json
