@@ -31,6 +31,8 @@ class AIAnalysisService {
     required double emotionalIntensity,
     AnalysisType analysisType = AnalysisType.complete,
     String? previousContext,
+    String? userId,
+    String? deviceId,
   }) async {
     try {
       // Validar entrada
@@ -42,6 +44,28 @@ class AIAnalysisService {
               ? 'NEEDS_PROFESSIONAL_HELP'
               : 'INVALID_INPUT',
         );
+      }
+
+      // Salvar memória no MongoDB primeiro (se userId fornecido)
+      MemoryDocument? savedMemory;
+      if (userId != null) {
+        try {
+          await _dbClient.connect();
+          
+          final memoryDoc = MemoryDocument.create(
+            userId: userId,
+            memoryText: memoryText,
+            emotions: emotions,
+            emotionalIntensity: emotionalIntensity,
+            deviceId: deviceId,
+          );
+          
+          savedMemory = await _memoryRepo.create(memoryDoc);
+          debugPrint('💾 Memória salva no MongoDB: ${savedMemory.idString}');
+        } catch (e) {
+          debugPrint('⚠️ Falha ao salvar memória: $e');
+          // Continuar com análise mesmo se salvamento falhar
+        }
       }
 
       // Preparar prompt base
@@ -108,6 +132,22 @@ $basePrompt
           totalTokens: response.usage.totalTokens,
         ),
       );
+
+      // Salvar análise no MongoDB (se memória foi salva)
+      if (savedMemory != null && userId != null) {
+        try {
+          await _analysisRepo.createFromResult(
+            result: result,
+            memoryId: savedMemory.idString,
+            userId: userId,
+            deviceId: deviceId,
+          );
+          debugPrint('💾 Análise salva no MongoDB para memória: ${savedMemory.idString}');
+        } catch (e) {
+          debugPrint('⚠️ Falha ao salvar análise: $e');
+          // Não falhar a operação se salvamento der erro
+        }
+      }
 
       return result;
     } on AIProviderException catch (e) {
