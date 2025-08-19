@@ -315,15 +315,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
   void _analyzeMemory() async {
     final memoryText = _memoryController.text.trim();
 
-    print('🔍 [DEBUG] Iniciando análise da lembrança...');
-    print('📝 [DEBUG] Texto da lembrança: "${memoryText.substring(
-        0, memoryText.length > 50 ? 50 : memoryText.length)}..."');
-    print('😊 [DEBUG] Emoções selecionadas: $_selectedEmotions');
-    print('📊 [DEBUG] Intensidade emocional: $_emotionalIntensity');
-    print('🎯 [DEBUG] Tipo de análise: ${AnalysisType.complete}');
-
     if (!mounted) {
-      print('❌ [DEBUG] Widget não montado, cancelando análise');
       return;
     }
 
@@ -334,8 +326,6 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
     });
 
     try {
-      print('🚀 [DEBUG] Chamando AIAnalysisService...');
-      print('🔗 [DEBUG] URL da API: ${_analysisService.toString()}');
 
       // Validar primeiro para mostrar avisos se necessário
       final validation = FreudianPrompts.validateMemoryText(memoryText);
@@ -360,15 +350,8 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
       );
 
       if (!mounted) {
-        print('❌ [DEBUG] Widget desmontado durante a análise');
         return;
       }
-
-      print('✅ [DEBUG] Análise concluída com sucesso!');
-      print('🔢 [DEBUG] Tokens usados: ${result.tokenUsage.totalTokens}');
-      print('🤖 [DEBUG] Modelo usado: ${result.modelUsed}');
-      print('📄 [DEBUG] Tamanho da análise: ${result.analysisText
-          .length} caracteres');
 
       setState(() {
         _isAnalyzing = false;
@@ -378,11 +361,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
       // Mostrar resultado da análise
       _showAnalysisResult();
     } catch (e, stackTrace) {
-      print('❌ [DEBUG] Erro na análise: $e');
-      print('📋 [DEBUG] Stack trace: $stackTrace');
-
       if (!mounted) {
-        print('❌ [DEBUG] Widget desmontado durante tratamento de erro');
         return;
       }
 
@@ -396,7 +375,6 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
   }
 
   void _showAnalysisResult() {
-    print('📱 Mostrando modal de resultado...');
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
