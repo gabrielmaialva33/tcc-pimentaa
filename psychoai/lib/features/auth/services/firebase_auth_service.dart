@@ -9,7 +9,25 @@ class FirebaseAuthService {
   static FirebaseAuthService? _instance;
   static FirebaseAuthService get instance => _instance ??= FirebaseAuthService._();
   
-  FirebaseAuthService._();
+  FirebaseAuthService._() {
+    // Desabilitar reCAPTCHA para desenvolvimento apenas
+    if (kDebugMode) {
+      _configureForDevelopment();
+    }
+  }
+  
+  /// Configurações específicas para desenvolvimento
+  void _configureForDevelopment() {
+    try {
+      // Desabilitar reCAPTCHA para testes (apenas debug)
+      _firebaseAuth.setSettings(
+        appVerificationDisabledForTesting: true,
+      );
+      debugPrint('🔧 [AUTH] Configuração de desenvolvimento aplicada (reCAPTCHA desabilitado)');
+    } catch (e) {
+      debugPrint('⚠️ [AUTH] Não foi possível configurar desenvolvimento: $e');
+    }
+  }
   
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final UserRepository _userRepository = UserRepository.instance;
