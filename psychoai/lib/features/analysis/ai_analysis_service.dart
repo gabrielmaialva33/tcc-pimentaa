@@ -424,6 +424,122 @@ Forneça uma análise integrada e construtiva.
   /// Lista provedores disponíveis
   List<AIProvider> getAvailableProviders() => _providerService.availableProviders;
 
+  /// Obtém histórico de memórias do usuário
+  Future<List<MemoryDocument>> getUserMemories(
+    String userId, {
+    int page = 1,
+    int limit = 20,
+  }) async {
+    try {
+      await _dbClient.connect();
+      return await _memoryRepo.findByUser(
+        userId,
+        page: page,
+        limit: limit,
+      );
+    } catch (e) {
+      debugPrint('Erro ao buscar memórias: $e');
+      return [];
+    }
+  }
+
+  /// Obtém histórico de análises do usuário
+  Future<List<AnalysisDocument>> getUserAnalyses(
+    String userId, {
+    int page = 1,
+    int limit = 20,
+  }) async {
+    try {
+      await _dbClient.connect();
+      return await _analysisRepo.findByUser(
+        userId,
+        page: page,
+        limit: limit,
+      );
+    } catch (e) {
+      debugPrint('Erro ao buscar análises: $e');
+      return [];
+    }
+  }
+
+  /// Busca memórias similares a uma análise
+  Future<List<MemoryDocument>> getSimilarMemories(
+    MemoryDocument memory, {
+    int limit = 5,
+  }) async {
+    try {
+      await _dbClient.connect();
+      return await _memoryRepo.findSimilar(
+        memory,
+        limit: limit,
+      );
+    } catch (e) {
+      debugPrint('Erro ao buscar memórias similares: $e');
+      return [];
+    }
+  }
+
+  /// Obtém estatísticas do usuário
+  Future<Map<String, dynamic>> getUserStats(String userId) async {
+    try {
+      await _dbClient.connect();
+      
+      final memoryStats = await _memoryRepo.getUserStats(userId);
+      final analysisStats = await _analysisRepo.getUserStats(userId);
+      
+      return {
+        'memories': memoryStats,
+        'analyses': analysisStats,
+        'totalMemories': memoryStats['totalMemories'] ?? 0,
+        'totalAnalyses': analysisStats['totalAnalyses'] ?? 0,
+        'avgEmotionalIntensity': memoryStats['avgIntensity'] ?? 0.0,
+        'totalTokensUsed': analysisStats['totalTokens'] ?? 0,
+      };
+    } catch (e) {
+      debugPrint('Erro ao obter estatísticas: $e');
+      return {
+        'memories': {},
+        'analyses': {},
+        'totalMemories': 0,
+        'totalAnalyses': 0,
+        'avgEmotionalIntensity': 0.0,
+        'totalTokensUsed': 0,
+      };
+    }
+  }
+
+  /// Busca memórias por texto
+  Future<List<MemoryDocument>> searchMemories(
+    String userId,
+    String query, {
+    int page = 1,
+    int limit = 20,
+  }) async {
+    try {
+      await _dbClient.connect();
+      return await _memoryRepo.searchByText(
+        userId,
+        query,
+        page: page,
+        limit: limit,
+      );
+    } catch (e) {
+      debugPrint('Erro ao buscar memórias: $e');
+      return [];
+    }
+  }
+
+  /// Verifica status da conexão MongoDB
+  Future<bool> checkDatabaseHealth() async {
+    try {
+      await _dbClient.connect();
+      return true;
+    } catch (e) {
+      debugPrint('Erro de conexão MongoDB: $e');
+      return false;
+    }
+  }
+
   /// Traduz erros dos provedores para mensagens amigáveis
   String _translateProviderError(String error) {
     if (error.contains('rate limit') || error.contains('429')) {
@@ -445,6 +561,7 @@ Forneça uma análise integrada e construtiva.
   void dispose() {
     _client.dispose();
     _providerService.dispose();
+    _dbClient.disconnect();
   }
 }
 
