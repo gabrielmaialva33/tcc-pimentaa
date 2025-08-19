@@ -26,8 +26,8 @@ class MemoryRepository {
       final data = memory.toMongo();
       final result = await _collection.insertOne(data);
       
-      if (result.isSuccess && result.document['_id'] != null) {
-        final createdMemory = memory.copyWith(id: result.document['_id']);
+      if (result.isSuccess && result.document?['_id'] != null) {
+        final createdMemory = memory.copyWith(id: result.document?['_id']);
         return createdMemory;
       } else {
         throw MongoDBException('Falha ao criar memória: ${result.writeError?.errmsg}');
@@ -91,7 +91,7 @@ class MemoryRepository {
         pipeline.add({'\$limit': options['limit']});
       }
       
-      final results = await _collection.aggregateToStream(pipeline).toList();
+      final results = await _collection.aggregateToStream(pipeline.cast<Map<String, Object>>()).toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
       
       return memories;
@@ -324,7 +324,7 @@ class MemoryRepository {
         }
       ];
       
-      final results = await _collection.aggregateToStream(pipeline).toList();
+      final results = await _collection.aggregateToStream(pipeline.cast<Map<String, Object>>()).toList();
       
       if (results.isNotEmpty) {
         final stats = results.first;

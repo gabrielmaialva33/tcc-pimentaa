@@ -27,8 +27,8 @@ class AnalysisRepository {
       final data = analysis.toMongo();
       final result = await _collection.insertOne(data);
       
-      if (result.isSuccess && result.document['_id'] != null) {
-        final createdAnalysis = analysis.copyWith(id: result.document['_id']);
+      if (result.isSuccess && result.document?['_id'] != null) {
+        final createdAnalysis = analysis.copyWith(id: result.document?['_id']);
         return createdAnalysis;
       } else {
         throw MongoDBException('Falha ao criar análise: ${result.writeError?.errmsg}');
