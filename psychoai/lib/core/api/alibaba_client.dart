@@ -71,7 +71,7 @@ class AlibabaClient {
             statusCode: response.statusCode,
           );
         }
-      } on DioException catch (e, stackTrace) {
+      } on DioException catch (e) {
         
         if (attempt == maxRetries) {
           throw AlibabaException(
@@ -83,7 +83,7 @@ class AlibabaClient {
         
         // Aguardar antes de tentar novamente
         await Future.delayed(Duration(seconds: attempt * 2));
-      } catch (e, stackTrace) {
+      } catch (e) {
         
         if (attempt == maxRetries) {
           throw AlibabaException('Erro inesperado: $e');
