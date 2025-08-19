@@ -65,9 +65,9 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
     setState(() => _isLoading = false);
 
     if (success) {
-      HapticFeedback.successImpact();
+      HapticFeedback.lightImpact();
     } else {
-      HapticFeedback.errorImpact();
+      HapticFeedback.heavyImpact();
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -208,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                   const SizedBox(height: 48),
                   
                   // Formulário de login
-                  GlassmorphicContainer(
+                  CustomGlassmorphicContainer(
                     padding: const EdgeInsets.all(24),
                     child: Column(
                       children: [
