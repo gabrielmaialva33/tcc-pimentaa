@@ -286,7 +286,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnimatedGradientBackground(
+      body: CleanBackground(
         child: SafeArea(
           child: Column(
             children: [
@@ -301,7 +301,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                           onPressed: _previousStep,
                           icon: const Icon(
                             Icons.arrow_back_ios,
-                            color: Colors.white,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                         const Expanded(
@@ -310,7 +310,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -352,7 +352,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                   children: [
                     if (_currentStep > 0)
                       Expanded(
-                        child: CustomGlassmorphicButton(
+                        child: CustomMaterialButton(
                           text: 'Voltar',
                           onPressed: _previousStep,
                           icon: Icons.arrow_back,
@@ -361,7 +361,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                     if (_currentStep > 0) const SizedBox(width: 16),
                     Expanded(
                       flex: _currentStep > 0 ? 1 : 2,
-                      child: CustomGlassmorphicButton(
+                      child: CustomMaterialButton(
                         text: _currentStep == 2 ? 'Criar Conta' : 'Continuar',
                         onPressed: _isLoading ? null : _nextStep,
                         isLoading: _isLoading && _currentStep == 2,
@@ -389,7 +389,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomGlassmorphicContainer(
+              MaterialCard(
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -398,7 +398,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                       children: [
                         Icon(
                           Icons.medical_services,
-                          color: Colors.white.withValues(alpha: 0.9),
+                          color: Colors.grey.shade700,
                           size: 28,
                         ),
                         const SizedBox(width: 12),
@@ -408,7 +408,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),
                         ),
@@ -423,7 +423,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                       'Informações pessoais para identificação profissional.',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.white.withValues(alpha: 0.8),
+                        color: Colors.grey.shade600,
                       ),
                     ).animate()
                         .fadeIn(delay: 200.ms, duration: 600.ms),
@@ -486,7 +486,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomGlassmorphicContainer(
+              MaterialCard(
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -495,7 +495,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                       children: [
                         Icon(
                           Icons.workspace_premium,
-                          color: Colors.white.withValues(alpha: 0.9),
+                          color: Colors.grey.shade700,
                           size: 28,
                         ),
                         const SizedBox(width: 12),
@@ -505,7 +505,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),
                         ),
@@ -520,7 +520,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                       'Informações profissionais para verificação.',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.white.withValues(alpha: 0.8),
+                        color: Colors.grey.shade600,
                       ),
                     ).animate()
                         .fadeIn(delay: 200.ms, duration: 600.ms),
@@ -604,7 +604,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Colors.white.withValues(alpha: 0.9),
+                        color: Colors.grey.shade700,
                       ),
                     ),
                     
@@ -621,7 +621,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                           ),
                         ),
                         const SizedBox(width: 8),
-                        CustomGlassmorphicButton(
+                        CustomMaterialButton(
                           text: '+',
                           onPressed: _addCertification,
                           width: 56,
@@ -650,7 +650,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                                   child: Text(
                                     cert,
                                     style: TextStyle(
-                                      color: Colors.white.withValues(alpha: 0.9),
+                                      color: Colors.grey.shade700,
                                     ),
                                   ),
                                 ),
@@ -688,7 +688,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomGlassmorphicContainer(
+              MaterialCard(
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -697,7 +697,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                       children: [
                         Icon(
                           Icons.security,
-                          color: Colors.white.withValues(alpha: 0.9),
+                          color: Colors.grey.shade700,
                           size: 28,
                         ),
                         const SizedBox(width: 12),
@@ -707,7 +707,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),
                         ),
@@ -722,7 +722,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                       'Crie uma senha segura e aceite os termos profissionais.',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.white.withValues(alpha: 0.8),
+                        color: Colors.grey.shade600,
                       ),
                     ).animate()
                         .fadeIn(delay: 200.ms, duration: 600.ms),
@@ -784,7 +784,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                           title: RichText(
                             text: TextSpan(
                               style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.9),
+                                color: Colors.grey.shade700,
                                 fontSize: 14,
                               ),
                               children: const [
@@ -826,7 +826,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                           title: RichText(
                             text: TextSpan(
                               style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.9),
+                                color: Colors.grey.shade700,
                                 fontSize: 14,
                               ),
                               children: const [
@@ -881,7 +881,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                             child: Text(
                               'Sua conta será revisada por nossa equipe antes da ativação. Você receberá um email com o resultado.',
                               style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.9),
+                                color: Colors.grey.shade700,
                                 fontSize: 13,
                               ),
                             ),

@@ -440,7 +440,7 @@ class StepProgressIndicator extends StatelessWidget {
 }
 
 /// Botão Material 3 animado
-class MaterialButton extends StatefulWidget {
+class CustomMaterialButton extends StatefulWidget {
   final String text;
   final VoidCallback? onPressed;
   final bool isLoading;
@@ -449,7 +449,7 @@ class MaterialButton extends StatefulWidget {
   final double? width;
   final double height;
 
-  const MaterialButton({
+  const CustomMaterialButton({
     super.key,
     required this.text,
     this.onPressed,
@@ -461,10 +461,10 @@ class MaterialButton extends StatefulWidget {
   });
 
   @override
-  State<MaterialButton> createState() => _MaterialButtonState();
+  State<CustomMaterialButton> createState() => _CustomMaterialButtonState();
 }
 
-class _MaterialButtonState extends State<MaterialButton> {
+class _CustomMaterialButtonState extends State<CustomMaterialButton> {
   bool _isPressed = false;
 
   @override
@@ -495,7 +495,8 @@ class _MaterialButtonState extends State<MaterialButton> {
           height: widget.height,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            child: Center(
+          ),
+          child: Center(
             child: widget.isLoading
                 ? const SizedBox(
                     width: 24,

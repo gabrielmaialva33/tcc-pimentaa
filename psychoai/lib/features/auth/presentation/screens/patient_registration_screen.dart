@@ -229,12 +229,12 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                       children: [
                         IconButton(
                           onPressed: _previousStep,
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.arrow_back_ios,
                             color: Colors.grey.shade700,
                           ),
                         ),
-                        const Expanded(
+                        Expanded(
                           child: Text(
                             'Criar Conta',
                             style: TextStyle(
@@ -282,7 +282,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                   children: [
                     if (_currentStep > 0)
                       Expanded(
-                        child: MaterialButton(
+                        child: CustomMaterialButton(
                           text: 'Voltar',
                           onPressed: _previousStep,
                           icon: Icons.arrow_back,
@@ -292,7 +292,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                     if (_currentStep > 0) const SizedBox(width: 16),
                     Expanded(
                       flex: _currentStep > 0 ? 1 : 2,
-                      child: MaterialButton(
+                      child: CustomMaterialButton(
                         text: _currentStep == 2 ? 'Criar Conta' : 'Continuar',
                         onPressed: _isLoading ? null : _nextStep,
                         isLoading: _isLoading && _currentStep == 2,
@@ -530,7 +530,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Colors.white.withValues(alpha: 0.9),
+                        color: Theme.of(context).primaryColor,
                       ),
                     ),
                     
@@ -545,7 +545,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                           label: Text(
                             interest,
                             style: TextStyle(
-                              color: isSelected ? Colors.blue : Colors.white,
+                              color: isSelected ? Colors.white : Colors.grey.shade700,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -560,11 +560,11 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                             });
                             HapticFeedback.selectionClick();
                           },
-                          backgroundColor: Colors.white.withValues(alpha: 0.1),
-                          selectedColor: Colors.white,
-                          checkmarkColor: Colors.blue,
+                          backgroundColor: Colors.grey.shade100,
+                          selectedColor: Theme.of(context).primaryColor,
+                          checkmarkColor: Colors.white,
                           side: BorderSide(
-                            color: Colors.white.withValues(alpha: 0.3),
+                            color: Colors.grey.shade300,
                           ),
                         );
                       }).toList(),
@@ -580,14 +580,14 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                           title: Text(
                             'Permitir análises anônimas',
                             style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.9),
+                              color: Colors.grey.shade800,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           subtitle: Text(
                             'Ajude a melhorar o app com dados anônimos',
                             style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.7),
+                              color: Colors.grey.shade600,
                               fontSize: 13,
                             ),
                           ),
@@ -596,8 +596,8 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                             setState(() => _allowAnalytics = value);
                             HapticFeedback.selectionClick();
                           },
-                          activeColor: Colors.white,
-                          tileColor: Colors.white.withValues(alpha: 0.05),
+                          activeColor: Theme.of(context).primaryColor,
+                          tileColor: Colors.grey.shade50,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -609,14 +609,14 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                           title: Text(
                             'Receber notificações',
                             style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.9),
+                              color: Colors.grey.shade800,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           subtitle: Text(
                             'Lembretes e insights personalizados',
                             style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.7),
+                              color: Colors.grey.shade600,
                               fontSize: 13,
                             ),
                           ),
@@ -625,8 +625,8 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                             setState(() => _allowNotifications = value);
                             HapticFeedback.selectionClick();
                           },
-                          activeColor: Colors.white,
-                          tileColor: Colors.white.withValues(alpha: 0.05),
+                          activeColor: Theme.of(context).primaryColor,
+                          tileColor: Colors.grey.shade50,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),

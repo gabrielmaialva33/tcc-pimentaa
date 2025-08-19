@@ -93,7 +93,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnimatedGradientBackground(
+      body: CleanBackground(
         child: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),
@@ -107,7 +107,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       onPressed: _handleBackToLogin,
                       icon: const Icon(
                         Icons.arrow_back_ios,
-                        color: Colors.white,
+                        color: Theme.of(context).primaryColor,
                       ),
                     ),
                     const Expanded(
@@ -116,7 +116,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: Theme.of(context).primaryColor,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -145,7 +145,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     child: const Icon(
                       Icons.lock_reset,
                       size: 50,
-                      color: Colors.white,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ).animate()
                       .scale(delay: 200.ms, duration: 600.ms)
@@ -166,7 +166,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     child: const Icon(
                       Icons.mark_email_read,
                       size: 50,
-                      color: Colors.white,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ).animate()
                       .scale(duration: 600.ms)
@@ -182,7 +182,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   style: const TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Theme.of(context).primaryColor,
                   ),
                   textAlign: TextAlign.center,
                 ).animate()
@@ -197,7 +197,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       : 'Digite seu email para receber um link de redefinição de senha',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.white.withValues(alpha: 0.9),
+                    color: Colors.grey.shade700,
                   ),
                   textAlign: TextAlign.center,
                 ).animate()
@@ -209,7 +209,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 // Conteúdo principal
                 if (!_emailSent) ...[
                   // Formulário
-                  CustomGlassmorphicContainer(
+                  MaterialCard(
                     padding: const EdgeInsets.all(24),
                     child: Form(
                       key: _formKey,
@@ -229,7 +229,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                           const SizedBox(height: 24),
 
-                          CustomGlassmorphicButton(
+                          CustomMaterialButton(
                             text: 'Enviar Link',
                             onPressed: _isLoading ? null : _handleSendResetEmail,
                             isLoading: _isLoading,
@@ -246,7 +246,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       .scale(begin: const Offset(0.9, 0.9)),
                 ] else ...[
                   // Email enviado com sucesso
-                  CustomGlassmorphicContainer(
+                  MaterialCard(
                     padding: const EdgeInsets.all(24),
                     child: Column(
                       children: [
@@ -266,7 +266,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white.withValues(alpha: 0.9),
+                            color: Colors.grey.shade700,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -287,7 +287,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         Row(
                           children: [
                             Expanded(
-                              child: CustomGlassmorphicButton(
+                              child: CustomMaterialButton(
                                 text: 'Reenviar',
                                 onPressed: _handleResendEmail,
                                 icon: Icons.refresh,
@@ -295,7 +295,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             ),
                             const SizedBox(width: 16),
                             Expanded(
-                              child: CustomGlassmorphicButton(
+                              child: CustomMaterialButton(
                                 text: 'Voltar',
                                 onPressed: _handleBackToLogin,
                                 icon: Icons.arrow_back,
@@ -335,7 +335,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           child: Text(
                             'Você receberá um email com instruções para criar uma nova senha.',
                             style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.9),
+                              color: Colors.grey.shade700,
                               fontSize: 13,
                             ),
                           ),
@@ -356,13 +356,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         Icon(
                           Icons.arrow_back_ios,
                           size: 16,
-                          color: Colors.white.withValues(alpha: 0.8),
+                          color: Colors.grey.shade600,
                         ),
                         const SizedBox(width: 4),
                         Text(
                           'Voltar ao Login',
                           style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.8),
+                            color: Colors.grey.shade600,
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
@@ -399,7 +399,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             Text(
                               'Dicas de Segurança',
                               style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.9),
+                                color: Colors.grey.shade700,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -412,7 +412,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           '• Não compartilhe o link com ninguém\n'
                           '• Crie uma senha forte com maiúsculas, minúsculas e números',
                           style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.8),
+                            color: Colors.grey.shade600,
                             fontSize: 12,
                           ),
                         ),
