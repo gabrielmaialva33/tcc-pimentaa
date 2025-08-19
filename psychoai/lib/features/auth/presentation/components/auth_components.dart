@@ -4,7 +4,7 @@ import 'package:glassmorphism/glassmorphism.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 /// Container com efeito glassmorphism personalizado
-class GlassmorphicContainer extends StatelessWidget {
+class CustomGlassmorphicContainer extends StatelessWidget {
   final Widget child;
   final double width;
   final double height;
@@ -14,7 +14,7 @@ class GlassmorphicContainer extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
 
-  const GlassmorphicContainer({
+  const CustomGlassmorphicContainer({
     super.key,
     required this.child,
     this.width = double.infinity,
