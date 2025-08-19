@@ -27,8 +27,8 @@ class AnalysisRepository {
       final data = analysis.toMongo();
       final result = await _collection.insertOne(data);
       
-      if (result.isSuccess && result.insertedId != null) {
-        final createdAnalysis = analysis.copyWith(id: result.insertedId);
+      if (result.isSuccess && result.document['_id'] != null) {
+        final createdAnalysis = analysis.copyWith(id: result.document['_id']);
         return createdAnalysis;
       } else {
         throw MongoDBException('Falha ao criar análise: ${result.writeError?.errmsg}');
@@ -149,10 +149,11 @@ class AnalysisRepository {
         sort: {'createdAt': -1},
       );
       
-      final cursor = _collection.find(filter)
-          .sort({'createdAt': -1})
-          .skip(options['skip'])
-          .limit(options['limit']);
+      final cursor = _collection.find(filter, FindOptions(
+        skip: options['skip'],
+        limit: options['limit'],
+        sort: options['sort'],
+      ));
       
       final results = await cursor.toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
@@ -181,10 +182,11 @@ class AnalysisRepository {
         sort: {'createdAt': -1},
       );
       
-      final cursor = _collection.find(filter)
-          .sort({'createdAt': -1})
-          .skip(options['skip'])
-          .limit(options['limit']);
+      final cursor = _collection.find(filter, FindOptions(
+        skip: options['skip'],
+        limit: options['limit'],
+        sort: options['sort'],
+      ));
       
       final results = await cursor.toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
@@ -214,10 +216,11 @@ class AnalysisRepository {
         sort: {'createdAt': -1},
       );
       
-      final cursor = _collection.find(filter)
-          .sort({'createdAt': -1})
-          .skip(options['skip'])
-          .limit(options['limit']);
+      final cursor = _collection.find(filter, FindOptions(
+        skip: options['skip'],
+        limit: options['limit'],
+        sort: options['sort'],
+      ));
       
       final results = await cursor.toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
@@ -246,7 +249,7 @@ class AnalysisRepository {
       }
       
       final cursor = _collection.find(filter)
-          .sort({'createdAt': -1})
+          
           .limit(limit);
       
       final results = await cursor.toList();

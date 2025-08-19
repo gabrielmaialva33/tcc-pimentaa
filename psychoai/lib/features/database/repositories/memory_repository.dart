@@ -26,8 +26,8 @@ class MemoryRepository {
       final data = memory.toMongo();
       final result = await _collection.insertOne(data);
       
-      if (result.isSuccess && result.insertedId != null) {
-        final createdMemory = memory.copyWith(id: result.insertedId);
+      if (result.isSuccess && result.document['_id'] != null) {
+        final createdMemory = memory.copyWith(id: result.document['_id']);
         return createdMemory;
       } else {
         throw MongoDBException('Falha ao criar memória: ${result.writeError?.errmsg}');
@@ -74,15 +74,24 @@ class MemoryRepository {
         sort: sort ?? {'createdAt': -1}, // Mais recentes primeiro
       );
       
-      final cursor = _collection.find(mongoFilter);
+      // Use aggregation pipeline for sorting, skipping, and limiting
+      final pipeline = <Map<String, dynamic>>[
+        {'\$match': mongoFilter}
+      ];
       
       if (options['sort'] != null) {
-        cursor.sort(options['sort']);
+        pipeline.add({'\$sort': options['sort']});
       }
       
-      cursor.skip(options['skip']).limit(options['limit']);
+      if (options['skip'] != null) {
+        pipeline.add({'\$skip': options['skip']});
+      }
       
-      final results = await cursor.toList();
+      if (options['limit'] != null) {
+        pipeline.add({'\$limit': options['limit']});
+      }
+      
+      final results = await _collection.aggregateToStream(pipeline).toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
       
       return memories;
@@ -127,10 +136,11 @@ class MemoryRepository {
         sort: {'createdAt': -1},
       );
       
-      final cursor = _collection.find(filter)
-          .sort({'createdAt': -1})
-          .skip(options['skip'])
-          .limit(options['limit']);
+      final cursor = _collection.find(filter, FindOptions(
+        skip: options['skip'],
+        limit: options['limit'],
+        sort: options['sort'],
+      ));
       
       final results = await cursor.toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
@@ -160,10 +170,11 @@ class MemoryRepository {
         sort: {'createdAt': -1},
       );
       
-      final cursor = _collection.find(filter)
-          .sort({'createdAt': -1})
-          .skip(options['skip'])
-          .limit(options['limit']);
+      final cursor = _collection.find(filter, FindOptions(
+        skip: options['skip'],
+        limit: options['limit'],
+        sort: options['sort'],
+      ));
       
       final results = await cursor.toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
@@ -191,9 +202,10 @@ class MemoryRepository {
         filter['createdAt'] = {'\$gte': cutoffDate};
       }
       
-      final cursor = _collection.find(filter)
-          .sort({'createdAt': -1})
-          .limit(limit);
+      final cursor = _collection.find(filter, FindOptions(
+        limit: limit,
+        sort: {'createdAt': -1},
+      ));
       
       final results = await cursor.toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
@@ -367,9 +379,10 @@ class MemoryRepository {
         },
       };
       
-      final cursor = _collection.find(filter)
-          .sort({'createdAt': -1})
-          .limit(limit * 2); // Buscar mais para filtrar
+      final cursor = _collection.find(filter, FindOptions(
+        limit: limit * 2, // Buscar mais para filtrar
+        sort: {'createdAt': -1},
+      ));
       
       final results = await cursor.toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();

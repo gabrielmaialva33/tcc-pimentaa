@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import '../../analysis/prompts/freudian_prompt.dart';
+import '../../analysis/models/analysis_result.dart';
+import '../../../core/database/mongodb_client.dart';
 
 part 'analysis_document.g.dart';
 
@@ -201,7 +203,7 @@ class AnalysisDocument {
   String get idString => id?.oid ?? '';
 
   /// Retorna memoryId como string
-  String get memoryIdString => memoryId.oid;
+  String get memoryIdString => memoryId?.oid ?? '';
 
   /// Verifica se a análise é válida
   bool get isValid {
