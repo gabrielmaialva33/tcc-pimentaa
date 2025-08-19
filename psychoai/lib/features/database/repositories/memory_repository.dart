@@ -18,7 +18,6 @@ class MemoryRepository {
   /// Cria uma nova memória
   Future<MemoryDocument> create(MemoryDocument memory) async {
     return await _client.executeWithRetry(() async {
-      print('💾 [MEMORY_REPO] Criando nova memória para usuário: ${memory.userId}');
       
       if (!memory.isValid) {
         throw MongoDBException('Dados da memória são inválidos');
@@ -29,7 +28,6 @@ class MemoryRepository {
       
       if (result.isSuccess && result.insertedId != null) {
         final createdMemory = memory.copyWith(id: result.insertedId);
-        print('✅ [MEMORY_REPO] Memória criada com ID: ${createdMemory.idString}');
         return createdMemory;
       } else {
         throw MongoDBException('Falha ao criar memória: ${result.writeError?.errmsg}');
@@ -40,17 +38,14 @@ class MemoryRepository {
   /// Busca memória por ID
   Future<MemoryDocument?> findById(String id) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [MEMORY_REPO] Buscando memória por ID: $id');
       
       final filter = MongoDBHelper.idFilter(id);
       final result = await _collection.findOne(filter);
       
       if (result != null) {
         final memory = MemoryDocument.fromMongo(result);
-        print('✅ [MEMORY_REPO] Memória encontrada: ${memory.idString}');
         return memory;
       } else {
-        print('❌ [MEMORY_REPO] Memória não encontrada: $id');
         return null;
       }
     });
@@ -65,7 +60,6 @@ class MemoryRepository {
     Map<String, dynamic>? sort,
   }) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [MEMORY_REPO] Buscando memórias do usuário: $userId (página $page)');
       
       // Combinar filtro de usuário com filtros adicionais
       final mongoFilter = (filter ?? MemoryFilter(userId: userId)).toMongoFilter();
@@ -91,7 +85,6 @@ class MemoryRepository {
       final results = await cursor.toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
       
-      print('✅ [MEMORY_REPO] Encontradas ${memories.length} memórias');
       return memories;
     });
   }
@@ -105,7 +98,6 @@ class MemoryRepository {
       }
       
       final count = await _collection.count(mongoFilter);
-      print('📊 [MEMORY_REPO] Usuário $userId tem $count memórias');
       return count;
     });
   }
@@ -118,7 +110,6 @@ class MemoryRepository {
     int limit = 20,
   }) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [MEMORY_REPO] Buscando memórias com texto: "$query"');
       
       final filter = {
         'userId': userId,
@@ -144,7 +135,6 @@ class MemoryRepository {
       final results = await cursor.toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
       
-      print('✅ [MEMORY_REPO] Encontradas ${memories.length} memórias com "$query"');
       return memories;
     });
   }
@@ -157,7 +147,6 @@ class MemoryRepository {
     int limit = 20,
   }) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [MEMORY_REPO] Buscando memórias com emoção: $emotion');
       
       final filter = {
         'userId': userId,
@@ -179,7 +168,6 @@ class MemoryRepository {
       final results = await cursor.toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
       
-      print('✅ [MEMORY_REPO] Encontradas ${memories.length} memórias com emoção "$emotion"');
       return memories;
     });
   }
@@ -191,7 +179,6 @@ class MemoryRepository {
     Duration? within,
   }) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [MEMORY_REPO] Buscando memórias recentes do usuário: $userId');
       
       final filter = {
         'userId': userId,
@@ -211,7 +198,6 @@ class MemoryRepository {
       final results = await cursor.toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
       
-      print('✅ [MEMORY_REPO] Encontradas ${memories.length} memórias recentes');
       return memories;
     });
   }
@@ -219,7 +205,6 @@ class MemoryRepository {
   /// Atualiza uma memória
   Future<MemoryDocument?> update(String id, MemoryDocument memory) async {
     return await _client.executeWithRetry(() async {
-      print('🔄 [MEMORY_REPO] Atualizando memória: $id');
       
       if (!memory.isValid) {
         throw MongoDBException('Dados da memória são inválidos');
@@ -241,10 +226,8 @@ class MemoryRepository {
       
       if (result != null) {
         final updatedMemory = MemoryDocument.fromMongo(result);
-        print('✅ [MEMORY_REPO] Memória atualizada: ${updatedMemory.idString}');
         return updatedMemory;
       } else {
-        print('❌ [MEMORY_REPO] Memória não encontrada para atualizar: $id');
         return null;
       }
     });
@@ -253,7 +236,6 @@ class MemoryRepository {
   /// Marca memória como deletada (soft delete)
   Future<bool> delete(String id) async {
     return await _client.executeWithRetry(() async {
-      print('🗑️ [MEMORY_REPO] Deletando memória: $id');
       
       final filter = MongoDBHelper.idFilter(id);
       final update = {
@@ -267,9 +249,7 @@ class MemoryRepository {
       final success = result.isSuccess && result.nMatched > 0;
       
       if (success) {
-        print('✅ [MEMORY_REPO] Memória deletada: $id');
       } else {
-        print('❌ [MEMORY_REPO] Falha ao deletar memória: $id');
       }
       
       return success;
@@ -279,16 +259,13 @@ class MemoryRepository {
   /// Remove permanentemente uma memória (hard delete)
   Future<bool> permanentDelete(String id) async {
     return await _client.executeWithRetry(() async {
-      print('🗑️ [MEMORY_REPO] Removendo permanentemente memória: $id');
       
       final filter = MongoDBHelper.idFilter(id);
       final result = await _collection.deleteOne(filter);
       final success = result.isSuccess && result.nRemoved > 0;
       
       if (success) {
-        print('✅ [MEMORY_REPO] Memória removida permanentemente: $id');
       } else {
-        print('❌ [MEMORY_REPO] Falha ao remover memória: $id');
       }
       
       return success;
@@ -298,7 +275,6 @@ class MemoryRepository {
   /// Restaura uma memória deletada
   Future<bool> restore(String id) async {
     return await _client.executeWithRetry(() async {
-      print('♻️ [MEMORY_REPO] Restaurando memória: $id');
       
       final filter = MongoDBHelper.idFilter(id);
       final update = {
@@ -312,9 +288,7 @@ class MemoryRepository {
       final success = result.isSuccess && result.nMatched > 0;
       
       if (success) {
-        print('✅ [MEMORY_REPO] Memória restaurada: $id');
       } else {
-        print('❌ [MEMORY_REPO] Falha ao restaurar memória: $id');
       }
       
       return success;
@@ -324,7 +298,6 @@ class MemoryRepository {
   /// Obtém estatísticas de memórias do usuário
   Future<Map<String, dynamic>> getUserStats(String userId) async {
     return await _client.executeWithRetry(() async {
-      print('📊 [MEMORY_REPO] Obtendo estatísticas do usuário: $userId');
       
       final pipeline = [
         {'\$match': {'userId': userId, 'isDeleted': false}},
@@ -360,10 +333,8 @@ class MemoryRepository {
       
       if (results.isNotEmpty) {
         final stats = results.first;
-        print('✅ [MEMORY_REPO] Estatísticas obtidas para usuário: $userId');
         return stats;
       } else {
-        print('❌ [MEMORY_REPO] Nenhuma estatística encontrada para usuário: $userId');
         return {
           'totalMemories': 0,
           'avgIntensity': 0.0,
@@ -383,7 +354,6 @@ class MemoryRepository {
     double intensityThreshold = 0.2,
   }) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [MEMORY_REPO] Buscando memórias similares');
       
       // Buscar memórias com emoções em comum
       final filter = {
@@ -418,7 +388,6 @@ class MemoryRepository {
           .map((item) => item['memory'] as MemoryDocument)
           .toList();
       
-      print('✅ [MEMORY_REPO] Encontradas ${similarMemories.length} memórias similares');
       return similarMemories;
     });
   }
@@ -428,7 +397,6 @@ class MemoryRepository {
     Duration olderThan = const Duration(days: 30),
   }) async {
     return await _client.executeWithRetry(() async {
-      print('🧹 [MEMORY_REPO] Limpando memórias deletadas antigas...');
       
       final cutoffDate = DateTime.now().toUtc().subtract(olderThan);
       final filter = {
@@ -439,7 +407,6 @@ class MemoryRepository {
       final result = await _collection.deleteMany(filter);
       final deletedCount = result.nRemoved;
       
-      print('✅ [MEMORY_REPO] Removidas $deletedCount memórias antigas');
       return deletedCount;
     });
   }

@@ -27,28 +27,21 @@ class MongoDBClient {
   /// Conecta ao MongoDB Atlas
   Future<void> connect() async {
     if (_isConnected && _database != null) {
-      print('📦 [MONGODB] Já conectado ao banco de dados');
       return;
     }
     
     try {
-      print('🔌 [MONGODB] Conectando ao MongoDB Atlas...');
-      print('🌐 [MONGODB] Cluster: ${MongoDBConfig.cluster}');
-      print('🗄️ [MONGODB] Database: ${MongoDBConfig.database}');
       
       _database = await Db.create(MongoDBConfig.connectionString);
       await _database!.open();
       
       _isConnected = true;
       
-      print('✅ [MONGODB] Conexão estabelecida com sucesso!');
       
       // Verificar se as coleções existem e criar índices
       await _ensureCollectionsAndIndexes();
       
     } catch (e, stackTrace) {
-      print('❌ [MONGODB] Erro ao conectar: $e');
-      print('📋 [MONGODB] Stack trace: $stackTrace');
       
       _isConnected = false;
       _database = null;
@@ -60,16 +53,13 @@ class MongoDBClient {
   /// Desconecta do banco de dados
   Future<void> disconnect() async {
     if (_database != null && _isConnected) {
-      print('🔌 [MONGODB] Desconectando do banco de dados...');
       
       try {
         await _database!.close();
         _isConnected = false;
         _database = null;
         
-        print('✅ [MONGODB] Desconectado com sucesso');
       } catch (e) {
-        print('⚠️ [MONGODB] Erro ao desconectar: $e');
       }
     }
   }
@@ -97,7 +87,6 @@ class MongoDBClient {
       
       return result['ok'] == 1;
     } catch (e) {
-      print('❌ [MONGODB] Teste de conexão falhou: $e');
       return false;
     }
   }
@@ -105,7 +94,6 @@ class MongoDBClient {
   /// Garante que as coleções e índices existem
   Future<void> _ensureCollectionsAndIndexes() async {
     try {
-      print('🔧 [MONGODB] Verificando coleções e índices...');
       
       for (final entry in MongoDBConfig.indexes.entries) {
         final collectionName = entry.key;
@@ -117,17 +105,13 @@ class MongoDBClient {
         for (final field in indexFields) {
           try {
             await collection.createIndex(key: field);
-            print('📁 [MONGODB] Índice criado: $collectionName.$field');
           } catch (e) {
             // Índice pode já existir
-            print('📁 [MONGODB] Índice já existe: $collectionName.$field');
           }
         }
       }
       
-      print('✅ [MONGODB] Coleções e índices verificados');
     } catch (e) {
-      print('⚠️ [MONGODB] Erro ao criar índices: $e');
     }
   }
   
@@ -146,7 +130,6 @@ class MongoDBClient {
         
         return await operation();
       } catch (e) {
-        print('❌ [MONGODB] Tentativa $attempt/$maxRetries falhou: $e');
         
         if (attempt == maxRetries) {
           throw MongoDBException('Operação falhou após $maxRetries tentativas: $e');

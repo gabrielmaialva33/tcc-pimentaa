@@ -21,7 +21,6 @@ class AlibabaClient {
       requestBody: true,
       responseBody: true,
       logPrint: (object) {
-        print('🔗 [ALIBABA] $object');
       },
     ));
   }
@@ -49,14 +48,9 @@ class AlibabaClient {
       },
     };
     
-    print('🚀 [ALIBABA] Iniciando geração de texto...');
-    print('🤖 [ALIBABA] Modelo: $model');
-    print('📝 [ALIBABA] Prompt: ${prompt.substring(0, prompt.length > 100 ? 100 : prompt.length)}...');
-    print('⚙️ [ALIBABA] Parâmetros: $parameters');
     
     for (int attempt = 1; attempt <= maxRetries; attempt++) {
       try {
-        print('🔄 [ALIBABA] Tentativa $attempt/$maxRetries');
         
         final response = await _dio.post(
           '', // URL relativa (base já definida)
@@ -69,15 +63,10 @@ class AlibabaClient {
           ),
         );
         
-        print('📊 [ALIBABA] Status: ${response.statusCode}');
-        print('📦 [ALIBABA] Headers: ${response.headers}');
         
         if (response.statusCode == 200 && response.data != null) {
-          print('✅ [ALIBABA] Resposta recebida com sucesso');
           return AlibabaResponse.fromJson(response.data);
         } else {
-          print('❌ [ALIBABA] Status não-sucesso: ${response.statusCode}');
-          print('📄 [ALIBABA] Dados da resposta: ${response.data}');
           
           throw AlibabaException(
             _getErrorMessage(response.data, response.statusCode ?? 0),
@@ -85,10 +74,6 @@ class AlibabaClient {
           );
         }
       } on DioException catch (e, stackTrace) {
-        print('❌ [ALIBABA] Erro DioException na tentativa $attempt: ${e.message}');
-        print('📋 [ALIBABA] Stack trace: $stackTrace');
-        print('🔍 [ALIBABA] Tipo: ${e.type}');
-        print('📊 [ALIBABA] Response: ${e.response?.data}');
         
         if (attempt == maxRetries) {
           throw AlibabaException(
@@ -101,8 +86,6 @@ class AlibabaClient {
         // Aguardar antes de tentar novamente
         await Future.delayed(Duration(seconds: attempt * 2));
       } catch (e, stackTrace) {
-        print('❌ [ALIBABA] Erro genérico na tentativa $attempt: $e');
-        print('📋 [ALIBABA] Stack trace: $stackTrace');
         
         if (attempt == maxRetries) {
           throw AlibabaException('Erro inesperado: $e');
@@ -134,7 +117,6 @@ class AlibabaClient {
       );
       return true;
     } catch (e) {
-      print('❌ [ALIBABA] Teste de conexão falhou: $e');
       return false;
     }
   }
@@ -240,8 +222,6 @@ class AlibabaResponse {
         usage: AlibabaUsage.fromJson(usage),
       );
     } catch (e) {
-      print('❌ [ALIBABA] Erro ao parsear resposta: $e');
-      print('📄 [ALIBABA] JSON recebido: $json');
       throw AlibabaException('Erro ao processar resposta da API: $e');
     }
   }

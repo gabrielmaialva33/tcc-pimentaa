@@ -19,7 +19,6 @@ class AnalysisRepository {
   /// Cria uma nova análise
   Future<AnalysisDocument> create(AnalysisDocument analysis) async {
     return await _client.executeWithRetry(() async {
-      print('💾 [ANALYSIS_REPO] Criando nova análise para memória: ${analysis.memoryIdString}');
       
       if (!analysis.isValid) {
         throw MongoDBException('Dados da análise são inválidos');
@@ -30,7 +29,6 @@ class AnalysisRepository {
       
       if (result.isSuccess && result.insertedId != null) {
         final createdAnalysis = analysis.copyWith(id: result.insertedId);
-        print('✅ [ANALYSIS_REPO] Análise criada com ID: ${createdAnalysis.idString}');
         return createdAnalysis;
       } else {
         throw MongoDBException('Falha ao criar análise: ${result.writeError?.errmsg}');
@@ -45,7 +43,6 @@ class AnalysisRepository {
     required String userId,
     String? deviceId,
   }) async {
-    print('💾 [ANALYSIS_REPO] Convertendo AnalysisResult para documento');
     
     final document = AnalysisDocument.fromAnalysisResult(
       result: result,
@@ -60,17 +57,14 @@ class AnalysisRepository {
   /// Busca análise por ID
   Future<AnalysisDocument?> findById(String id) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [ANALYSIS_REPO] Buscando análise por ID: $id');
       
       final filter = MongoDBHelper.idFilter(id);
       final result = await _collection.findOne(filter);
       
       if (result != null) {
         final analysis = AnalysisDocument.fromMongo(result);
-        print('✅ [ANALYSIS_REPO] Análise encontrada: ${analysis.idString}');
         return analysis;
       } else {
-        print('❌ [ANALYSIS_REPO] Análise não encontrada: $id');
         return null;
       }
     });
@@ -79,7 +73,6 @@ class AnalysisRepository {
   /// Busca análise por memória
   Future<AnalysisDocument?> findByMemoryId(String memoryId) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [ANALYSIS_REPO] Buscando análise da memória: $memoryId');
       
       final filter = {
         'memoryId': MongoDBHelper.stringToObjectId(memoryId),
@@ -90,10 +83,8 @@ class AnalysisRepository {
       
       if (result != null) {
         final analysis = AnalysisDocument.fromMongo(result);
-        print('✅ [ANALYSIS_REPO] Análise encontrada: ${analysis.idString}');
         return analysis;
       } else {
-        print('❌ [ANALYSIS_REPO] Análise não encontrada para memória: $memoryId');
         return null;
       }
     });
@@ -108,7 +99,6 @@ class AnalysisRepository {
     Map<String, dynamic>? sort,
   }) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [ANALYSIS_REPO] Buscando análises do usuário: $userId (página $page)');
       
       // Combinar filtro de usuário com filtros adicionais
       final mongoFilter = (filter ?? AnalysisFilter(userId: userId)).toMongoFilter();
@@ -134,7 +124,6 @@ class AnalysisRepository {
       final results = await cursor.toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
       
-      print('✅ [ANALYSIS_REPO] Encontradas ${analyses.length} análises');
       return analyses;
     });
   }
@@ -147,7 +136,6 @@ class AnalysisRepository {
     int limit = 20,
   }) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [ANALYSIS_REPO] Buscando análises do provedor: $provider');
       
       final filter = {
         'userId': userId,
@@ -169,7 +157,6 @@ class AnalysisRepository {
       final results = await cursor.toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
       
-      print('✅ [ANALYSIS_REPO] Encontradas ${analyses.length} análises do provedor "$provider"');
       return analyses;
     });
   }
@@ -181,7 +168,6 @@ class AnalysisRepository {
     int limit = 20,
   }) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [ANALYSIS_REPO] Buscando análises com lembranças encobridoras');
       
       final filter = {
         'userId': userId,
@@ -203,7 +189,6 @@ class AnalysisRepository {
       final results = await cursor.toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
       
-      print('✅ [ANALYSIS_REPO] Encontradas ${analyses.length} análises com lembranças encobridoras');
       return analyses;
     });
   }
@@ -216,7 +201,6 @@ class AnalysisRepository {
     int limit = 20,
   }) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [ANALYSIS_REPO] Buscando análises com mecanismo: $mechanism');
       
       final filter = {
         'userId': userId,
@@ -238,7 +222,6 @@ class AnalysisRepository {
       final results = await cursor.toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
       
-      print('✅ [ANALYSIS_REPO] Encontradas ${analyses.length} análises com mecanismo "$mechanism"');
       return analyses;
     });
   }
@@ -250,7 +233,6 @@ class AnalysisRepository {
     Duration? within,
   }) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [ANALYSIS_REPO] Buscando análises recentes do usuário: $userId');
       
       final filter = {
         'userId': userId,
@@ -270,7 +252,6 @@ class AnalysisRepository {
       final results = await cursor.toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
       
-      print('✅ [ANALYSIS_REPO] Encontradas ${analyses.length} análises recentes');
       return analyses;
     });
   }
@@ -284,7 +265,6 @@ class AnalysisRepository {
       }
       
       final count = await _collection.count(mongoFilter);
-      print('📊 [ANALYSIS_REPO] Usuário $userId tem $count análises');
       return count;
     });
   }
@@ -292,7 +272,6 @@ class AnalysisRepository {
   /// Atualiza uma análise
   Future<AnalysisDocument?> update(String id, AnalysisDocument analysis) async {
     return await _client.executeWithRetry(() async {
-      print('🔄 [ANALYSIS_REPO] Atualizando análise: $id');
       
       if (!analysis.isValid) {
         throw MongoDBException('Dados da análise são inválidos');
@@ -314,10 +293,8 @@ class AnalysisRepository {
       
       if (result != null) {
         final updatedAnalysis = AnalysisDocument.fromMongo(result);
-        print('✅ [ANALYSIS_REPO] Análise atualizada: ${updatedAnalysis.idString}');
         return updatedAnalysis;
       } else {
-        print('❌ [ANALYSIS_REPO] Análise não encontrada para atualizar: $id');
         return null;
       }
     });
@@ -326,7 +303,6 @@ class AnalysisRepository {
   /// Adiciona nota do terapeuta
   Future<bool> addTherapistNote(String id, String note) async {
     return await _client.executeWithRetry(() async {
-      print('📝 [ANALYSIS_REPO] Adicionando nota do terapeuta na análise: $id');
       
       final filter = MongoDBHelper.idFilter(id);
       final update = {
@@ -340,9 +316,7 @@ class AnalysisRepository {
       final success = result.isSuccess && result.nMatched > 0;
       
       if (success) {
-        print('✅ [ANALYSIS_REPO] Nota adicionada à análise: $id');
       } else {
-        print('❌ [ANALYSIS_REPO] Falha ao adicionar nota à análise: $id');
       }
       
       return success;
@@ -352,7 +326,6 @@ class AnalysisRepository {
   /// Marca análise como deletada (soft delete)
   Future<bool> delete(String id) async {
     return await _client.executeWithRetry(() async {
-      print('🗑️ [ANALYSIS_REPO] Deletando análise: $id');
       
       final filter = MongoDBHelper.idFilter(id);
       final update = {
@@ -366,9 +339,7 @@ class AnalysisRepository {
       final success = result.isSuccess && result.nMatched > 0;
       
       if (success) {
-        print('✅ [ANALYSIS_REPO] Análise deletada: $id');
       } else {
-        print('❌ [ANALYSIS_REPO] Falha ao deletar análise: $id');
       }
       
       return success;
@@ -378,7 +349,6 @@ class AnalysisRepository {
   /// Obtém estatísticas de análises do usuário
   Future<Map<String, dynamic>> getUserStats(String userId) async {
     return await _client.executeWithRetry(() async {
-      print('📊 [ANALYSIS_REPO] Obtendo estatísticas do usuário: $userId');
       
       final pipeline = [
         {'\$match': {'userId': userId, 'isDeleted': false}},
@@ -439,10 +409,8 @@ class AnalysisRepository {
       
       if (results.isNotEmpty) {
         final stats = results.first;
-        print('✅ [ANALYSIS_REPO] Estatísticas obtidas para usuário: $userId');
         return stats;
       } else {
-        print('❌ [ANALYSIS_REPO] Nenhuma estatística encontrada para usuário: $userId');
         return {
           'totalAnalyses': 0,
           'totalTokens': 0,
@@ -462,7 +430,6 @@ class AnalysisRepository {
   /// Obtém estatísticas por provedor
   Future<Map<String, dynamic>> getProviderStats(String userId) async {
     return await _client.executeWithRetry(() async {
-      print('📊 [ANALYSIS_REPO] Obtendo estatísticas por provedor para usuário: $userId');
       
       final pipeline = [
         {'\$match': {'userId': userId, 'isDeleted': false}},
@@ -492,7 +459,6 @@ class AnalysisRepository {
       
       final results = await _collection.aggregateToStream(pipeline).toList();
       
-      print('✅ [ANALYSIS_REPO] Estatísticas por provedor obtidas');
       return {
         'providers': results,
         'totalProviders': results.length,
@@ -506,7 +472,6 @@ class AnalysisRepository {
     Duration period = const Duration(days: 30),
   }) async {
     return await _client.executeWithRetry(() async {
-      print('📊 [ANALYSIS_REPO] Analisando padrões de uso dos últimos ${period.inDays} dias');
       
       final startDate = DateTime.now().toUtc().subtract(period);
       
@@ -550,7 +515,6 @@ class AnalysisRepository {
       
       final results = await _collection.aggregateToStream(pipeline).toList();
       
-      print('✅ [ANALYSIS_REPO] Padrões de uso obtidos: ${results.length} dias com atividade');
       return results;
     });
   }
@@ -560,7 +524,6 @@ class AnalysisRepository {
     Duration olderThan = const Duration(days: 30),
   }) async {
     return await _client.executeWithRetry(() async {
-      print('🧹 [ANALYSIS_REPO] Limpando análises deletadas antigas...');
       
       final cutoffDate = DateTime.now().toUtc().subtract(olderThan);
       final filter = {
@@ -571,7 +534,6 @@ class AnalysisRepository {
       final result = await _collection.deleteMany(filter);
       final deletedCount = result.nRemoved;
       
-      print('✅ [ANALYSIS_REPO] Removidas $deletedCount análises antigas');
       return deletedCount;
     });
   }

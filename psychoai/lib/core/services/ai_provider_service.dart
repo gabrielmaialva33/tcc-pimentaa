@@ -93,7 +93,6 @@ class AIProviderService {
       );
     }
     _activeProvider = provider;
-    print('🔄 [AI_PROVIDER] Provedor ativo alterado para: ${provider.displayName}');
   }
   
   /// Obtém informações do provedor ativo
@@ -124,8 +123,6 @@ class AIProviderService {
     int? maxTokens,
     Map<String, dynamic>? additionalParams,
   }) async {
-    print('🤖 [AI_PROVIDER] Gerando texto com ${_activeProvider.displayName}');
-    print('📝 [AI_PROVIDER] Prompt: ${prompt.substring(0, prompt.length > 100 ? 100 : prompt.length)}...');
     
     try {
       switch (_activeProvider) {
@@ -147,14 +144,12 @@ class AIProviderService {
           );
       }
     } catch (e) {
-      print('❌ [AI_PROVIDER] Erro ao gerar texto: $e');
       
       // Tentar fallback para outro provedor se disponível
       if (availableProviders.length > 1) {
         final fallbackProvider = availableProviders
             .firstWhere((p) => p != _activeProvider);
         
-        print('🔄 [AI_PROVIDER] Tentando fallback para ${fallbackProvider.displayName}');
         
         final originalProvider = _activeProvider;
         setActiveProvider(fallbackProvider);
@@ -168,7 +163,6 @@ class AIProviderService {
             additionalParams: additionalParams,
           );
           
-          print('✅ [AI_PROVIDER] Fallback bem-sucedido');
           return result;
         } catch (fallbackError) {
           // Restaurar provedor original
@@ -267,7 +261,6 @@ class AIProviderService {
           return await _alibabaClient!.testConnection();
       }
     } catch (e) {
-      print('❌ [AI_PROVIDER] Teste de conexão falhou: $e');
       return false;
     }
   }
