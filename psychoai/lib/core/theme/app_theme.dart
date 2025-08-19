@@ -222,28 +222,116 @@ class AppTheme {
     );
   }
 
-  /// Tema escuro - modo noturno terapêutico
+  /// Tema escuro - modo noturno terapêutico redesenhado
   static ThemeData get darkTheme {
-    return lightTheme.copyWith(
+    return ThemeData(
+      useMaterial3: true,
       brightness: Brightness.dark,
+
+      // Esquema de cores escuro redesenhado
       colorScheme: const ColorScheme.dark(
         primary: AppColors.darkPrimary,
-        onPrimary: AppColors.darkOnSurface,
+        onPrimary: AppColors.darkBackground,
+        primaryContainer: AppColors.darkSurfaceVariant,
+        onPrimaryContainer: AppColors.darkOnSurface,
+
+        secondary: AppColors.darkSecondary,
+        onSecondary: AppColors.darkBackground,
+        secondaryContainer: AppColors.darkSurfaceVariant,
+        onSecondaryContainer: AppColors.darkOnSurface,
+
         surface: AppColors.darkSurface,
         onSurface: AppColors.darkOnSurface,
-        secondary: AppColors.accent,
-        onSecondary: AppColors.darkBackground,
+        surfaceContainerHighest: AppColors.darkSurfaceVariant,
+        onSurfaceVariant: AppColors.darkOnSurface,
+
+        background: AppColors.darkBackground,
+        onBackground: AppColors.darkOnBackground,
+
+        error: AppColors.error,
+        onError: Colors.white,
+
+        outline: AppColors.darkOnSurface,
+        shadow: Colors.black54,
       ),
-      appBarTheme: lightTheme.appBarTheme.copyWith(
+
+      // Tipografia (herdada)
+      textTheme: AppTypography.textTheme.apply(
+        bodyColor: AppColors.darkOnSurface,
+        displayColor: AppColors.darkOnSurface,
+      ),
+
+      // AppBar para modo escuro
+      appBarTheme: AppBarTheme(
         backgroundColor: AppColors.darkSurface,
         foregroundColor: AppColors.darkOnSurface,
+        elevation: 0,
+        surfaceTintColor: Colors.transparent,
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.light,
         ),
+        titleTextStyle: AppTypography.textTheme.headlineSmall?.copyWith(
+          color: AppColors.darkOnSurface,
+          fontWeight: FontWeight.w600,
+        ),
       ),
-      cardTheme: lightTheme.cardTheme.copyWith(
+
+      // Cards para modo escuro
+      cardTheme: CardThemeData(
         color: AppColors.darkSurface,
+        surfaceTintColor: AppColors.darkPrimary,
+        elevation: 4,
+        shadowColor: Colors.black54,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      ),
+
+      // Botões elevados para modo escuro
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.darkPrimary,
+          foregroundColor: AppColors.darkBackground,
+          elevation: 6,
+          shadowColor: AppColors.darkPrimary.withValues(alpha: 0.4),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        ),
+      ),
+
+      // Text fields para modo escuro
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: AppColors.darkSurfaceVariant,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(
+            color: AppColors.darkOnSurface.withValues(alpha: 0.3),
+            width: 1,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(
+            color: AppColors.darkPrimary,
+            width: 2,
+          ),
+        ),
+        contentPadding: const EdgeInsets.all(16),
+        hintStyle: AppTypography.textTheme.bodyMedium?.copyWith(
+          color: AppColors.darkOnSurface.withValues(alpha: 0.6),
+        ),
+        labelStyle: AppTypography.textTheme.bodyMedium?.copyWith(
+          color: AppColors.darkOnSurface.withValues(alpha: 0.8),
+        ),
       ),
     );
   }

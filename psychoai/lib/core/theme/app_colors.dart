@@ -1,73 +1,88 @@
 import 'package:flutter/material.dart';
 
-/// Paleta de cores terapêutica baseada em princípios psicológicos
-/// de calma, segurança e acolhimento
+/// Paleta de cores terapêutica redesenhada baseada em neurociência e 
+/// psicologia das cores para máximo acolhimento e bem-estar
 class AppColors {
-  // Cores Primárias - Baseadas em tranquilidade e profundidade
-  static const Color primary = Color(0xFF6B5B95); // Lavanda profunda
-  static const Color primaryLight = Color(0xFF9A8BC4);
-  static const Color primaryDark = Color(0xFF4A3F6B);
+  // Cores Primárias - Azul serenidade (reduz cortisol, promove confiança)
+  static const Color primary = Color(0xFF4A7C87); // Azul-acinzentado tranquilo
+  static const Color primaryLight = Color(0xFF6FA5B3);
+  static const Color primaryDark = Color(0xFF2E5A63);
 
-  // Cores Secundárias - Serenidade e confiança
-  static const Color secondary = Color(0xFF88B0D3); // Azul serenidade
-  static const Color secondaryLight = Color(0xFFB8D0E8);
-  static const Color secondaryDark = Color(0xFF5A7FA3);
+  // Cores Secundárias - Verde-menta suave (equilibrio e renovação)
+  static const Color secondary = Color(0xFF7FB069); // Verde-menta terapêutico
+  static const Color secondaryLight = Color(0xFFA8C98B);
+  static const Color secondaryDark = Color(0xFF5C8347);
 
-  // Cores de Fundo - Acolhimento e suavidade
-  static const Color background = Color(0xFFF7F4F0); // Creme suave
+  // Cores de Fundo - Tons terrosos acolhedores
+  static const Color background = Color(0xFFFAF8F5); // Off-white caloroso
   static const Color surface = Color(0xFFFFFFFF);
-  static const Color surfaceVariant = Color(0xFFF5F2EE);
+  static const Color surfaceVariant = Color(0xFFF0EDE8); // Areia suave
 
-  // Cores de Texto - Legibilidade e hierarquia
+  // Cores de Texto - Legibilidade otimizada (contraste WCAG AA)
   static const Color onPrimary = Color(0xFFFFFFFF);
-  static const Color onSecondary = Color(0xFF2D3436);
-  static const Color onBackground = Color(0xFF2D3436);
-  static const Color onSurface = Color(0xFF2D3436);
-  static const Color onSurfaceVariant = Color(0xFF5D5D5D);
+  static const Color onSecondary = Color(0xFFFFFFFF);
+  static const Color onBackground = Color(0xFF2C3E35); // Verde-escuro suave
+  static const Color onSurface = Color(0xFF2C3E35);
+  static const Color onSurfaceVariant = Color(0xFF546B5D); // Verde-médio
 
-  // Cores de Acento - Equilíbrio e destaque
-  static const Color accent = Color(0xFFA8DADC); // Verde água
-  static const Color accentLight = Color(0xFFC7E9EB);
-  static const Color accentDark = Color(0xFF7BB0B3);
+  // Cores de Acento - Coral suave (vitalidade sem agressividade)
+  static const Color accent = Color(0xFFE09F7D); // Coral terapêutico
+  static const Color accentLight = Color(0xFFF2C4A8);
+  static const Color accentDark = Color(0xFFBF7A52);
 
-  // Cores de Status - Comunicação emocional
-  static const Color success = Color(0xFF81C784); // Verde suave
-  static const Color warning = Color(0xFFFFB74D); // Laranja calmante
-  static const Color error = Color(0xFFE57373); // Vermelho suave
-  static const Color info = Color(0xFF64B5F6); // Azul informativo
+  // Cores de Status - Comunicação emocional suavizada
+  static const Color success = Color(0xFF8BC9A3); // Verde esperança
+  static const Color warning = Color(0xFFF4B942); // Dourado calmante
+  static const Color error = Color(0xFFE88B7A); // Vermelho-coral suave
+  static const Color info = Color(0xFF6BA5C7); // Azul-cinza informativo
 
-  // Cores de Emoção - Para seletor de sentimentos
-  static const Color joy = Color(0xFFFFD54F); // Amarelo alegria
-  static const Color sadness = Color(0xFF81C9E8); // Azul tristeza
-  static const Color anger = Color(0xFFFF8A80); // Vermelho raiva
-  static const Color fear = Color(0xFFB39DDB); // Roxo medo
-  static const Color calm = Color(0xFFA5D6A7); // Verde calma
-  static const Color anxiety = Color(0xFFFFCC02); // Amarelo ansiedade
+  // Cores de Emoção - Paleta atualizada para máximo conforto visual
+  static const Color joy = Color(0xFFF7DC6F); // Dourado alegria suave
+  static const Color sadness = Color(0xFF85C1E9); // Azul-céu melancolia
+  static const Color anger = Color(0xFFEC7063); // Vermelho-salmão moderado
+  static const Color fear = Color(0xFFBB8FCE); // Lavanda-acinzentado
+  static const Color calm = Color(0xFF82E0AA); // Verde-menta calmante
+  static const Color anxiety = Color(0xFFF8C471); // Âmbar suave
 
-  // Gradientes Terapêuticos
+  // Gradientes Terapêuticos Redesenhados
   static const Gradient primaryGradient = LinearGradient(
-    colors: [primary, primaryLight],
+    colors: [Color(0xFF4A7C87), Color(0xFF6FA5B3)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
+    stops: [0.0, 0.8],
   );
 
   static const Gradient calmGradient = LinearGradient(
-    colors: [accent, accentLight],
+    colors: [Color(0xFF7FB069), Color(0xFFA8C98B)],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
+    stops: [0.2, 1.0],
   );
 
   static const Gradient backgroundGradient = LinearGradient(
-    colors: [background, surfaceVariant],
+    colors: [Color(0xFFFAF8F5), Color(0xFFF0EDE8)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
+    stops: [0.0, 0.7],
   );
 
-  // Cores para Dark Mode (modo noturno terapêutico)
-  static const Color darkBackground = Color(0xFF1E1E1E);
-  static const Color darkSurface = Color(0xFF2D2D2D);
-  static const Color darkPrimary = Color(0xFF9A8BC4);
-  static const Color darkOnSurface = Color(0xFFE0E0E0);
+  // Novo gradiente de bem-estar para elementos especiais
+  static const Gradient wellnessGradient = LinearGradient(
+    colors: [Color(0xFFE09F7D), Color(0xFFF2C4A8), Color(0xFF7FB069)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    stops: [0.0, 0.5, 1.0],
+  );
+
+  // Cores para Dark Mode (modo noturno terapêutico redesenhado)
+  static const Color darkBackground = Color(0xFF1A2025); // Azul-escuro acolhedor
+  static const Color darkSurface = Color(0xFF232B33); // Azul-acinzentado
+  static const Color darkPrimary = Color(0xFF7FB3C3); // Azul-menta claro
+  static const Color darkSecondary = Color(0xFF9BC9A1); // Verde-menta noturno
+  static const Color darkAccent = Color(0xFFF2B58A); // Coral suave noturno
+  static const Color darkOnSurface = Color(0xFFE8EDF0); // Quase-branco azulado
+  static const Color darkOnBackground = Color(0xFFE8EDF0);
+  static const Color darkSurfaceVariant = Color(0xFF2A3439); // Azul-escuro-médio
 
   // Opacidades para sobreposições suaves
   static const double overlayLight = 0.1;
