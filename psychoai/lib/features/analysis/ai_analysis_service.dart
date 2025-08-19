@@ -70,7 +70,7 @@ $basePrompt
       );
 
       // Processar resposta
-      final analysisText = response.content;
+      final analysisText = response.text;
       if (analysisText.isEmpty) {
         throw AnalysisException(
           'Resposta vazia da IA. Tente novamente.',
