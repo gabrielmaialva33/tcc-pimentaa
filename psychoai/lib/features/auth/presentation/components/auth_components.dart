@@ -155,12 +155,12 @@ class _AnimatedTextFieldState extends State<AnimatedTextField> {
               labelStyle: TextStyle(
                 color: _isFocused 
                     ? Colors.white 
-                    : Colors.white.withOpacity(0.7),
+                    : Colors.white.withValues(alpha: 0.7),
                 fontSize: _isFocused ? 12 : 16,
                 fontWeight: FontWeight.w500,
               ),
               hintStyle: TextStyle(
-                color: Colors.white.withOpacity(0.5),
+                color: Colors.white.withValues(alpha: 0.5),
                 fontSize: 16,
               ),
               prefixIcon: widget.prefixIcon != null
@@ -168,7 +168,7 @@ class _AnimatedTextFieldState extends State<AnimatedTextField> {
                       widget.prefixIcon,
                       color: _isFocused 
                           ? Colors.white 
-                          : Colors.white.withOpacity(0.7),
+                          : Colors.white.withValues(alpha: 0.7),
                     )
                   : null,
               suffixIcon: widget.suffixIcon != null
@@ -177,7 +177,7 @@ class _AnimatedTextFieldState extends State<AnimatedTextField> {
                         widget.suffixIcon,
                         color: _isFocused 
                             ? Colors.white 
-                            : Colors.white.withOpacity(0.7),
+                            : Colors.white.withValues(alpha: 0.7),
                       ),
                       onPressed: widget.onSuffixTap,
                     )
@@ -203,7 +203,7 @@ class _AnimatedTextFieldState extends State<AnimatedTextField> {
             .then()
             .shimmer(
               duration: 1000.ms,
-              color: Colors.white.withOpacity(0.1),
+              color: Colors.white.withValues(alpha: 0.1),
             ),
         if (_errorText != null) ...[
           const SizedBox(height: 8),
@@ -307,7 +307,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
                 height: 4,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(2),
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValues(alpha: 0.2),
                 ),
                 child: Row(
                   children: List.generate(5, (index) {
@@ -383,7 +383,7 @@ class StepProgressIndicator extends StatelessWidget {
                       shape: BoxShape.circle,
                       color: isCompleted || isCurrent
                           ? Colors.white
-                          : Colors.white.withOpacity(0.3),
+                          : Colors.white.withValues(alpha: 0.3),
                       border: Border.all(
                         color: Colors.white,
                         width: 2,
@@ -401,7 +401,7 @@ class StepProgressIndicator extends StatelessWidget {
                               style: TextStyle(
                                 color: isCurrent 
                                     ? Colors.blue 
-                                    : Colors.white.withOpacity(0.7),
+                                    : Colors.white.withValues(alpha: 0.7),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
                               ),
@@ -422,7 +422,7 @@ class StepProgressIndicator extends StatelessWidget {
                           borderRadius: BorderRadius.circular(1),
                           color: isCompleted
                               ? Colors.white
-                              : Colors.white.withOpacity(0.3),
+                              : Colors.white.withValues(alpha: 0.3),
                         ),
                       ).animate(target: isCompleted ? 1 : 0)
                           .scaleX(
@@ -597,7 +597,7 @@ class AnimatedGradientBackground extends StatelessWidget {
     ).animate(onPlay: (controller) => controller.repeat())
         .shimmer(
           duration: 3000.ms,
-          color: Colors.white.withOpacity(0.1),
+          color: Colors.white.withValues(alpha: 0.1),
         );
   }
 }
