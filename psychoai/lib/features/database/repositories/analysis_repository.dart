@@ -107,11 +107,6 @@ class AnalysisRepository {
       }
       
       // Configurar paginação e ordenação
-      final options = MongoDBHelper.paginationOptions(
-        page: page,
-        limit: limit,
-        sort: sort ?? {'createdAt': -1}, // Mais recentes primeiro
-      );
       
       final results = await _collection.find(mongoFilter).toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
@@ -135,12 +130,6 @@ class AnalysisRepository {
         'isDeleted': false,
       };
       
-      final options = MongoDBHelper.paginationOptions(
-        page: page,
-        limit: limit,
-        sort: {'createdAt': -1},
-      );
-      
       final results = await _collection.find(filter).toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
       
@@ -161,12 +150,6 @@ class AnalysisRepository {
         'screenMemoryIndicators': {'\$ne': [], '\$exists': true},
         'isDeleted': false,
       };
-      
-      final options = MongoDBHelper.paginationOptions(
-        page: page,
-        limit: limit,
-        sort: {'createdAt': -1},
-      );
       
       final results = await _collection.find(filter).toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
@@ -189,12 +172,6 @@ class AnalysisRepository {
         'defenseMechanisms': mechanism,
         'isDeleted': false,
       };
-      
-      final options = MongoDBHelper.paginationOptions(
-        page: page,
-        limit: limit,
-        sort: {'createdAt': -1},
-      );
       
       final results = await _collection.find(filter).toList();
       final analyses = results.map((doc) => AnalysisDocument.fromMongo(doc)).toList();
