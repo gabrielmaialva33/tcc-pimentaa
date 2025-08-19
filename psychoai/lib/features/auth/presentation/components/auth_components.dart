@@ -6,8 +6,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 /// Container com efeito glassmorphism personalizado
 class CustomGlassmorphicContainer extends StatelessWidget {
   final Widget child;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final double borderRadius;
   final double blur;
   final double opacity;
@@ -17,8 +17,8 @@ class CustomGlassmorphicContainer extends StatelessWidget {
   const CustomGlassmorphicContainer({
     super.key,
     required this.child,
-    this.width = double.infinity,
-    this.height = double.infinity,
+    this.width,
+    this.height,
     this.borderRadius = 16,
     this.blur = 20,
     this.opacity = 0.1,
@@ -31,8 +31,8 @@ class CustomGlassmorphicContainer extends StatelessWidget {
     return Container(
       margin: margin,
       child: GlassmorphicContainer(
-        width: width,
-        height: height,
+        width: width ?? double.infinity,
+        height: height ?? double.infinity,
         borderRadius: borderRadius,
         blur: blur,
         opacity: opacity,
@@ -41,16 +41,16 @@ class CustomGlassmorphicContainer extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Colors.white.withValues(alpha: 0.1),
-            Colors.white.withValues(alpha: 0.05),
+            Colors.white.withOpacity(0.1),
+            Colors.white.withOpacity(0.05),
           ],
         ),
         borderGradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Colors.white.withValues(alpha: 0.3),
-            Colors.white.withValues(alpha: 0.1),
+            Colors.white.withOpacity(0.3),
+            Colors.white.withOpacity(0.1),
           ],
         ),
         child: Container(
@@ -133,7 +133,7 @@ class _AnimatedTextFieldState extends State<AnimatedTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        GlassmorphicContainer(
+        CustomGlassmorphicContainer(
           height: widget.maxLines == 1 ? 60 : null,
           borderRadius: 12,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -156,12 +156,12 @@ class _AnimatedTextFieldState extends State<AnimatedTextField> {
               labelStyle: TextStyle(
                 color: _isFocused 
                     ? Colors.white 
-                    : Colors.white.withValues(alpha: 0.7),
+                    : Colors.white.withOpacity(0.7),
                 fontSize: _isFocused ? 12 : 16,
                 fontWeight: FontWeight.w500,
               ),
               hintStyle: TextStyle(
-                color: Colors.white.withValues(alpha: 0.5),
+                color: Colors.white.withOpacity(0.5),
                 fontSize: 16,
               ),
               prefixIcon: widget.prefixIcon != null
@@ -169,7 +169,7 @@ class _AnimatedTextFieldState extends State<AnimatedTextField> {
                       widget.prefixIcon,
                       color: _isFocused 
                           ? Colors.white 
-                          : Colors.white.withValues(alpha: 0.7),
+                          : Colors.white.withOpacity(0.7),
                     )
                   : null,
               suffixIcon: widget.suffixIcon != null
@@ -178,7 +178,7 @@ class _AnimatedTextFieldState extends State<AnimatedTextField> {
                         widget.suffixIcon,
                         color: _isFocused 
                             ? Colors.white 
-                            : Colors.white.withValues(alpha: 0.7),
+                            : Colors.white.withOpacity(0.7),
                       ),
                       onPressed: widget.onSuffixTap,
                     )
@@ -204,7 +204,7 @@ class _AnimatedTextFieldState extends State<AnimatedTextField> {
             .then()
             .shimmer(
               duration: 1000.ms,
-              color: Colors.white.withValues(alpha: 0.1),
+              color: Colors.white.withOpacity(0.1),
             ),
         if (_errorText != null) ...[
           const SizedBox(height: 8),
@@ -308,7 +308,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
                 height: 4,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(2),
-                  color: Colors.white.withValues(alpha: 0.2),
+                  color: Colors.white.withOpacity(0.2),
                 ),
                 child: Row(
                   children: List.generate(5, (index) {
@@ -384,7 +384,7 @@ class StepProgressIndicator extends StatelessWidget {
                       shape: BoxShape.circle,
                       color: isCompleted || isCurrent
                           ? Colors.white
-                          : Colors.white.withValues(alpha: 0.3),
+                          : Colors.white.withOpacity(0.3),
                       border: Border.all(
                         color: Colors.white,
                         width: 2,
@@ -402,7 +402,7 @@ class StepProgressIndicator extends StatelessWidget {
                               style: TextStyle(
                                 color: isCurrent 
                                     ? Colors.blue 
-                                    : Colors.white.withValues(alpha: 0.7),
+                                    : Colors.white.withOpacity(0.7),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
                               ),
@@ -423,7 +423,7 @@ class StepProgressIndicator extends StatelessWidget {
                           borderRadius: BorderRadius.circular(1),
                           color: isCompleted
                               ? Colors.white
-                              : Colors.white.withValues(alpha: 0.3),
+                              : Colors.white.withOpacity(0.3),
                         ),
                       ).animate(target: isCompleted ? 1 : 0)
                           .scaleX(
@@ -456,7 +456,7 @@ class StepProgressIndicator extends StatelessWidget {
 }
 
 /// Botão glassmórfico animado
-class GlassmorphicButton extends StatefulWidget {
+class CustomGlassmorphicButton extends StatefulWidget {
   final String text;
   final VoidCallback? onPressed;
   final bool isLoading;
@@ -465,7 +465,7 @@ class GlassmorphicButton extends StatefulWidget {
   final double? width;
   final double height;
 
-  const GlassmorphicButton({
+  const CustomGlassmorphicButton({
     super.key,
     required this.text,
     this.onPressed,
@@ -477,10 +477,10 @@ class GlassmorphicButton extends StatefulWidget {
   });
 
   @override
-  State<GlassmorphicButton> createState() => _GlassmorphicButtonState();
+  State<CustomGlassmorphicButton> createState() => _CustomGlassmorphicButtonState();
 }
 
-class _GlassmorphicButtonState extends State<GlassmorphicButton> {
+class _CustomGlassmorphicButtonState extends State<CustomGlassmorphicButton> {
   bool _isPressed = false;
 
   @override
@@ -504,10 +504,28 @@ class _GlassmorphicButtonState extends State<GlassmorphicButton> {
         height: widget.height,
         borderRadius: 16,
         opacity: widget.onPressed != null ? 0.2 : 0.1,
+        border: 1.5,
+        linearGradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white.withOpacity(0.15),
+            Colors.white.withOpacity(0.05),
+          ],
+        ),
+        borderGradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white.withOpacity(0.3),
+            Colors.white.withOpacity(0.1),
+          ],
+        ),
+        blur: 20,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: widget.backgroundColor ?? Colors.white.withValues(alpha: 0.1),
+            color: widget.backgroundColor ?? Colors.white.withOpacity(0.1),
           ),
           child: Center(
             child: widget.isLoading
@@ -581,7 +599,7 @@ class AnimatedGradientBackground extends StatelessWidget {
     ).animate(onPlay: (controller) => controller.repeat())
         .shimmer(
           duration: 3000.ms,
-          color: Colors.white.withValues(alpha: 0.1),
+          color: Colors.white.withOpacity(0.1),
         );
   }
 }
