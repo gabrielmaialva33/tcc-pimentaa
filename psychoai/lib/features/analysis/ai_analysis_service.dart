@@ -27,22 +27,32 @@ class AIAnalysisService {
           code: validation.needsProfessionalHelp ? 'NEEDS_PROFESSIONAL_HELP' : 'INVALID_INPUT',
         );
       }
-
-      // Preparar prompt
-      final prompt = FreudianPrompts.fillTemplate(
+      
+      // Preparar prompt base
+      final basePrompt = FreudianPrompts.fillTemplate(
         analysisType.prompt,
         memoryText: memoryText,
         emotions: emotions,
         intensity: emotionalIntensity,
         previousAnalyses: previousContext,
       );
+      
+      // Se é conteúdo sensível, adicionar aviso ao prompt
+      String finalPrompt = basePrompt;
+      if (validation.isSensitiveContent) {
+        finalPrompt = '''
+AVISO IMPORTANTE: Este conteúdo envolve temas sensíveis. Forneça uma análise cuidadosa, empática e construtiva, enfatizando a importância do acompanhamento profissional.
+
+$basePrompt
+''';
+      }
 
       // Configurar modelo baseado no tipo de análise
       final modelConfig = _getModelConfig(analysisType);
       
       // Fazer requisição para NVIDIA API
       final response = await _client.sendChatCompletion(
-        prompt: prompt,
+        prompt: finalPrompt,
         model: modelConfig.model,
         temperature: modelConfig.temperature,
         maxTokens: modelConfig.maxTokens,

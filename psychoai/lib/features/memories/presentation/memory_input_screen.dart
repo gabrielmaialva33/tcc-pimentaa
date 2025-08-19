@@ -340,6 +340,19 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
       print('🚀 [DEBUG] Chamando AIAnalysisService...');
       print('🔗 [DEBUG] URL da API: ${_analysisService.toString()}');
       
+      // Validar primeiro para mostrar avisos se necessário
+      final validation = FreudianPrompts.validateMemoryText(memoryText);
+      if (validation.isSensitiveContent && validation.message != null) {
+        // Mostrar aviso sobre conteúdo sensível antes de continuar
+        final shouldContinue = await _showSensitiveContentWarning(validation.message!);
+        if (!shouldContinue) {
+          setState(() {
+            _isAnalyzing = false;
+          });
+          return;
+        }
+      }
+      
       // Fazer análise real com NVIDIA API
       final result = await _analysisService.analyzeMemory(
         memoryText: memoryText,
@@ -393,6 +406,48 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
     );
   }
   
+  Future<bool> _showSensitiveContentWarning(String message) async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            Icon(Icons.warning_outlined, color: AppColors.warning ?? Colors.orange),
+            const SizedBox(width: 8),
+            const Text('Conteúdo Sensível'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(message),
+            const SizedBox(height: 16),
+            Text(
+              'Deseja continuar com a análise?',
+              style: AppTypography.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancelar'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+            ),
+            child: const Text('Continuar'),
+          ),
+        ],
+      ),
+    ) ?? false;
+  }
+
   void _showErrorDialog(Object error) {
     String errorMessage = 'Não foi possível analisar a lembrança no momento. Tente novamente mais tarde.';
     
