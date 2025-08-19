@@ -11,15 +11,18 @@ class NvidiaClient {
       baseUrl: NvidiaConfig.baseUrl,
       connectTimeout: Duration(seconds: NvidiaConfig.timeoutSeconds),
       receiveTimeout: Duration(seconds: NvidiaConfig.timeoutSeconds),
+      sendTimeout: Duration(seconds: NvidiaConfig.timeoutSeconds), // Timeout para envio
       headers: NvidiaConfig.defaultHeaders,
     ));
     
     // Interceptors para logging e tratamento de erros
-    if (kDebugMode && NvidiaConfig.logRequests) {
+    if (kDebugMode) {
       _dio.interceptors.add(LogInterceptor(
         requestBody: false, // Não logar o corpo por privacidade
         responseBody: false,
-        logPrint: (obj) => debugPrint(obj.toString()),
+        requestHeader: true,
+        responseHeader: false,
+        logPrint: (obj) => debugPrint('[NVIDIA API] $obj'),
       ));
     }
     
