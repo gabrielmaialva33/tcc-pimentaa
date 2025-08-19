@@ -194,7 +194,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
         curve: Curves.easeInOut,
       );
     } else {
-      HapticFeedback.errorImpact();
+      HapticFeedback.heavyImpact();
     }
   }
 
@@ -252,7 +252,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
     setState(() => _isLoading = false);
 
     if (success) {
-      HapticFeedback.successImpact();
+      HapticFeedback.lightImpact();
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -267,7 +267,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
         Navigator.pop(context);
       }
     } else {
-      HapticFeedback.errorImpact();
+      HapticFeedback.heavyImpact();
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

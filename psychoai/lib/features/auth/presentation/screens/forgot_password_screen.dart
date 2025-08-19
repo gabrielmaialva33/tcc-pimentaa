@@ -62,9 +62,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
     if (success) {
       setState(() => _emailSent = true);
-      HapticFeedback.successImpact();
+      HapticFeedback.lightImpact();
     } else {
-      HapticFeedback.errorImpact();
+      HapticFeedback.heavyImpact();
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
