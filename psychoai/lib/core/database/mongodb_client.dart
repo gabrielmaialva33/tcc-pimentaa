@@ -41,7 +41,7 @@ class MongoDBClient {
       // Verificar se as coleções existem e criar índices
       await _ensureCollectionsAndIndexes();
       
-    } catch (e, stackTrace) {
+    } catch (e) {
       
       _isConnected = false;
       _database = null;
