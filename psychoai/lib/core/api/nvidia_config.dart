@@ -67,20 +67,20 @@ class NvidiaConfig {
   static const bool logRequests = false; // false em produção por privacidade
   
   // Tipos de análise disponíveis
-  static const Map<String, AnalysisType> analysisTypes = {
-    'complete': AnalysisType(
+  static const Map<String, NvidiaAnalysisType> analysisTypes = {
+    'complete': NvidiaAnalysisType(
       name: 'Análise Completa',
       model: 'meta/llama-3.1-70b-instruct',
       temperature: 0.7,
       maxTokens: 2048,
     ),
-    'quick': AnalysisType(
+    'quick': NvidiaAnalysisType(
       name: 'Análise Rápida',
       model: 'google/gemma-2b-it',
       temperature: 0.5,
       maxTokens: 1024,
     ),
-    'pattern': AnalysisType(
+    'pattern': NvidiaAnalysisType(
       name: 'Detecção de Padrões',
       model: 'mistralai/mixtral-8x7b-instruct',
       temperature: 0.6,
@@ -107,13 +107,13 @@ class ModelInfo {
 }
 
 /// Configuração para tipos de análise
-class AnalysisType {
+class NvidiaAnalysisType {
   final String name;
   final String model;
   final double temperature;
   final int maxTokens;
   
-  const AnalysisType({
+  const NvidiaAnalysisType({
     required this.name,
     required this.model,
     required this.temperature,
