@@ -153,7 +153,7 @@ class AppTheme {
           ),
         ),
         contentPadding: const EdgeInsets.all(16),
-        hintStyle: AppTypography.TherapeuticStyles.placeholder,
+        hintStyle: TherapeuticStyles.placeholder,
         labelStyle: AppTypography.textTheme.bodyMedium?.copyWith(
           color: AppColors.onSurfaceVariant,
         ),
@@ -165,7 +165,7 @@ class AppTheme {
         selectedColor: AppColors.primaryLight,
         disabledColor: AppColors.onSurfaceVariant.withOpacity(0.1),
         deleteIconColor: AppColors.onSurfaceVariant,
-        labelStyle: AppTypography.TherapeuticStyles.emotionLabel,
+        labelStyle: TherapeuticStyles.emotionLabel,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
