@@ -444,54 +444,6 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
                 : _buildLoadingContent(),
             ),
           ),
-                  const SizedBox(height: 32),
-                  
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: AppColors.primary.withOpacity(0.3),
-                        width: 1,
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.info_outline,
-                              color: AppColors.primary,
-                              size: 20,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              'Nota Importante',
-                              style: AppTypography.textTheme.titleMedium?.copyWith(
-                                color: AppColors.primary,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Esta análise é uma ferramenta de apoio ao processo terapêutico. '
-                          'Sempre discuta os insights com seu psicanalista para uma '
-                          'compreensão mais profunda.',
-                          style: AppTypography.textTheme.bodySmall?.copyWith(
-                            color: AppColors.onSurface.withOpacity(0.8),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
           
           const SizedBox(height: 16),
           
@@ -501,6 +453,182 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
             child: CalmButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Fechar'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRealAnalysisContent(AnalysisResult result) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Análise principal da IA
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.surfaceVariant.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: AppColors.primary.withOpacity(0.2),
+              width: 1,
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.auto_awesome,
+                    color: AppColors.primary,
+                    size: 20,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Análise da IA (${result.modelUsed})',
+                    style: AppTypography.textTheme.titleMedium?.copyWith(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Text(
+                result.analysisText,
+                style: AppTypography.textTheme.bodyMedium?.copyWith(
+                  color: AppColors.onSurface,
+                  height: 1.6,
+                ),
+              ),
+            ],
+          ),
+        ),
+        
+        if (result.insights.isNotEmpty) ...[
+          const SizedBox(height: 20),
+          _buildAnalysisSection(
+            '🔍 Principais Insights',
+            result.insights,
+          ),
+        ],
+        
+        if (result.screenMemoryIndicators.isNotEmpty) ...[
+          const SizedBox(height: 20),
+          _buildAnalysisSection(
+            '🎭 Indicadores de Lembrança Encobridora',
+            result.screenMemoryIndicators,
+          ),
+        ],
+        
+        if (result.defenseMechanisms.isNotEmpty) ...[
+          const SizedBox(height: 20),
+          _buildAnalysisSection(
+            '🛡️ Mecanismos de Defesa Identificados',
+            result.defenseMechanisms,
+          ),
+        ],
+        
+        if (result.therapeuticSuggestions.isNotEmpty) ...[
+          const SizedBox(height: 20),
+          _buildAnalysisSection(
+            '💡 Sugestões para Exploração Terapêutica',
+            result.therapeuticSuggestions,
+          ),
+        ],
+        
+        const SizedBox(height: 20),
+        
+        // Informações técnicas
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: AppColors.surfaceVariant.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Tokens usados: ${result.tokenUsage.totalTokens}',
+                style: AppTypography.textTheme.bodySmall?.copyWith(
+                  color: AppColors.onSurfaceVariant,
+                ),
+              ),
+              Text(
+                'Tipo: ${result.analysisType.displayName}',
+                style: AppTypography.textTheme.bodySmall?.copyWith(
+                  color: AppColors.onSurfaceVariant,
+                ),
+              ),
+            ],
+          ),
+        ),
+        
+        const SizedBox(height: 32),
+        
+        // Nota importante
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.primary.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: AppColors.primary.withOpacity(0.3),
+              width: 1,
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.info_outline,
+                    color: AppColors.primary,
+                    size: 20,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Nota Importante',
+                    style: AppTypography.textTheme.titleMedium?.copyWith(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Esta análise é uma ferramenta de apoio ao processo terapêutico. '
+                'Sempre discuta os insights com seu psicanalista para uma '
+                'compreensão mais profunda.',
+                style: AppTypography.textTheme.bodySmall?.copyWith(
+                  color: AppColors.onSurface.withOpacity(0.8),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLoadingContent() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircularProgressIndicator(
+            color: AppColors.primary,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Analisando sua lembrança...',
+            style: AppTypography.textTheme.bodyLarge?.copyWith(
+              color: AppColors.onSurface,
             ),
           ),
         ],
@@ -581,6 +709,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
   void dispose() {
     _memoryController.dispose();
     _memoryFocusNode.dispose();
+    _analysisService.dispose();
     super.dispose();
   }
 }
