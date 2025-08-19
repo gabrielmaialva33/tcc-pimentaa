@@ -2,27 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-/// Container com efeito glassmorphism personalizado
-class CustomGlassmorphicContainer extends StatelessWidget {
+/// Container com design Material 3 limpo
+class MaterialCard extends StatelessWidget {
   final Widget child;
   final double? width;
   final double? height;
   final double borderRadius;
-  final double blur;
-  final double opacity;
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
+  final Color? backgroundColor;
 
-  const CustomGlassmorphicContainer({
+  const MaterialCard({
     super.key,
     required this.child,
     this.width,
     this.height,
     this.borderRadius = 16,
-    this.blur = 20,
-    this.opacity = 0.1,
     this.margin,
     this.padding,
+    this.backgroundColor,
   });
 
   @override
@@ -31,24 +29,17 @@ class CustomGlassmorphicContainer extends StatelessWidget {
       margin: margin,
       width: width,
       height: height,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadius),
-        color: Colors.white.withValues(alpha: opacity),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.3),
-          width: 1.5,
+      child: Card(
+        elevation: 4,
+        shadowColor: Colors.black26,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: blur,
-            spreadRadius: 2,
-          ),
-        ],
-      ),
-      child: Container(
-        padding: padding,
-        child: child,
+        color: backgroundColor ?? Colors.white,
+        child: Container(
+          padding: padding ?? const EdgeInsets.all(16),
+          child: child,
+        ),
       ),
     );
   }
@@ -125,10 +116,11 @@ class _AnimatedTextFieldState extends State<AnimatedTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomGlassmorphicContainer(
+        MaterialCard(
           height: widget.maxLines == 1 ? 60 : null,
           borderRadius: 12,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          backgroundColor: Colors.grey.shade50,
           child: TextFormField(
             controller: widget.controller,
             focusNode: _focusNode,
@@ -138,7 +130,7 @@ class _AnimatedTextFieldState extends State<AnimatedTextField> {
             maxLines: widget.maxLines,
             textCapitalization: widget.textCapitalization,
             style: const TextStyle(
-              color: Colors.white,
+              color: Colors.black87,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -147,21 +139,21 @@ class _AnimatedTextFieldState extends State<AnimatedTextField> {
               hintText: widget.hint,
               labelStyle: TextStyle(
                 color: _isFocused 
-                    ? Colors.white 
-                    : Colors.white.withValues(alpha: 0.7),
+                    ? Theme.of(context).primaryColor 
+                    : Colors.grey.shade600,
                 fontSize: _isFocused ? 12 : 16,
                 fontWeight: FontWeight.w500,
               ),
               hintStyle: TextStyle(
-                color: Colors.white.withValues(alpha: 0.5),
+                color: Colors.grey.shade500,
                 fontSize: 16,
               ),
               prefixIcon: widget.prefixIcon != null
                   ? Icon(
                       widget.prefixIcon,
                       color: _isFocused 
-                          ? Colors.white 
-                          : Colors.white.withValues(alpha: 0.7),
+                          ? Theme.of(context).primaryColor 
+                          : Colors.grey.shade600,
                     )
                   : null,
               suffixIcon: widget.suffixIcon != null
@@ -169,8 +161,8 @@ class _AnimatedTextFieldState extends State<AnimatedTextField> {
                       icon: Icon(
                         widget.suffixIcon,
                         color: _isFocused 
-                            ? Colors.white 
-                            : Colors.white.withValues(alpha: 0.7),
+                            ? Theme.of(context).primaryColor 
+                            : Colors.grey.shade600,
                       ),
                       onPressed: widget.onSuffixTap,
                     )
@@ -203,7 +195,7 @@ class _AnimatedTextFieldState extends State<AnimatedTextField> {
           Text(
             _errorText!,
             style: const TextStyle(
-              color: Colors.redAccent,
+              color: Colors.red,
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
@@ -447,8 +439,8 @@ class StepProgressIndicator extends StatelessWidget {
   }
 }
 
-/// Botão glassmórfico animado
-class CustomGlassmorphicButton extends StatefulWidget {
+/// Botão Material 3 animado
+class MaterialButton extends StatefulWidget {
   final String text;
   final VoidCallback? onPressed;
   final bool isLoading;
@@ -457,7 +449,7 @@ class CustomGlassmorphicButton extends StatefulWidget {
   final double? width;
   final double height;
 
-  const CustomGlassmorphicButton({
+  const MaterialButton({
     super.key,
     required this.text,
     this.onPressed,
@@ -469,10 +461,10 @@ class CustomGlassmorphicButton extends StatefulWidget {
   });
 
   @override
-  State<CustomGlassmorphicButton> createState() => _CustomGlassmorphicButtonState();
+  State<MaterialButton> createState() => _MaterialButtonState();
 }
 
-class _CustomGlassmorphicButtonState extends State<CustomGlassmorphicButton> {
+class _MaterialButtonState extends State<MaterialButton> {
   bool _isPressed = false;
 
   @override
@@ -491,55 +483,50 @@ class _CustomGlassmorphicButtonState extends State<CustomGlassmorphicButton> {
         }
       },
       onTapCancel: () => setState(() => _isPressed = false),
-      child: Container(
-        width: widget.width ?? double.infinity,
-        height: widget.height,
-        decoration: BoxDecoration(
+      child: Card(
+        elevation: widget.onPressed != null ? 6 : 2,
+        shadowColor: Colors.black26,
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          color: widget.backgroundColor ?? Colors.white.withValues(alpha: 0.15),
-          border: Border.all(
-            color: Colors.white.withValues(alpha: 0.3),
-            width: 1.5,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              blurRadius: 20,
-              spreadRadius: 2,
-            ),
-          ],
         ),
-        child: Center(
-          child: widget.isLoading
-              ? const SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                    strokeWidth: 2,
-                  ),
-                )
-              : Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (widget.icon != null) ...[
-                      Icon(
-                        widget.icon,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                      const SizedBox(width: 8),
-                    ],
-                    Text(
-                      widget.text,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
+        color: widget.backgroundColor ?? Theme.of(context).primaryColor,
+        child: Container(
+          width: widget.width ?? double.infinity,
+          height: widget.height,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            child: Center(
+            child: widget.isLoading
+                ? const SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: 2,
                     ),
-                  ],
-                ),
+                  )
+                : Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (widget.icon != null) ...[
+                        Icon(
+                          widget.icon,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                      Text(
+                        widget.text,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+          ),
         ),
       ).animate(target: _isPressed ? 1 : 0)
           .scale(
@@ -551,36 +538,24 @@ class _CustomGlassmorphicButtonState extends State<CustomGlassmorphicButton> {
   }
 }
 
-/// Container com fundo gradiente animado
-class AnimatedGradientBackground extends StatelessWidget {
+/// Container com fundo Material 3 limpo
+class CleanBackground extends StatelessWidget {
   final Widget child;
-  final List<Color>? colors;
+  final Color? backgroundColor;
 
-  const AnimatedGradientBackground({
+  const CleanBackground({
     super.key,
     required this.child,
-    this.colors,
+    this.backgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: colors ?? [
-            const Color(0xFF2196F3),
-            const Color(0xFF21CBF3),
-            const Color(0xFF42A5F5),
-          ],
-        ),
+        color: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
       ),
       child: child,
-    ).animate(onPlay: (controller) => controller.repeat())
-        .shimmer(
-          duration: 3000.ms,
-          color: Colors.white.withValues(alpha: 0.1),
-        );
+    );
   }
 }
