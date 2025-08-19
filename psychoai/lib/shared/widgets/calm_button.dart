@@ -75,7 +75,7 @@ class _CalmButtonState extends State<CalmButton>
                 boxShadow: [
                   BoxShadow(
                     color: (widget.backgroundColor ?? AppColors.primary)
-                        .withOpacity(0.3),
+                        .withValues(alpha: 0.3),
                     blurRadius: widget.elevation ?? 8,
                     offset: const Offset(0, 4),
                   ),
@@ -124,12 +124,12 @@ class _CalmButtonState extends State<CalmButton>
     return LinearGradient(
       colors: _isPressed
           ? [
-              baseColor.withOpacity(0.8),
-              baseColor.withOpacity(0.9),
+              baseColor.withValues(alpha: 0.8),
+              baseColor.withValues(alpha: 0.9),
             ]
           : [
               baseColor,
-              baseColor.withOpacity(0.8),
+              baseColor.withValues(alpha: 0.8),
             ],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,

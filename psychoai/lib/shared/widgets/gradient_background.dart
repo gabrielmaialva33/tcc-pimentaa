@@ -46,7 +46,7 @@ class DotPatternPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = AppColors.primary.withOpacity(0.03)
+      ..color = AppColors.primary.withValues(alpha: 0.03)
       ..style = PaintingStyle.fill;
 
     const spacing = 40.0;

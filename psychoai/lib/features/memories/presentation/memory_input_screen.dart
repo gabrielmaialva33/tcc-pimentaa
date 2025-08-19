@@ -117,10 +117,10 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: AppColors.surface.withOpacity(0.9),
+        color: AppColors.surface.withValues(alpha: 0.9),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppColors.primary.withOpacity(0.2),
+          color: AppColors.primary.withValues(alpha: 0.2),
           width: 1,
         ),
       ),
@@ -242,7 +242,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
             activeTrackColor: AppColors.primary,
             inactiveTrackColor: AppColors.surfaceVariant,
             thumbColor: AppColors.primary,
-            overlayColor: AppColors.primary.withOpacity(0.2),
+            overlayColor: AppColors.primary.withValues(alpha: 0.2),
             trackHeight: 6,
             thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12),
           ),
@@ -488,7 +488,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: AppColors.onSurfaceVariant.withOpacity(0.3),
+                color: AppColors.onSurfaceVariant.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -546,10 +546,10 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: AppColors.surfaceVariant.withOpacity(0.3),
+            color: AppColors.surfaceVariant.withValues(alpha: 0.3),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: AppColors.primary.withOpacity(0.2),
+              color: AppColors.primary.withValues(alpha: 0.2),
               width: 1,
             ),
           ),
@@ -623,7 +623,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: AppColors.surfaceVariant.withOpacity(0.2),
+            color: AppColors.surfaceVariant.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
@@ -651,10 +651,10 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
+            color: AppColors.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: AppColors.primary.withOpacity(0.3),
+              color: AppColors.primary.withValues(alpha: 0.3),
               width: 1,
             ),
           ),
@@ -684,7 +684,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
                 'Sempre discuta os insights com seu psicanalista para uma '
                 'compreensão mais profunda.',
                 style: AppTypography.textTheme.bodySmall?.copyWith(
-                  color: AppColors.onSurface.withOpacity(0.8),
+                  color: AppColors.onSurface.withValues(alpha: 0.8),
                 ),
               ),
             ],

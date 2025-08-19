@@ -86,7 +86,7 @@ class HeroAnimations {
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: tween.evaluate(animation)?.withOpacity(0.3) ?? Colors.transparent,
+                    color: tween.evaluate(animation)?.withValues(alpha: 0.3) ?? Colors.transparent,
                     blurRadius: 8 * animation.value,
                     offset: Offset(0, 4 * animation.value),
                   ),
@@ -133,7 +133,7 @@ class HeroAnimations {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1 * animation.value),
+                      color: Colors.black.withValues(alpha: 0.1 * animation.value),
                       blurRadius: 20 * animation.value,
                       offset: Offset(0, 10 * animation.value),
                     ),

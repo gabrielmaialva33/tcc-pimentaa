@@ -50,10 +50,10 @@ class EmotionSelector extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.warning.withOpacity(0.1),
+              color: AppColors.warning.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: AppColors.warning.withOpacity(0.3),
+                color: AppColors.warning.withValues(alpha: 0.3),
                 width: 1,
               ),
             ),
@@ -108,18 +108,18 @@ class EmotionSelector extends StatelessWidget {
         onSelected: (selected) {
           _handleEmotionSelection(emotion.name, selected);
         },
-        backgroundColor: emotion.color.withOpacity(0.1),
-        selectedColor: emotion.color.withOpacity(0.8),
+        backgroundColor: emotion.color.withValues(alpha: 0.1),
+        selectedColor: emotion.color.withValues(alpha: 0.8),
         checkmarkColor: AppColors.onPrimary,
         side: BorderSide(
-          color: emotion.color.withOpacity(isSelected ? 0.8 : 0.3),
+          color: emotion.color.withValues(alpha: isSelected ? 0.8 : 0.3),
           width: 1.5,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
         elevation: isSelected ? 4 : 0,
-        shadowColor: emotion.color.withOpacity(0.3),
+        shadowColor: emotion.color.withValues(alpha: 0.3),
       )
           .animate()
           .fadeIn(delay: (index * 100).ms, duration: 400.ms)
@@ -173,7 +173,7 @@ class SelectedEmotionsDisplay extends StatelessWidget {
           color: AppColors.surfaceVariant,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: AppColors.onSurfaceVariant.withOpacity(0.3),
+            color: AppColors.onSurfaceVariant.withValues(alpha: 0.3),
             width: 1,
           ),
         ),
@@ -202,10 +202,10 @@ class SelectedEmotionsDisplay extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: AppColors.primary.withOpacity(0.1),
+          color: AppColors.primary.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: AppColors.primary.withOpacity(0.3),
+            color: AppColors.primary.withValues(alpha: 0.3),
             width: 1,
           ),
         ),
@@ -226,7 +226,7 @@ class SelectedEmotionsDisplay extends StatelessWidget {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: emotion.color.withOpacity(0.2),
+                      color: emotion.color.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(

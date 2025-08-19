@@ -42,7 +42,7 @@ class MicroAnimations {
       height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: color ?? AppColors.accent.withOpacity(0.3),
+        color: color ?? AppColors.accent.withValues(alpha: 0.3),
       ),
     )
     .animate(onPlay: (controller) => controller.repeat())
@@ -73,7 +73,7 @@ class MicroAnimations {
         .animate(onPlay: (controller) => controller.repeat())
         .shimmer(
           duration: duration,
-          color: AppColors.primaryLight.withOpacity(0.3),
+          color: AppColors.primaryLight.withValues(alpha: 0.3),
           angle: 45,
         );
   }
@@ -110,8 +110,8 @@ class MicroAnimations {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  AppColors.accent.withOpacity(0.1),
-                  AppColors.primaryLight.withOpacity(0.05),
+                  AppColors.accent.withValues(alpha: 0.1),
+                  AppColors.primaryLight.withValues(alpha: 0.05),
                 ],
               ),
             ),
@@ -138,8 +138,8 @@ class MicroAnimations {
                 begin: Alignment.bottomRight,
                 end: Alignment.topLeft,
                 colors: [
-                  AppColors.secondary.withOpacity(0.08),
-                  AppColors.accentLight.withOpacity(0.04),
+                  AppColors.secondary.withValues(alpha: 0.08),
+                  AppColors.accentLight.withValues(alpha: 0.04),
                 ],
               ),
             ),
