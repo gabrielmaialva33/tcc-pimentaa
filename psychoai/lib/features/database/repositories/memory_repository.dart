@@ -171,11 +171,10 @@ class MemoryRepository {
         sort: {'createdAt': -1},
       );
       
-      final cursor = _collection.find(
-        filter,
-        skip: options['skip'],
-        limit: options['limit'],
-      ).sortBy({'createdAt': -1});
+      final cursor = _collection.find(filter)
+          .sort({'createdAt': -1})
+          .skip(options['skip'])
+          .limit(options['limit']);
       
       final results = await cursor.toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
@@ -205,8 +204,9 @@ class MemoryRepository {
         filter['createdAt'] = {'\$gte': cutoffDate};
       }
       
-      final cursor = _collection.find(filter, limit: limit)
-          .sortBy({'createdAt': -1});
+      final cursor = _collection.find(filter)
+          .sort({'createdAt': -1})
+          .limit(limit);
       
       final results = await cursor.toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
@@ -397,8 +397,9 @@ class MemoryRepository {
         },
       };
       
-      final cursor = _collection.find(filter, limit: limit * 2) // Buscar mais para filtrar
-          .sortBy({'createdAt': -1});
+      final cursor = _collection.find(filter)
+          .sort({'createdAt': -1})
+          .limit(limit * 2); // Buscar mais para filtrar
       
       final results = await cursor.toList();
       final memories = results.map((doc) => MemoryDocument.fromMongo(doc)).toList();
