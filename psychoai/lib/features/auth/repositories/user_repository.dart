@@ -136,8 +136,6 @@ class UserRepository {
   /// Busca analistas por CRP
   Future<UserProfile?> findByCrp(String crp) async {
     return await _client.executeWithRetry(() async {
-      print('🔍 [USER_REPO] Buscando analista por CRP: $crp');
-      
       final filter = {
         'crp': crp,
         'role': UserRole.analyst.value,
@@ -148,10 +146,8 @@ class UserRepository {
       
       if (result != null) {
         final user = UserProfile.fromMongo(result);
-        print('✅ [USER_REPO] Analista encontrado: ${user.email}');
         return user;
       } else {
-        print('❌ [USER_REPO] Analista não encontrado com CRP: $crp');
         return null;
       }
     });
@@ -160,8 +156,6 @@ class UserRepository {
   /// Atualiza um usuário
   Future<UserProfile?> update(String uid, UserProfile user) async {
     return await _client.executeWithRetry(() async {
-      print('🔄 [USER_REPO] Atualizando usuário: $uid');
-      
       if (!user.isValid) {
         throw MongoDBException('Dados do usuário são inválidos');
       }
@@ -182,10 +176,8 @@ class UserRepository {
       
       if (result != null) {
         final updatedUser = UserProfile.fromMongo(result);
-        print('✅ [USER_REPO] Usuário atualizado: ${updatedUser.email}');
         return updatedUser;
       } else {
-        print('❌ [USER_REPO] Usuário não encontrado para atualizar: $uid');
         return null;
       }
     });
@@ -194,8 +186,6 @@ class UserRepository {
   /// Atualiza último login
   Future<bool> updateLastLogin(String uid, String? ipAddress) async {
     return await _client.executeWithRetry(() async {
-      print('📝 [USER_REPO] Atualizando último login: $uid');
-      
       final filter = {'uid': uid};
       final update = {
         '\$set': {
@@ -211,12 +201,6 @@ class UserRepository {
       final result = await _collection.updateOne(filter, update);
       final success = result.isSuccess && result.nMatched > 0;
       
-      if (success) {
-        print('✅ [USER_REPO] Login atualizado para usuário: $uid');
-      } else {
-        print('❌ [USER_REPO] Falha ao atualizar login: $uid');
-      }
-      
       return success;
     });
   }
@@ -224,8 +208,6 @@ class UserRepository {
   /// Verifica analista profissionalmente
   Future<bool> verifyAnalyst(String uid, bool isVerified) async {
     return await _client.executeWithRetry(() async {
-      print('✅ [USER_REPO] ${isVerified ? 'Verificando' : 'Removendo verificação'} analista: $uid');
-      
       final filter = {
         'uid': uid,
         'role': UserRole.analyst.value,
@@ -241,12 +223,6 @@ class UserRepository {
       final result = await _collection.updateOne(filter, update);
       final success = result.isSuccess && result.nMatched > 0;
       
-      if (success) {
-        print('✅ [USER_REPO] Verificação atualizada para analista: $uid');
-      } else {
-        print('❌ [USER_REPO] Falha ao atualizar verificação: $uid');
-      }
-      
       return success;
     });
   }
@@ -254,8 +230,6 @@ class UserRepository {
   /// Desativa usuário (soft delete)
   Future<bool> deactivate(String uid) async {
     return await _client.executeWithRetry(() async {
-      print('🗑️ [USER_REPO] Desativando usuário: $uid');
-      
       final filter = {'uid': uid};
       final update = {
         '\$set': {
@@ -267,12 +241,6 @@ class UserRepository {
       final result = await _collection.updateOne(filter, update);
       final success = result.isSuccess && result.nMatched > 0;
       
-      if (success) {
-        print('✅ [USER_REPO] Usuário desativado: $uid');
-      } else {
-        print('❌ [USER_REPO] Falha ao desativar usuário: $uid');
-      }
-      
       return success;
     });
   }
@@ -280,8 +248,6 @@ class UserRepository {
   /// Reativa usuário
   Future<bool> reactivate(String uid) async {
     return await _client.executeWithRetry(() async {
-      print('♻️ [USER_REPO] Reativando usuário: $uid');
-      
       final filter = {'uid': uid};
       final update = {
         '\$set': {
@@ -293,12 +259,6 @@ class UserRepository {
       final result = await _collection.updateOne(filter, update);
       final success = result.isSuccess && result.nMatched > 0;
       
-      if (success) {
-        print('✅ [USER_REPO] Usuário reativado: $uid');
-      } else {
-        print('❌ [USER_REPO] Falha ao reativar usuário: $uid');
-      }
-      
       return success;
     });
   }
@@ -306,8 +266,6 @@ class UserRepository {
   /// Conta usuários por critérios
   Future<Map<String, int>> getUserCounts() async {
     return await _client.executeWithRetry(() async {
-      print('📊 [USER_REPO] Obtendo contadores de usuários');
-      
       final pipeline = [
         {
           '\$group': {
@@ -367,7 +325,6 @@ class UserRepository {
         }
       }
       
-      print('✅ [USER_REPO] Contadores obtidos: $counts');
       return counts;
     });
   }
@@ -375,17 +332,9 @@ class UserRepository {
   /// Remove permanentemente um usuário (hard delete)
   Future<bool> permanentDelete(String uid) async {
     return await _client.executeWithRetry(() async {
-      print('🗑️ [USER_REPO] Removendo permanentemente usuário: $uid');
-      
       final filter = {'uid': uid};
       final result = await _collection.deleteOne(filter);
       final success = result.isSuccess && result.nRemoved > 0;
-      
-      if (success) {
-        print('✅ [USER_REPO] Usuário removido permanentemente: $uid');
-      } else {
-        print('❌ [USER_REPO] Falha ao remover usuário: $uid');
-      }
       
       return success;
     });
