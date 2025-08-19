@@ -318,7 +318,7 @@ class AIProviderService {
   List<dynamic> getAvailableModels() {
     switch (_activeProvider) {
       case AIProvider.nvidia:
-        return NvidiaConfig.getAllModels();
+        return NvidiaConfig.getAllModels().values.toList();
       case AIProvider.alibaba:
         return AlibabaConfig.getAllModels();
     }

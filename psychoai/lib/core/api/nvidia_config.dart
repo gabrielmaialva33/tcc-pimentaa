@@ -115,6 +115,16 @@ class NvidiaConfig {
       maxTokens: 3072,
     ),
   };
+
+  /// Verifica se a configuração da NVIDIA está válida
+  static bool isConfigured() {
+    return apiKey.isNotEmpty && baseUrl.isNotEmpty;
+  }
+
+  /// Retorna todos os modelos disponíveis
+  static Map<String, ModelInfo> getAllModels() {
+    return availableModels;
+  }
 }
 
 /// Informações sobre um modelo específico
