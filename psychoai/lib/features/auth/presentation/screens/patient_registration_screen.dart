@@ -282,7 +282,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                   children: [
                     if (_currentStep > 0)
                       Expanded(
-                        child: GlassmorphicButton(
+                        child: CustomGlassmorphicButton(
                           text: 'Voltar',
                           onPressed: _previousStep,
                           icon: Icons.arrow_back,
@@ -291,7 +291,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
                     if (_currentStep > 0) const SizedBox(width: 16),
                     Expanded(
                       flex: _currentStep > 0 ? 1 : 2,
-                      child: GlassmorphicButton(
+                      child: CustomGlassmorphicButton(
                         text: _currentStep == 2 ? 'Criar Conta' : 'Continuar',
                         onPressed: _isLoading ? null : _nextStep,
                         isLoading: _isLoading && _currentStep == 2,

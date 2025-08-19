@@ -352,7 +352,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                   children: [
                     if (_currentStep > 0)
                       Expanded(
-                        child: GlassmorphicButton(
+                        child: CustomGlassmorphicButton(
                           text: 'Voltar',
                           onPressed: _previousStep,
                           icon: Icons.arrow_back,
@@ -361,7 +361,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                     if (_currentStep > 0) const SizedBox(width: 16),
                     Expanded(
                       flex: _currentStep > 0 ? 1 : 2,
-                      child: GlassmorphicButton(
+                      child: CustomGlassmorphicButton(
                         text: _currentStep == 2 ? 'Criar Conta' : 'Continuar',
                         onPressed: _isLoading ? null : _nextStep,
                         isLoading: _isLoading && _currentStep == 2,
@@ -621,7 +621,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
                           ),
                         ),
                         const SizedBox(width: 8),
-                        GlassmorphicButton(
+                        CustomGlassmorphicButton(
                           text: '+',
                           onPressed: _addCertification,
                           width: 56,

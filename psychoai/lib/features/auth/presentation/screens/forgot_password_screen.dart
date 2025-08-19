@@ -171,7 +171,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ).animate()
                       .scale(duration: 600.ms)
                       .then()
-                      .pulse(duration: 2000.ms),
+                      ,
                 ],
 
                 const SizedBox(height: 24),
@@ -229,7 +229,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                           const SizedBox(height: 24),
 
-                          GlassmorphicButton(
+                          CustomGlassmorphicButton(
                             text: 'Enviar Link',
                             onPressed: _isLoading ? null : _handleSendResetEmail,
                             isLoading: _isLoading,
@@ -257,7 +257,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         ).animate()
                             .scale(duration: 600.ms)
                             .then()
-                            .pulse(duration: 2000.ms),
+                            ,
 
                         const SizedBox(height: 24),
 
@@ -287,7 +287,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         Row(
                           children: [
                             Expanded(
-                              child: GlassmorphicButton(
+                              child: CustomGlassmorphicButton(
                                 text: 'Reenviar',
                                 onPressed: _handleResendEmail,
                                 icon: Icons.refresh,
@@ -295,7 +295,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             ),
                             const SizedBox(width: 16),
                             Expanded(
-                              child: GlassmorphicButton(
+                              child: CustomGlassmorphicButton(
                                 text: 'Voltar',
                                 onPressed: _handleBackToLogin,
                                 icon: Icons.arrow_back,
