@@ -211,7 +211,7 @@ class MemoryDocument {
 
   @override
   String toString() {
-    return 'MemoryDocument(id: ${idString}, userId: $userId, emotions: $emotions, '
+    return 'MemoryDocument(id: $idString, userId: $userId, emotions: $emotions, '
            'intensity: $emotionalIntensity, createdAt: $createdAt)';
   }
 

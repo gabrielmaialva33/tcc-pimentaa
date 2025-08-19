@@ -279,7 +279,7 @@ class AnalysisDocument {
 
   @override
   String toString() {
-    return 'AnalysisDocument(id: ${idString}, memoryId: ${memoryIdString}, '
+    return 'AnalysisDocument(id: $idString, memoryId: $memoryIdString, '
            'userId: $userId, provider: $provider, model: $modelUsed, '
            'quality: $quality, createdAt: $createdAt)';
   }
