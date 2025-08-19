@@ -120,74 +120,6 @@ class AppTypography {
     ),
   );
   
-  /// Estilos específicos para contextos terapêuticos
-  static class TherapeuticStyles {
-    /// Estilo para texto de lembranças/narrativas
-    static TextStyle get memoryText => GoogleFonts.inter(
-      fontSize: 16,
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0.1,
-      height: 1.8, // Altura generosa para facilitar leitura
-      color: const Color(0xFF2D3436),
-    );
-    
-    /// Estilo para insights da IA
-    static TextStyle get aiInsight => GoogleFonts.inter(
-      fontSize: 14,
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.2,
-      height: 1.6,
-      color: const Color(0xFF6B5B95),
-      fontStyle: FontStyle.italic,
-    );
-    
-    /// Estilo para labels de emoções
-    static TextStyle get emotionLabel => GoogleFonts.inter(
-      fontSize: 12,
-      fontWeight: FontWeight.w600,
-      letterSpacing: 0.5,
-      height: 1.3,
-      color: const Color(0xFF5D5D5D),
-    );
-    
-    /// Estilo para datas e timestamps
-    static TextStyle get timestamp => GoogleFonts.inter(
-      fontSize: 11,
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0.3,
-      height: 1.3,
-      color: const Color(0xFF8D8D8D),
-    );
-    
-    /// Estilo para placeholders suaves
-    static TextStyle get placeholder => GoogleFonts.inter(
-      fontSize: 16,
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0.1,
-      height: 1.6,
-      color: const Color(0xFFB0B0B0),
-      fontStyle: FontStyle.italic,
-    );
-    
-    /// Estilo para títulos de seções no dashboard
-    static TextStyle get dashboardSection => GoogleFonts.inter(
-      fontSize: 18,
-      fontWeight: FontWeight.w600,
-      letterSpacing: 0.1,
-      height: 1.3,
-      color: const Color(0xFF2D3436),
-    );
-    
-    /// Estilo para estatísticas/números
-    static TextStyle get statistic => GoogleFonts.inter(
-      fontSize: 24,
-      fontWeight: FontWeight.w700,
-      letterSpacing: -0.3,
-      height: 1.2,
-      color: const Color(0xFF6B5B95),
-    );
-  }
-  
   /// Configurações responsivas baseadas no tamanho da tela
   static TextTheme getResponsiveTextTheme(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -210,31 +142,98 @@ class AppTypography {
     if (screenWidth > 600) return 1.1;  // Tablets/Desktop
     return 1.0; // Telas médias (padrão mobile)
   }
+}
+
+/// Estilos específicos para contextos terapêuticos
+class TherapeuticStyles {
+  /// Estilo para texto de lembranças/narrativas
+  static TextStyle get memoryText => GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.1,
+    height: 1.8, // Altura generosa para facilitar leitura
+    color: const Color(0xFF2D3436),
+  );
   
-  /// Estilos para acessibilidade
-  static class AccessibilityStyles {
-    /// Texto grande para usuários com dificuldades visuais
-    static TextStyle get largeText => GoogleFonts.inter(
-      fontSize: 20,
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.1,
-      height: 1.8,
-    );
-    
-    /// Alto contraste para melhor legibilidade
-    static TextStyle get highContrast => GoogleFonts.inter(
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
-      letterSpacing: 0.2,
-      height: 1.6,
-      color: const Color(0xFF000000),
-    );
-  }
+  /// Estilo para insights da IA
+  static TextStyle get aiInsight => GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.2,
+    height: 1.6,
+    color: const Color(0xFF6B5B95),
+    fontStyle: FontStyle.italic,
+  );
+  
+  /// Estilo para labels de emoções
+  static TextStyle get emotionLabel => GoogleFonts.inter(
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.5,
+    height: 1.3,
+    color: const Color(0xFF5D5D5D),
+  );
+  
+  /// Estilo para datas e timestamps
+  static TextStyle get timestamp => GoogleFonts.inter(
+    fontSize: 11,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.3,
+    height: 1.3,
+    color: const Color(0xFF8D8D8D),
+  );
+  
+  /// Estilo para placeholders suaves
+  static TextStyle get placeholder => GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.1,
+    height: 1.6,
+    color: const Color(0xFFB0B0B0),
+    fontStyle: FontStyle.italic,
+  );
+  
+  /// Estilo para títulos de seções no dashboard
+  static TextStyle get dashboardSection => GoogleFonts.inter(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.1,
+    height: 1.3,
+    color: const Color(0xFF2D3436),
+  );
+  
+  /// Estilo para estatísticas/números
+  static TextStyle get statistic => GoogleFonts.inter(
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+    letterSpacing: -0.3,
+    height: 1.2,
+    color: const Color(0xFF6B5B95),
+  );
+}
+
+/// Estilos para acessibilidade
+class AccessibilityStyles {
+  /// Texto grande para usuários com dificuldades visuais
+  static TextStyle get largeText => GoogleFonts.inter(
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.1,
+    height: 1.8,
+  );
+  
+  /// Alto contraste para melhor legibilidade
+  static TextStyle get highContrast => GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.2,
+    height: 1.6,
+    color: const Color(0xFF000000),
+  );
 }
 
 /// Extensão para facilitar o uso da tipografia
 extension AppTypographyExtension on BuildContext {
   TextTheme get typography => AppTypography.textTheme;
-  AppTypography.TherapeuticStyles get therapeuticStyles => 
-      AppTypography.TherapeuticStyles();
+  TherapeuticStyles get therapeuticStyles => TherapeuticStyles();
 }
