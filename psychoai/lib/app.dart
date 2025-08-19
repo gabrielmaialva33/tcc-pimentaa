@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
+import 'core/theme/app_colors.dart';
+import 'core/theme/app_typography.dart';
 import 'features/auth/providers/auth_provider.dart';
 import 'features/auth/models/user_profile.dart';
 import 'features/auth/presentation/screens/login_screen.dart';
@@ -627,7 +629,6 @@ class OnboardingPage {
     required this.icon,
     required this.color,
   });
-}
 }
 
 /// Tela de erro
