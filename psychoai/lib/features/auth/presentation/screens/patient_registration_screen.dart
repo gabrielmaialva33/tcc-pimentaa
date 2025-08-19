@@ -318,7 +318,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
         key: _step1FormKey,
         child: Column(
           children: [
-            GlassmorphicContainer(
+            CustomGlassmorphicContainer(
               padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -401,7 +401,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
         key: _step2FormKey,
         child: Column(
           children: [
-            GlassmorphicContainer(
+            CustomGlassmorphicContainer(
               padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -494,7 +494,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
-              GlassmorphicContainer(
+              CustomGlassmorphicContainer(
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

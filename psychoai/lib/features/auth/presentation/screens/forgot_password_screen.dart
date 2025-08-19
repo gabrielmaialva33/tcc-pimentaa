@@ -209,7 +209,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 // Conteúdo principal
                 if (!_emailSent) ...[
                   // Formulário
-                  GlassmorphicContainer(
+                  CustomGlassmorphicContainer(
                     padding: const EdgeInsets.all(24),
                     child: Form(
                       key: _formKey,
@@ -246,7 +246,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       .scale(begin: const Offset(0.9, 0.9)),
                 ] else ...[
                   // Email enviado com sucesso
-                  GlassmorphicContainer(
+                  CustomGlassmorphicContainer(
                     padding: const EdgeInsets.all(24),
                     child: Column(
                       children: [

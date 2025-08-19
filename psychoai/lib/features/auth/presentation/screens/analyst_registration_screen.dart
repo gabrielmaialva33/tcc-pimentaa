@@ -389,7 +389,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
-              GlassmorphicContainer(
+              CustomGlassmorphicContainer(
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -486,7 +486,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
-              GlassmorphicContainer(
+              CustomGlassmorphicContainer(
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -688,7 +688,7 @@ class _AnalystRegistrationScreenState extends State<AnalystRegistrationScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
-              GlassmorphicContainer(
+              CustomGlassmorphicContainer(
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
