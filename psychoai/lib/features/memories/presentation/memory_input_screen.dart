@@ -325,12 +325,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
       return;
     }
     
-    // Validação adicional
-    if (memoryText.length < 10) {
-      print('❌ [DEBUG] Texto muito curto: ${memoryText.length} caracteres');
-      _showErrorDialog(Exception('Texto muito curto para análise. Mínimo: 10 caracteres.'));
-      return;
-    }
+    // A validação será feita no AIAnalysisService
     
     setState(() {
       _isAnalyzing = true;
