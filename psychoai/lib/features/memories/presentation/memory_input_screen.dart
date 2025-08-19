@@ -312,28 +312,51 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
   }
 
   void _analyzeMemory() async {
-    print('🔍 Iniciando análise da lembrança...');
+    final memoryText = _memoryController.text.trim();
     
-    if (!mounted) return;
+    print('🔍 [DEBUG] Iniciando análise da lembrança...');
+    print('📝 [DEBUG] Texto da lembrança: "${memoryText.substring(0, memoryText.length > 50 ? 50 : memoryText.length)}..."');
+    print('😊 [DEBUG] Emoções selecionadas: $_selectedEmotions');
+    print('📊 [DEBUG] Intensidade emocional: $_emotionalIntensity');
+    print('🎯 [DEBUG] Tipo de análise: ${AnalysisType.complete}');
+    
+    if (!mounted) {
+      print('❌ [DEBUG] Widget não montado, cancelando análise');
+      return;
+    }
+    
+    // Validação adicional
+    if (memoryText.length < 10) {
+      print('❌ [DEBUG] Texto muito curto: ${memoryText.length} caracteres');
+      _showErrorDialog(Exception('Texto muito curto para análise. Mínimo: 10 caracteres.'));
+      return;
+    }
     
     setState(() {
       _isAnalyzing = true;
     });
     
     try {
-      print('🚀 Chamando API da NVIDIA...');
+      print('🚀 [DEBUG] Chamando AIAnalysisService...');
+      print('🔗 [DEBUG] URL da API: ${_analysisService.toString()}');
       
       // Fazer análise real com NVIDIA API
       final result = await _analysisService.analyzeMemory(
-        memoryText: _memoryController.text.trim(),
+        memoryText: memoryText,
         emotions: _selectedEmotions,
         emotionalIntensity: _emotionalIntensity,
         analysisType: AnalysisType.complete,
       );
       
-      if (!mounted) return;
+      if (!mounted) {
+        print('❌ [DEBUG] Widget desmontado durante a análise');
+        return;
+      }
       
-      print('✅ Análise concluída, tokens usados: ${result.tokenUsage.totalTokens}');
+      print('✅ [DEBUG] Análise concluída com sucesso!');
+      print('🔢 [DEBUG] Tokens usados: ${result.tokenUsage.totalTokens}');
+      print('🤖 [DEBUG] Modelo usado: ${result.modelUsed}');
+      print('📄 [DEBUG] Tamanho da análise: ${result.analysisText.length} caracteres');
       
       setState(() {
         _isAnalyzing = false;
@@ -342,10 +365,14 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
       
       // Mostrar resultado da análise
       _showAnalysisResult();
-    } catch (e) {
-      print('❌ Erro na análise: $e');
+    } catch (e, stackTrace) {
+      print('❌ [DEBUG] Erro na análise: $e');
+      print('📋 [DEBUG] Stack trace: $stackTrace');
       
-      if (!mounted) return;
+      if (!mounted) {
+        print('❌ [DEBUG] Widget desmontado durante tratamento de erro');
+        return;
+      }
       
       setState(() {
         _isAnalyzing = false;

@@ -52,10 +52,10 @@ class NvidiaConfig {
     ),
   };
   
-  // Configurações de requisição
-  static const int timeoutSeconds = 30;
+  // Configurações de requisição (otimizadas para Android/móvel)
+  static const int timeoutSeconds = 60; // Aumentado para conexões móveis
   static const int maxRetries = 3;
-  static const Duration retryDelay = Duration(seconds: 2);
+  static const Duration retryDelay = Duration(seconds: 3); // Aumentado para evitar rate limit
   
   // Headers padrão
   static Map<String, String> get defaultHeaders => {
