@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnimatedGradientBackground(
+      body: CleanBackground(
         child: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),
@@ -160,16 +160,16 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                         height: 100,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white.withValues(alpha: 0.2),
+                          color: Theme.of(context).primaryColor.withOpacity(0.1),
                           border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.3),
+                            color: Theme.of(context).primaryColor.withOpacity(0.3),
                             width: 2,
                           ),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.psychology,
                           size: 50,
-                          color: Colors.white,
+                          color: Theme.of(context).primaryColor,
                         ),
                       ).animate()
                           .scale(delay: 200.ms, duration: 600.ms)
@@ -178,12 +178,12 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       
                       const SizedBox(height: 24),
                       
-                      const Text(
+                      Text(
                         'Bem-vindo de volta',
                         style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: Theme.of(context).primaryColor,
                         ),
                         textAlign: TextAlign.center,
                       ).animate()
@@ -196,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                         'Entre na sua conta PsychoAI',
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.white.withValues(alpha: 0.9),
+                          color: Colors.grey.shade700,
                         ),
                         textAlign: TextAlign.center,
                       ).animate()
@@ -208,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                   const SizedBox(height: 48),
                   
                   // Formulário de login
-                  CustomGlassmorphicContainer(
+                  MaterialCard(
                     padding: const EdgeInsets.all(24),
                     child: Column(
                       children: [
@@ -254,11 +254,11 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                             child: Text(
                               'Esqueci minha senha',
                               style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.9),
+                                color: Theme.of(context).primaryColor,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 decoration: TextDecoration.underline,
-                                decorationColor: Colors.white.withValues(alpha: 0.9),
+                                decorationColor: Theme.of(context).primaryColor,
                               ),
                             ),
                           ),
@@ -268,12 +268,12 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                         const SizedBox(height: 24),
                         
                         // Botão de login
-                        CustomGlassmorphicButton(
+                        MaterialButton(
                           text: 'Entrar',
                           onPressed: _isLoading ? null : _handleLogin,
                           isLoading: _isLoading,
                           icon: Icons.login,
-                          backgroundColor: Colors.white.withValues(alpha: 0.15),
+                          backgroundColor: Theme.of(context).primaryColor,
                         ).animate()
                             .fadeIn(delay: 1400.ms, duration: 600.ms)
                             .slideY(begin: 0.3, end: 0),
