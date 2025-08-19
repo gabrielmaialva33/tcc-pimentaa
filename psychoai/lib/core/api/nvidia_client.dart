@@ -138,12 +138,27 @@ class NvidiaClient {
   
   /// Trata exceções do Dio
   NvidiaException _handleDioException(DioException e) {
+    debugPrint('[NVIDIA API ERROR] Tipo: ${e.type}, Mensagem: ${e.message}');
+    debugPrint('[NVIDIA API ERROR] Status Code: ${e.response?.statusCode}');
+    debugPrint('[NVIDIA API ERROR] Response Data: ${e.response?.data}');
+    
     switch (e.type) {
       case DioExceptionType.connectionTimeout:
+        return NvidiaException(
+          'Tempo limite de conexão esgotado. Verifique sua conexão com a internet.',
+          code: 'CONNECTION_TIMEOUT',
+        );
+      
+      case DioExceptionType.sendTimeout:
+        return NvidiaException(
+          'Tempo limite para envio de dados esgotado. Tente novamente.',
+          code: 'SEND_TIMEOUT',
+        );
+        
       case DioExceptionType.receiveTimeout:
         return NvidiaException(
-          'Timeout na conexão com a API',
-          code: 'TIMEOUT',
+          'Tempo limite para receber resposta esgotado. A análise pode estar demorando mais que o esperado.',
+          code: 'RECEIVE_TIMEOUT',
         );
       
       case DioExceptionType.badResponse:
@@ -154,33 +169,47 @@ class NvidiaClient {
         switch (statusCode) {
           case 401:
             return NvidiaException(
-              'API Key inválida ou expirada',
+              'Erro de autenticação com a API NVIDIA. Verifique a configuração.',
               code: 'UNAUTHORIZED',
             );
           case 429:
             return NvidiaException(
-              'Limite de rate excedido. Tente novamente em alguns minutos',
+              'Muitas requisições. Aguarde alguns minutos antes de tentar novamente.',
               code: 'RATE_LIMIT',
             );
           case 500:
             return NvidiaException(
-              'Erro interno do servidor NVIDIA',
+              'Erro interno do servidor NVIDIA. Tente novamente mais tarde.',
               code: 'SERVER_ERROR',
             );
+          case 503:
+            return NvidiaException(
+              'Serviço NVIDIA temporariamente indisponível. Tente novamente em alguns minutos.',
+              code: 'SERVICE_UNAVAILABLE',
+            );
           default:
-            return NvidiaException(message, code: 'HTTP_ERROR');
+            return NvidiaException(
+              'Erro na API: $message',
+              code: 'HTTP_ERROR',
+            );
         }
       
       case DioExceptionType.cancel:
         return NvidiaException(
-          'Requisição cancelada',
+          'Análise cancelada pelo usuário.',
           code: 'CANCELLED',
+        );
+      
+      case DioExceptionType.connectionError:
+        return NvidiaException(
+          'Erro de conexão com a internet. Verifique sua conectividade.',
+          code: 'CONNECTION_ERROR',
         );
       
       default:
         return NvidiaException(
-          'Erro de conexão: ${e.message}',
-          code: 'CONNECTION_ERROR',
+          'Erro de rede: ${e.message ?? "Erro desconhecido"}',
+          code: 'NETWORK_ERROR',
         );
     }
   }
