@@ -6,6 +6,9 @@ import '../../../shared/widgets/gradient_background.dart';
 import '../../../shared/widgets/calm_button.dart';
 import 'widgets/emotion_selector.dart';
 import 'widgets/memory_text_field.dart';
+import '../../analysis/ai_analysis_service.dart';
+import '../../analysis/models/analysis_result.dart';
+import '../../analysis/prompts/freudian_prompt.dart';
 
 /// Tela principal para registro de lembranças
 class MemoryInputScreen extends StatefulWidget {
@@ -18,10 +21,12 @@ class MemoryInputScreen extends StatefulWidget {
 class _MemoryInputScreenState extends State<MemoryInputScreen> {
   final TextEditingController _memoryController = TextEditingController();
   final FocusNode _memoryFocusNode = FocusNode();
+  final AIAnalysisService _analysisService = AIAnalysisService();
   
   List<String> _selectedEmotions = [];
   double _emotionalIntensity = 0.5;
   bool _isAnalyzing = false;
+  AnalysisResult? _lastAnalysisResult;
   
   // Lista de emoções disponíveis
   final List<EmotionItem> _emotions = [
@@ -315,16 +320,23 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
     });
     
     try {
-      print('⏳ Simulando análise (3 segundos)...');
-      // Simular análise (integração real com NVIDIA API será implementada)
-      await Future.delayed(const Duration(seconds: 3));
+      print('🚀 Chamando API da NVIDIA...');
+      
+      // Fazer análise real com NVIDIA API
+      final result = await _analysisService.analyzeMemory(
+        memoryText: _memoryController.text.trim(),
+        emotions: _selectedEmotions,
+        emotionalIntensity: _emotionalIntensity,
+        analysisType: AnalysisType.complete,
+      );
       
       if (!mounted) return;
       
-      print('✅ Análise concluída, mostrando resultado...');
+      print('✅ Análise concluída, tokens usados: ${result.tokenUsage.totalTokens}');
       
       setState(() {
         _isAnalyzing = false;
+        _lastAnalysisResult = result;
       });
       
       // Mostrar resultado da análise
@@ -339,7 +351,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
       });
       
       // Mostrar erro
-      _showErrorDialog();
+      _showErrorDialog(e);
     }
   }
 
@@ -353,7 +365,13 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
     );
   }
   
-  void _showErrorDialog() {
+  void _showErrorDialog(Object error) {
+    String errorMessage = 'Não foi possível analisar a lembrança no momento. Tente novamente mais tarde.';
+    
+    if (error is AnalysisException) {
+      errorMessage = error.message;
+    }
+    
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -364,10 +382,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
             const Text('Erro na Análise'),
           ],
         ),
-        content: const Text(
-          'Não foi possível analisar a lembrança no momento. '
-          'Tente novamente mais tarde.',
-        ),
+        content: Text(errorMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -421,48 +436,14 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
           ),
           const SizedBox(height: 24),
           
-          // Conteúdo da análise simulado
+          // Conteúdo da análise real da API
           Expanded(
             child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildAnalysisSection(
-                    '🔍 Principais Insights',
-                    [
-                      'Esta lembrança apresenta elementos de nostalgia com tonalidade emocional significativa',
-                      'Possível presença de mecanismos de idealização do passado',
-                      'A intensidade emocional sugere conexão com experiências formativas',
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  
-                  _buildAnalysisSection(
-                    '🎭 Indicadores de Lembrança Encobridora',
-                    [
-                      'Detalhes vívidos em contraste com esquecimento de contexto',
-                      'Desproporção entre simplicidade do evento e carga emocional',
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  
-                  _buildAnalysisSection(
-                    '🛡️ Mecanismos de Defesa Identificados',
-                    [
-                      'Sublimação: Transformação de experiências em narrativa organizada',
-                      'Racionalização: Busca por sentido lógico em eventos emocionais',
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  
-                  _buildAnalysisSection(
-                    '💡 Sugestões para Exploração Terapêutica',
-                    [
-                      'Investigar contexto temporal da lembrança',
-                      'Explorar associações livres a partir dos elementos centrais',
-                      'Analisar padrões repetitivos em outras narrativas',
-                    ],
-                  ),
+              child: _lastAnalysisResult != null 
+                ? _buildRealAnalysisContent(_lastAnalysisResult!)
+                : _buildLoadingContent(),
+            ),
+          ),
                   const SizedBox(height: 32),
                   
                   Container(
