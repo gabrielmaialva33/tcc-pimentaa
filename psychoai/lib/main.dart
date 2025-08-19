@@ -10,11 +10,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
   try {
-    // Inicializar Firebase com opções da plataforma
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    debugPrint('✅ [MAIN] Firebase inicializado com sucesso');
+    // Verificar se Firebase já foi inicializado
+    if (Firebase.apps.isEmpty) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      debugPrint('✅ [MAIN] Firebase inicializado com sucesso');
+    } else {
+      debugPrint('ℹ️ [MAIN] Firebase já estava inicializado');
+    }
     
     runApp(const PsychoAIApp());
   } catch (e) {
