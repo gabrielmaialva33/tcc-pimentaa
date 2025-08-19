@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import '../models/user_profile.dart';
-import '../models/user_role.dart';
 import '../repositories/user_repository.dart';
 import '../../../core/database/mongodb_client.dart';
 
