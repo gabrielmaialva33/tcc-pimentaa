@@ -11,34 +11,34 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
-      
+
       // Esquema de cores
       colorScheme: const ColorScheme.light(
         primary: AppColors.primary,
         onPrimary: AppColors.onPrimary,
         primaryContainer: AppColors.primaryLight,
         onPrimaryContainer: AppColors.primaryDark,
-        
+
         secondary: AppColors.secondary,
         onSecondary: AppColors.onSecondary,
         secondaryContainer: AppColors.secondaryLight,
         onSecondaryContainer: AppColors.secondaryDark,
-        
+
         surface: AppColors.surface,
         onSurface: AppColors.onSurface,
         surfaceContainerHighest: AppColors.surfaceVariant,
         onSurfaceVariant: AppColors.onSurfaceVariant,
-        
+
         error: AppColors.error,
         onError: Colors.white,
-        
+
         outline: AppColors.onSurfaceVariant,
         shadow: Colors.black26,
       ),
-      
+
       // Tipografia
       textTheme: AppTypography.textTheme,
-      
+
       // Configuração da AppBar
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.surface,
@@ -54,7 +54,7 @@ class AppTheme {
           fontWeight: FontWeight.w600,
         ),
       ),
-      
+
       // Configuração dos Cards
       cardTheme: CardThemeData(
         color: AppColors.surface,
@@ -66,7 +66,7 @@ class AppTheme {
         ),
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
-      
+
       // Configuração dos Botões Elevados
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -83,7 +83,7 @@ class AppTheme {
           ),
         ),
       ),
-      
+
       // Configuração dos Botões de Texto
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
@@ -97,7 +97,7 @@ class AppTheme {
           ),
         ),
       ),
-      
+
       // Configuração dos Botões Outlined
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
@@ -112,7 +112,7 @@ class AppTheme {
           ),
         ),
       ),
-      
+
       // Configuração dos FloatingActionButtons
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.accent,
@@ -120,7 +120,7 @@ class AppTheme {
         elevation: 6,
         shape: CircleBorder(),
       ),
-      
+
       // Configuração dos TextFields
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
@@ -156,7 +156,7 @@ class AppTheme {
           color: AppColors.onSurfaceVariant,
         ),
       ),
-      
+
       // Configuração dos Chips
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.surfaceVariant,
@@ -169,7 +169,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-      
+
       // Configuração dos Dialogs
       dialogTheme: DialogThemeData(
         backgroundColor: AppColors.surface,
@@ -185,14 +185,14 @@ class AppTheme {
           color: AppColors.onSurface,
         ),
       ),
-      
+
       // Configuração dos Dividers
       dividerTheme: DividerThemeData(
         color: AppColors.onSurfaceVariant.withValues(alpha: 0.2),
         thickness: 1,
         space: 1,
       ),
-      
+
       // Configuração do BottomNavigationBar
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.surface,
@@ -201,7 +201,7 @@ class AppTheme {
         type: BottomNavigationBarType.fixed,
         elevation: 8,
       ),
-      
+
       // Configuração dos Tabs
       tabBarTheme: TabBarThemeData(
         labelColor: AppColors.primary,
@@ -221,7 +221,7 @@ class AppTheme {
       ),
     );
   }
-  
+
   /// Tema escuro - modo noturno terapêutico
   static ThemeData get darkTheme {
     return lightTheme.copyWith(
@@ -247,7 +247,7 @@ class AppTheme {
       ),
     );
   }
-  
+
   /// Tema de alto contraste para acessibilidade
   static ThemeData get highContrastTheme {
     return lightTheme.copyWith(

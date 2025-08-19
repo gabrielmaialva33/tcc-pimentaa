@@ -22,12 +22,12 @@ class GradientBackground extends StatelessWidget {
       ),
       child: showPattern
           ? Stack(
-              children: [
-                // Padrão sutil de pontos para textura
-                _buildPattern(),
-                child,
-              ],
-            )
+        children: [
+          // Padrão sutil de pontos para textura
+          _buildPattern(),
+          child,
+        ],
+      )
           : child,
     );
   }

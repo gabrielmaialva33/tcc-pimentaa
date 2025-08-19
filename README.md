@@ -2,7 +2,8 @@
 
 ## 🧠 Sobre o Projeto
 
-Aplicação Flutter (mobile/web) que utiliza Inteligência Artificial para analisar lembranças de pacientes, identificando padrões psicanalíticos baseados na teoria freudiana das "lembranças encobridoras".
+Aplicação Flutter (mobile/web) que utiliza Inteligência Artificial para analisar lembranças de pacientes, identificando
+padrões psicanalíticos baseados na teoria freudiana das "lembranças encobridoras".
 
 ## 🎯 Problema Identificado
 
@@ -14,11 +15,13 @@ Aplicação Flutter (mobile/web) que utiliza Inteligência Artificial para anali
 ## 💡 Solução Proposta
 
 ### Para Pacientes
+
 - Interface intuitiva para registro de lembranças (livre associação digital)
 - Ambiente seguro e calmante para expressão
 - Histórico pessoal de memórias e insights
 
 ### Para Psicanalistas
+
 - Relatórios de pré-análise gerados por IA
 - Dashboard com insights sobre padrões comportamentais
 - Timeline visual do progresso do paciente
@@ -42,12 +45,14 @@ Aplicação Flutter (mobile/web) que utiliza Inteligência Artificial para anali
 ## 🎨 Design Principles
 
 ### Paleta de Cores Terapêutica
+
 - **Primary**: #6B5B95 (Lavanda profunda - tranquilidade)
 - **Secondary**: #88B0D3 (Azul serenidade - confiança)
 - **Background**: #F7F4F0 (Creme suave - acolhimento)
 - **Accent**: #A8DADC (Verde água - equilíbrio)
 
 ### Princípios UX
+
 - **Calma e segurança**: Ambiente visual acolhedor
 - **Simplicidade**: Navegação intuitiva para reduzir carga cognitiva
 - **Acessibilidade**: Fontes legíveis, contraste adequado
@@ -56,11 +61,13 @@ Aplicação Flutter (mobile/web) que utiliza Inteligência Artificial para anali
 ## 🔬 Fundamentação Teórica
 
 ### Conceitos Freudianos
+
 - **Lembranças Encobridoras** (1899): Memórias que ocultam experiências significativas
 - **Livre Associação**: Método adaptado para interface digital
 - **Inconsciente**: Análise de padrões não explícitos nos relatos
 
 ### IA na Psicanálise
+
 - **Processamento de Linguagem Natural**: Análise semântica
 - **Detecção de Padrões**: Identificação de temas recorrentes
 - **Análise de Sentimentos**: Mapeamento emocional
@@ -68,6 +75,7 @@ Aplicação Flutter (mobile/web) que utiliza Inteligência Artificial para anali
 ## 🚀 Como Executar
 
 ### Desenvolvimento Local
+
 ```bash
 # Clone o repositório
 git clone https://github.com/gabrielmaia/tcc-pimentaa.git
@@ -78,11 +86,13 @@ flutter run -d chrome
 ```
 
 ### Build para Web
+
 ```bash
 flutter build web --base-href /tcc-pimentaa/
 ```
 
 ### Deploy Automático
+
 Push para branch `main` dispara deploy automático no GitHub Pages.
 
 ## 📱 Demo

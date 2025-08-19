@@ -22,12 +22,12 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
   final TextEditingController _memoryController = TextEditingController();
   final FocusNode _memoryFocusNode = FocusNode();
   final AIAnalysisService _analysisService = AIAnalysisService();
-  
+
   List<String> _selectedEmotions = [];
   double _emotionalIntensity = 0.5;
   bool _isAnalyzing = false;
   AnalysisResult? _lastAnalysisResult;
-  
+
   // Lista de emoções disponíveis
   final List<EmotionItem> _emotions = [
     EmotionItem('Alegria', '😊', AppColors.joy),
@@ -73,7 +73,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
                   ),
                 ],
               ),
-              
+
               // Conteúdo principal
               SliverPadding(
                 padding: const EdgeInsets.all(24),
@@ -81,27 +81,27 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
                   delegate: SliverChildListDelegate([
                     // Instrução principal
                     _buildInstructionCard(),
-                    
+
                     const SizedBox(height: 32),
-                    
+
                     // Campo de texto para a lembrança
                     _buildMemorySection(),
-                    
+
                     const SizedBox(height: 32),
-                    
+
                     // Seletor de emoções
                     _buildEmotionsSection(),
-                    
+
                     const SizedBox(height: 24),
-                    
+
                     // Slider de intensidade emocional
                     _buildIntensitySection(),
-                    
+
                     const SizedBox(height: 40),
-                    
+
                     // Botão de análise
                     _buildAnalyzeButton(),
-                    
+
                     const SizedBox(height: 24),
                   ]),
                 ),
@@ -285,8 +285,9 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
 
   Widget _buildAnalyzeButton() {
     final memoryText = _memoryController.text.trim();
-    final canAnalyze = memoryText.length >= 10; // Reduzido de 20 para 10 caracteres
-    
+    final canAnalyze = memoryText.length >=
+        10; // Reduzido de 20 para 10 caracteres
+
     return CalmButton(
       onPressed: canAnalyze ? _analyzeMemory : null,
       isLoading: _isAnalyzing,
@@ -313,33 +314,35 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
 
   void _analyzeMemory() async {
     final memoryText = _memoryController.text.trim();
-    
+
     print('🔍 [DEBUG] Iniciando análise da lembrança...');
-    print('📝 [DEBUG] Texto da lembrança: "${memoryText.substring(0, memoryText.length > 50 ? 50 : memoryText.length)}..."');
+    print('📝 [DEBUG] Texto da lembrança: "${memoryText.substring(
+        0, memoryText.length > 50 ? 50 : memoryText.length)}..."');
     print('😊 [DEBUG] Emoções selecionadas: $_selectedEmotions');
     print('📊 [DEBUG] Intensidade emocional: $_emotionalIntensity');
     print('🎯 [DEBUG] Tipo de análise: ${AnalysisType.complete}');
-    
+
     if (!mounted) {
       print('❌ [DEBUG] Widget não montado, cancelando análise');
       return;
     }
-    
+
     // A validação será feita no AIAnalysisService
-    
+
     setState(() {
       _isAnalyzing = true;
     });
-    
+
     try {
       print('🚀 [DEBUG] Chamando AIAnalysisService...');
       print('🔗 [DEBUG] URL da API: ${_analysisService.toString()}');
-      
+
       // Validar primeiro para mostrar avisos se necessário
       final validation = FreudianPrompts.validateMemoryText(memoryText);
       if (validation.isSensitiveContent && validation.message != null) {
         // Mostrar aviso sobre conteúdo sensível antes de continuar
-        final shouldContinue = await _showSensitiveContentWarning(validation.message!);
+        final shouldContinue = await _showSensitiveContentWarning(
+            validation.message!);
         if (!shouldContinue) {
           setState(() {
             _isAnalyzing = false;
@@ -347,7 +350,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
           return;
         }
       }
-      
+
       // Fazer análise real com NVIDIA API
       final result = await _analysisService.analyzeMemory(
         memoryText: memoryText,
@@ -355,37 +358,38 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
         emotionalIntensity: _emotionalIntensity,
         analysisType: AnalysisType.complete,
       );
-      
+
       if (!mounted) {
         print('❌ [DEBUG] Widget desmontado durante a análise');
         return;
       }
-      
+
       print('✅ [DEBUG] Análise concluída com sucesso!');
       print('🔢 [DEBUG] Tokens usados: ${result.tokenUsage.totalTokens}');
       print('🤖 [DEBUG] Modelo usado: ${result.modelUsed}');
-      print('📄 [DEBUG] Tamanho da análise: ${result.analysisText.length} caracteres');
-      
+      print('📄 [DEBUG] Tamanho da análise: ${result.analysisText
+          .length} caracteres');
+
       setState(() {
         _isAnalyzing = false;
         _lastAnalysisResult = result;
       });
-      
+
       // Mostrar resultado da análise
       _showAnalysisResult();
     } catch (e, stackTrace) {
       print('❌ [DEBUG] Erro na análise: $e');
       print('📋 [DEBUG] Stack trace: $stackTrace');
-      
+
       if (!mounted) {
         print('❌ [DEBUG] Widget desmontado durante tratamento de erro');
         return;
       }
-      
+
       setState(() {
         _isAnalyzing = false;
       });
-      
+
       // Mostrar erro
       _showErrorDialog(e);
     }
@@ -400,80 +404,85 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
       builder: (context) => _buildAnalysisModal(),
     );
   }
-  
+
   Future<bool> _showSensitiveContentWarning(String message) async {
     return await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Row(
-          children: [
-            Icon(Icons.warning_outlined, color: AppColors.warning),
-            const SizedBox(width: 8),
-            const Text('Conteúdo Sensível'),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(message),
-            const SizedBox(height: 16),
-            Text(
-              'Deseja continuar com a análise?',
-              style: AppTypography.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w600,
+      builder: (context) =>
+          AlertDialog(
+            title: Row(
+              children: [
+                Icon(Icons.warning_outlined, color: AppColors.warning),
+                const SizedBox(width: 8),
+                const Text('Conteúdo Sensível'),
+              ],
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(message),
+                const SizedBox(height: 16),
+                Text(
+                  'Deseja continuar com a análise?',
+                  style: AppTypography.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text('Cancelar'),
               ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancelar'),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context, true),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                ),
+                child: const Text('Continuar'),
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context, true),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
-            ),
-            child: const Text('Continuar'),
-          ),
-        ],
-      ),
     ) ?? false;
   }
 
   void _showErrorDialog(Object error) {
     String errorMessage = 'Não foi possível analisar a lembrança no momento. Tente novamente mais tarde.';
-    
+
     if (error is AnalysisException) {
       errorMessage = error.message;
     }
-    
+
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Row(
-          children: [
-            Icon(Icons.error_outline, color: AppColors.error),
-            const SizedBox(width: 8),
-            const Text('Erro na Análise'),
-          ],
-        ),
-        content: Text(errorMessage),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+      builder: (context) =>
+          AlertDialog(
+            title: Row(
+              children: [
+                Icon(Icons.error_outline, color: AppColors.error),
+                const SizedBox(width: 8),
+                const Text('Erro na Análise'),
+              ],
+            ),
+            content: Text(errorMessage),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('OK'),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
   Widget _buildAnalysisModal() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.8,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height * 0.8,
       decoration: const BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
@@ -494,7 +503,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
             ),
           ),
           const SizedBox(height: 24),
-          
+
           Row(
             children: [
               Icon(
@@ -513,18 +522,18 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
             ],
           ),
           const SizedBox(height: 24),
-          
+
           // Conteúdo da análise real da API
           Expanded(
             child: SingleChildScrollView(
-              child: _lastAnalysisResult != null 
-                ? _buildRealAnalysisContent(_lastAnalysisResult!)
-                : _buildLoadingContent(),
+              child: _lastAnalysisResult != null
+                  ? _buildRealAnalysisContent(_lastAnalysisResult!)
+                  : _buildLoadingContent(),
             ),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // Botão para fechar
           SizedBox(
             width: double.infinity,
@@ -584,7 +593,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
             ],
           ),
         ),
-        
+
         if (result.insights.isNotEmpty) ...[
           const SizedBox(height: 20),
           _buildAnalysisSection(
@@ -592,7 +601,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
             result.insights,
           ),
         ],
-        
+
         if (result.screenMemoryIndicators.isNotEmpty) ...[
           const SizedBox(height: 20),
           _buildAnalysisSection(
@@ -600,7 +609,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
             result.screenMemoryIndicators,
           ),
         ],
-        
+
         if (result.defenseMechanisms.isNotEmpty) ...[
           const SizedBox(height: 20),
           _buildAnalysisSection(
@@ -608,7 +617,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
             result.defenseMechanisms,
           ),
         ],
-        
+
         if (result.therapeuticSuggestions.isNotEmpty) ...[
           const SizedBox(height: 20),
           _buildAnalysisSection(
@@ -616,9 +625,9 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
             result.therapeuticSuggestions,
           ),
         ],
-        
+
         const SizedBox(height: 20),
-        
+
         // Informações técnicas
         Container(
           padding: const EdgeInsets.all(12),
@@ -644,9 +653,9 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
             ],
           ),
         ),
-        
+
         const SizedBox(height: 32),
-        
+
         // Nota importante
         Container(
           padding: const EdgeInsets.all(16),
@@ -681,8 +690,8 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
               const SizedBox(height: 8),
               Text(
                 'Esta análise é uma ferramenta de apoio ao processo terapêutico. '
-                'Sempre discuta os insights com seu psicanalista para uma '
-                'compreensão mais profunda.',
+                    'Sempre discuta os insights com seu psicanalista para uma '
+                    'compreensão mais profunda.',
                 style: AppTypography.textTheme.bodySmall?.copyWith(
                   color: AppColors.onSurface.withValues(alpha: 0.8),
                 ),
@@ -713,7 +722,7 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
       ),
     );
   }
-  
+
   Widget _buildAnalysisSection(String title, List<String> items) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -726,32 +735,33 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
           ),
         ),
         const SizedBox(height: 12),
-        ...items.map((item) => Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 6,
-                height: 6,
-                margin: const EdgeInsets.only(top: 8, right: 12),
-                decoration: BoxDecoration(
-                  color: AppColors.accent,
-                  shape: BoxShape.circle,
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  item,
-                  style: AppTypography.textTheme.bodyMedium?.copyWith(
-                    color: AppColors.onSurface,
-                    height: 1.5,
+        ...items.map((item) =>
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 6,
+                    height: 6,
+                    margin: const EdgeInsets.only(top: 8, right: 12),
+                    decoration: BoxDecoration(
+                      color: AppColors.accent,
+                      shape: BoxShape.circle,
+                    ),
                   ),
-                ),
+                  Expanded(
+                    child: Text(
+                      item,
+                      style: AppTypography.textTheme.bodyMedium?.copyWith(
+                        color: AppColors.onSurface,
+                        height: 1.5,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        )).toList(),
+            )).toList(),
       ],
     );
   }
@@ -759,27 +769,28 @@ class _MemoryInputScreenState extends State<MemoryInputScreen> {
   void _showInfo() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Row(
-          children: [
-            Icon(Icons.psychology_outlined, color: AppColors.primary),
-            const SizedBox(width: 8),
-            Text('Sobre o PsychoAI'),
-          ],
-        ),
-        content: Text(
-          'Este app utiliza princípios da psicanálise freudiana para analisar suas lembranças. '
-          'A IA identifica possíveis "lembranças encobridoras" e padrões psicológicos para '
-          'auxiliar no processo de autoconhecimento.',
-          style: AppTypography.textTheme.bodyMedium,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Entendi'),
+      builder: (context) =>
+          AlertDialog(
+            title: Row(
+              children: [
+                Icon(Icons.psychology_outlined, color: AppColors.primary),
+                const SizedBox(width: 8),
+                Text('Sobre o PsychoAI'),
+              ],
+            ),
+            content: Text(
+              'Este app utiliza princípios da psicanálise freudiana para analisar suas lembranças. '
+                  'A IA identifica possíveis "lembranças encobridoras" e padrões psicológicos para '
+                  'auxiliar no processo de autoconhecimento.',
+              style: AppTypography.textTheme.bodyMedium,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Entendi'),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 

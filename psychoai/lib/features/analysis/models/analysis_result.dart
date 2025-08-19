@@ -67,9 +67,11 @@ class AnalysisResult {
       analysisType: analysisType ?? this.analysisType,
       analysisText: analysisText ?? this.analysisText,
       insights: insights ?? this.insights,
-      screenMemoryIndicators: screenMemoryIndicators ?? this.screenMemoryIndicators,
+      screenMemoryIndicators: screenMemoryIndicators ??
+          this.screenMemoryIndicators,
       defenseMechanisms: defenseMechanisms ?? this.defenseMechanisms,
-      therapeuticSuggestions: therapeuticSuggestions ?? this.therapeuticSuggestions,
+      therapeuticSuggestions: therapeuticSuggestions ??
+          this.therapeuticSuggestions,
       timestamp: timestamp ?? this.timestamp,
       modelUsed: modelUsed ?? this.modelUsed,
       tokenUsage: tokenUsage ?? this.tokenUsage,
@@ -79,42 +81,44 @@ class AnalysisResult {
   /// Retorna resumo da análise para exibição
   String get summary {
     final buffer = StringBuffer();
-    
+
     if (insights.isNotEmpty) {
       buffer.writeln('🔍 Principais Insights:');
       for (final insight in insights.take(3)) {
         buffer.writeln('• $insight');
       }
     }
-    
+
     if (screenMemoryIndicators.isNotEmpty) {
       buffer.writeln('\n🎭 Indicadores de Lembrança Encobridora:');
       for (final indicator in screenMemoryIndicators.take(2)) {
         buffer.writeln('• $indicator');
       }
     }
-    
+
     if (defenseMechanisms.isNotEmpty) {
-      buffer.writeln('\n🛡️ Mecanismos de Defesa: ${defenseMechanisms.join(', ')}');
+      buffer.writeln(
+          '\n🛡️ Mecanismos de Defesa: ${defenseMechanisms.join(', ')}');
     }
-    
+
     return buffer.toString();
   }
 
   /// Verifica se há indicadores fortes de lembrança encobridora
-  bool get hasStrongScreenMemoryIndicators => screenMemoryIndicators.length >= 2;
+  bool get hasStrongScreenMemoryIndicators =>
+      screenMemoryIndicators.length >= 2;
 
   /// Retorna a qualidade da análise baseada em métricas
   AnalysisQuality get quality {
     int score = 0;
-    
+
     // Pontuação baseada na completude da análise
     if (insights.length >= 3) score += 2;
     if (screenMemoryIndicators.isNotEmpty) score += 1;
     if (defenseMechanisms.isNotEmpty) score += 1;
     if (therapeuticSuggestions.length >= 2) score += 2;
     if (analysisText.length >= 500) score += 1;
-    
+
     if (score >= 6) return AnalysisQuality.excellent;
     if (score >= 4) return AnalysisQuality.good;
     if (score >= 2) return AnalysisQuality.fair;
@@ -181,6 +185,7 @@ enum AnalysisQuality {
   excellent('Excelente');
 
   const AnalysisQuality(this.displayName);
+
   final String displayName;
 }
 

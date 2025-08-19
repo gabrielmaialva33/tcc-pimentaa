@@ -41,7 +41,7 @@ class _MemoryTextFieldState extends State<MemoryTextField>
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    
+
     _borderColorAnimation = ColorTween(
       begin: AppColors.onSurfaceVariant.withValues(alpha: 0.3),
       end: AppColors.primary,
@@ -59,7 +59,7 @@ class _MemoryTextFieldState extends State<MemoryTextField>
     setState(() {
       _isFocused = widget.focusNode.hasFocus;
     });
-    
+
     if (_isFocused) {
       _animationController.forward();
     } else {
@@ -92,12 +92,12 @@ class _MemoryTextFieldState extends State<MemoryTextField>
                 color: AppColors.surface,
                 boxShadow: _isFocused
                     ? [
-                        BoxShadow(
-                          color: AppColors.primary.withValues(alpha: 0.1),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
-                        ),
-                      ]
+                  BoxShadow(
+                    color: AppColors.primary.withValues(alpha: 0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
                     : [],
               ),
               child: Padding(
@@ -126,7 +126,7 @@ class _MemoryTextFieldState extends State<MemoryTextField>
                       ),
                       const SizedBox(height: 12),
                     ],
-                    
+
                     // Campo de texto principal
                     TextField(
                       controller: widget.controller,
@@ -149,7 +149,7 @@ class _MemoryTextFieldState extends State<MemoryTextField>
             );
           },
         ),
-        
+
         // Footer com informações e contador
         const SizedBox(height: 12),
         Row(
@@ -169,27 +169,28 @@ class _MemoryTextFieldState extends State<MemoryTextField>
                     .fadeIn(duration: 400.ms)
                     .slideY(begin: 10, end: 0),
               ),
-            ] else if (_characterCount >= 50) ...[
-              Expanded(
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.check_circle_outline,
-                      color: AppColors.success,
-                      size: 16,
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      'Ótimo! Continue expressando seus pensamentos.',
-                      style: AppTypography.textTheme.bodySmall?.copyWith(
+            ] else
+              if (_characterCount >= 50) ...[
+                Expanded(
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.check_circle_outline,
                         color: AppColors.success,
+                        size: 16,
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 6),
+                      Text(
+                        'Ótimo! Continue expressando seus pensamentos.',
+                        style: AppTypography.textTheme.bodySmall?.copyWith(
+                          color: AppColors.success,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-            
+              ],
+
             // Contador de caracteres
             _buildCharacterCounter(),
           ],
@@ -237,8 +238,10 @@ class _MemoryTextFieldState extends State<MemoryTextField>
       'Me lembro claramente de...',
       'Sempre que penso nisso...',
     ];
-    
-    return hints[(DateTime.now().millisecondsSinceEpoch ~/ 1000) % hints.length];
+
+    return hints[(DateTime
+        .now()
+        .millisecondsSinceEpoch ~/ 1000) % hints.length];
   }
 
   @override
@@ -262,7 +265,7 @@ class MemoryStats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final stats = _calculateStats(text);
-    
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -318,17 +321,26 @@ class MemoryStats extends StatelessWidget {
   }
 
   TextStats _calculateStats(String text) {
-    if (text.trim().isEmpty) {
+    if (text
+        .trim()
+        .isEmpty) {
       return TextStats(wordCount: 0, sentenceCount: 0, estimatedReadingTime: 0);
     }
 
     // Contar palavras
     final words = text.trim().split(RegExp(r'\s+'));
-    final wordCount = words.where((word) => word.isNotEmpty).length;
+    final wordCount = words
+        .where((word) => word.isNotEmpty)
+        .length;
 
     // Contar frases (aproximadamente)
     final sentences = text.split(RegExp(r'[.!?]+'));
-    final sentenceCount = sentences.where((s) => s.trim().isNotEmpty).length;
+    final sentenceCount = sentences
+        .where((s) =>
+    s
+        .trim()
+        .isNotEmpty)
+        .length;
 
     // Tempo estimado de leitura (200 palavras por minuto)
     final estimatedReadingTime = (wordCount / 200).ceil();

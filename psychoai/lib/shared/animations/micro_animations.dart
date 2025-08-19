@@ -4,7 +4,7 @@ import '../../core/theme/app_colors.dart';
 
 /// Classe para micro-animações sutis que melhoram a UX
 class MicroAnimations {
-  
+
   /// Animação de pulse suave para botões importantes
   static Widget pulseButton({
     required Widget child,
@@ -13,22 +13,22 @@ class MicroAnimations {
     double intensity = 0.05,
   }) {
     if (!enabled) return child;
-    
+
     return child
         .animate(onPlay: (controller) => controller.repeat())
         .scale(
-          begin: const Offset(1.0, 1.0),
-          end: Offset(1.0 + intensity, 1.0 + intensity),
-          duration: duration,
-          curve: Curves.easeInOut,
-        )
+      begin: const Offset(1.0, 1.0),
+      end: Offset(1.0 + intensity, 1.0 + intensity),
+      duration: duration,
+      curve: Curves.easeInOut,
+    )
         .then()
         .scale(
-          begin: Offset(1.0 + intensity, 1.0 + intensity),
-          end: const Offset(1.0, 1.0),
-          duration: duration,
-          curve: Curves.easeInOut,
-        );
+      begin: Offset(1.0 + intensity, 1.0 + intensity),
+      end: const Offset(1.0, 1.0),
+      duration: duration,
+      curve: Curves.easeInOut,
+    );
   }
 
   /// Animação de breathing para exercícios de relaxamento
@@ -45,15 +45,15 @@ class MicroAnimations {
         color: color ?? AppColors.accent.withValues(alpha: 0.3),
       ),
     )
-    .animate(onPlay: (controller) => controller.repeat())
-    .scale(
+        .animate(onPlay: (controller) => controller.repeat())
+        .scale(
       begin: const Offset(0.8, 0.8),
       end: const Offset(1.2, 1.2),
       duration: duration,
       curve: Curves.easeInOut,
     )
-    .then()
-    .scale(
+        .then()
+        .scale(
       begin: const Offset(1.2, 1.2),
       end: const Offset(0.8, 0.8),
       duration: duration,
@@ -68,14 +68,14 @@ class MicroAnimations {
     Duration duration = const Duration(milliseconds: 1500),
   }) {
     if (!enabled) return child;
-    
+
     return child
         .animate(onPlay: (controller) => controller.repeat())
         .shimmer(
-          duration: duration,
-          color: AppColors.primaryLight.withValues(alpha: 0.3),
-          angle: 45,
-        );
+      duration: duration,
+      color: AppColors.primaryLight.withValues(alpha: 0.3),
+      angle: 45,
+    );
   }
 
   /// Animação de typing para texto sendo "digitado"
@@ -89,10 +89,10 @@ class MicroAnimations {
         .animate()
         .fade(delay: delay, duration: const Duration(milliseconds: 300))
         .scale(
-          delay: delay,
-          begin: const Offset(0.8, 0.8),
-          curve: Curves.easeOutBack,
-        );
+      delay: delay,
+      begin: const Offset(0.8, 0.8),
+      curve: Curves.easeOutBack,
+    );
   }
 
   /// Animação de ondas suaves para background
@@ -116,8 +116,8 @@ class MicroAnimations {
               ),
             ),
           )
-          .animate(onPlay: (controller) => controller.repeat())
-          .custom(
+              .animate(onPlay: (controller) => controller.repeat())
+              .custom(
             duration: duration,
             builder: (context, value, child) {
               return Transform.translate(
@@ -144,9 +144,10 @@ class MicroAnimations {
               ),
             ),
           )
-          .animate(onPlay: (controller) => controller.repeat())
-          .custom(
-            duration: Duration(milliseconds: (duration.inMilliseconds * 1.3).round()),
+              .animate(onPlay: (controller) => controller.repeat())
+              .custom(
+            duration: Duration(
+                milliseconds: (duration.inMilliseconds * 1.3).round()),
             builder: (context, value, child) {
               return Transform.translate(
                 offset: Offset(
@@ -171,22 +172,22 @@ class MicroAnimations {
     bool enabled = true,
   }) {
     if (!enabled) return child;
-    
+
     return child
         .animate(onPlay: (controller) => controller.repeat())
         .moveY(
-          begin: 0,
-          end: -distance,
-          duration: duration,
-          curve: Curves.easeInOut,
-        )
+      begin: 0,
+      end: -distance,
+      duration: duration,
+      curve: Curves.easeInOut,
+    )
         .then()
         .moveY(
-          begin: -distance,
-          end: 0,
-          duration: duration,
-          curve: Curves.easeInOut,
-        );
+      begin: -distance,
+      end: 0,
+      duration: duration,
+      curve: Curves.easeInOut,
+    );
   }
 
   /// Animação de entrada staggered para listas
@@ -199,16 +200,16 @@ class MicroAnimations {
     return child
         .animate()
         .fadeIn(
-          delay: delay * index,
-          duration: duration,
-          curve: Curves.easeOutCubic,
-        )
+      delay: delay * index,
+      duration: duration,
+      curve: Curves.easeOutCubic,
+    )
         .slideY(
-          delay: delay * index,
-          begin: 30,
-          duration: duration,
-          curve: Curves.easeOutCubic,
-        );
+      delay: delay * index,
+      begin: 30,
+      duration: duration,
+      curve: Curves.easeOutCubic,
+    );
   }
 
   /// Animação de sucesso com confetti sutil
@@ -238,8 +239,8 @@ class MicroAnimations {
                   shape: BoxShape.circle,
                 ),
               )
-              .animate()
-              .move(
+                  .animate()
+                  .move(
                 begin: Offset.zero,
                 end: Offset(
                   50 * (index.isEven ? 1 : -1),
@@ -248,7 +249,7 @@ class MicroAnimations {
                 duration: const Duration(milliseconds: 800),
                 curve: Curves.easeOutCubic,
               )
-              .fade(
+                  .fade(
                 begin: 1.0,
                 end: 0.0,
                 duration: const Duration(milliseconds: 800),
@@ -268,18 +269,18 @@ class MicroAnimations {
     return child
         .animate(target: isSelected ? 1 : 0)
         .scale(
-          begin: const Offset(1.0, 1.0),
-          end: const Offset(1.1, 1.1),
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeOutBack,
-        )
+      begin: const Offset(1.0, 1.0),
+      end: const Offset(1.1, 1.1),
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeOutBack,
+    )
         .then()
         .tint(
-          color: selectedColor ?? AppColors.primary,
-          begin: 0,
-          end: isSelected ? 0.3 : 0,
-          duration: const Duration(milliseconds: 200),
-        );
+      color: selectedColor ?? AppColors.primary,
+      begin: 0,
+      end: isSelected ? 0.3 : 0,
+      duration: const Duration(milliseconds: 200),
+    );
   }
 
   /// Animação de loading com pontos
@@ -299,16 +300,16 @@ class MicroAnimations {
             shape: BoxShape.circle,
           ),
         )
-        .animate(onPlay: (controller) => controller.repeat())
-        .scale(
+            .animate(onPlay: (controller) => controller.repeat())
+            .scale(
           delay: Duration(milliseconds: index * 200),
           begin: const Offset(0.5, 0.5),
           end: const Offset(1.0, 1.0),
           duration: const Duration(milliseconds: 600),
           curve: Curves.easeInOut,
         )
-        .then()
-        .scale(
+            .then()
+            .scale(
           begin: const Offset(1.0, 1.0),
           end: const Offset(0.5, 0.5),
           duration: const Duration(milliseconds: 600),
@@ -326,22 +327,22 @@ class MicroAnimations {
     return child
         .animate()
         .fadeIn(
-          delay: delay,
-          duration: const Duration(milliseconds: 600),
-          curve: Curves.easeOut,
-        )
+      delay: delay,
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeOut,
+    )
         .slideY(
-          delay: delay,
-          begin: 50,
-          duration: const Duration(milliseconds: 600),
-          curve: Curves.easeOutCubic,
-        )
+      delay: delay,
+      begin: 50,
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeOutCubic,
+    )
         .scale(
-          delay: delay,
-          begin: const Offset(0.9, 0.9),
-          duration: const Duration(milliseconds: 600),
-          curve: Curves.easeOutBack,
-        );
+      delay: delay,
+      begin: const Offset(0.9, 0.9),
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeOutBack,
+    );
   }
 }
 
@@ -350,7 +351,7 @@ class ConditionalAnimation extends StatelessWidget {
   final Widget child;
   final bool condition;
   final Widget Function(Widget child) animatedBuilder;
-  
+
   const ConditionalAnimation({
     super.key,
     required this.child,

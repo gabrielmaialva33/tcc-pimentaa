@@ -4,24 +4,29 @@
 
 ### 1.1 Lembranças Encobridoras (Freud, 1899)
 
-As **lembranças encobridoras** (*Deckerinnerungen*) são um conceito central na teoria freudiana que descreve memórias aparentemente insignificantes que servem para ocultar experiências psiquicamente significativas. 
+As **lembranças encobridoras** (*Deckerinnerungen*) são um conceito central na teoria freudiana que descreve memórias
+aparentemente insignificantes que servem para ocultar experiências psiquicamente significativas.
 
 #### Características das Lembranças Encobridoras:
+
 - **Nitidez incomum**: Memórias triviais que permanecem vívidas
 - **Função defensiva**: Protegem o ego de conteúdos perturbadores
 - **Formação de compromisso**: Equilibram lembrança e esquecimento
 - **Simbolismo**: Contêm elementos que representam o material reprimido
 
 #### Tipos de Lembranças Encobridoras:
+
 1. **Regressivas**: Escondem eventos posteriores
-2. **Progressivas**: Ocultam experiências anteriores  
+2. **Progressivas**: Ocultam experiências anteriores
 3. **Contemporâneas**: Simultaneamente formadas com o evento oculto
 
 ### 1.2 Livre Associação Digital
 
-A **livre associação** é o método fundamental da psicanálise, onde o paciente expressa todos os pensamentos que lhe vêm à mente sem censura.
+A **livre associação** é o método fundamental da psicanálise, onde o paciente expressa todos os pensamentos que lhe vêm
+à mente sem censura.
 
 #### Adaptação para Interface Digital:
+
 - **Campo de texto expansível**: Simula o "divã digital"
 - **Ausência de estrutura rígida**: Permite fluxo natural de pensamentos
 - **Registro temporal**: Captura a cronologia das associações
@@ -32,6 +37,7 @@ A **livre associação** é o método fundamental da psicanálise, onde o pacien
 Os **mecanismos de defesa** são estratégias inconscientes para lidar com ansiedade e conflitos psíquicos.
 
 #### Principais Mecanismos Detectáveis por IA:
+
 - **Negação**: Rejeição de realidades dolorosas
 - **Projeção**: Atribuição de sentimentos próprios a outros
 - **Racionalização**: Justificativas lógicas para atos emocionais
@@ -41,7 +47,8 @@ Os **mecanismos de defesa** são estratégias inconscientes para lidar com ansie
 
 ### 2.1 Construção vs. Reconstrução
 
-Freud distingue entre **construção** (formação original da memória) e **reconstrução** (reelaboração posterior). A IA pode identificar:
+Freud distingue entre **construção** (formação original da memória) e **reconstrução** (reelaboração posterior). A IA
+pode identificar:
 
 - **Inconsistências temporais**: Anacronismos nas narrativas
 - **Sobredeterminação**: Múltiplas causas para um evento
@@ -60,6 +67,7 @@ Inspirado na análise dos sonhos, aplicamos esta distinção às lembranças:
 ### 3.1 Processamento de Linguagem Natural (PLN)
 
 #### Técnicas Aplicadas:
+
 - **Análise semântica**: Identificação de significados profundos
 - **Análise de sentimentos**: Mapeamento do estado emocional
 - **Extração de entidades**: Identificação de pessoas, lugares, eventos
@@ -68,6 +76,7 @@ Inspirado na análise dos sonhos, aplicamos esta distinção às lembranças:
 ### 3.2 Modelos de Linguagem Especializados
 
 #### NVIDIA AI Models para Psicanálise:
+
 - **Llama 3.1 70B**: Análise profunda e contextual
 - **Mistral 8x7B**: Múltiplas perspectivas interpretativas
 - **Prompting especializado**: Instruções baseadas em teoria psicanalítica
@@ -75,6 +84,7 @@ Inspirado na análise dos sonhos, aplicamos esta distinção às lembranças:
 ### 3.3 Padrões Detectáveis por IA
 
 #### Indicadores de Lembranças Encobridoras:
+
 - **Desproporção emocional**: Emoção intensa para evento trivial
 - **Lacunas temporais**: Ausência de memórias em períodos específicos
 - **Repetição temática**: Padrões recorrentes em diferentes contextos
@@ -85,6 +95,7 @@ Inspirado na análise dos sonhos, aplicamos esta distinção às lembranças:
 ### 4.1 Privacidade e Confidencialidade
 
 #### Princípios Fundamentais:
+
 - **Sigilo profissional**: Extensão digital do conceito clássico
 - **Consentimento informado**: Transparência sobre uso da IA
 - **Direito ao esquecimento**: Possibilidade de exclusão de dados
@@ -93,6 +104,7 @@ Inspirado na análise dos sonhos, aplicamos esta distinção às lembranças:
 ### 4.2 Limitações da IA
 
 #### O que a IA NÃO substitui:
+
 - **Transferência**: Relação emocional entre analista e paciente
 - **Contratransferência**: Reações emocionais do terapeuta
 - **Interpretação final**: Decisão humana sobre significados
@@ -101,6 +113,7 @@ Inspirado na análise dos sonhos, aplicamos esta distinção às lembranças:
 ### 4.3 IA como Ferramenta Auxiliar
 
 #### Benefícios da Tecnologia:
+
 - **Preparação de sessão**: Insights prévios para o analista
 - **Identificação de padrões**: Visualização de tendências temporais
 - **Documentação**: Registro estruturado das sessões
@@ -111,6 +124,7 @@ Inspirado na análise dos sonhos, aplicamos esta distinção às lembranças:
 ### 5.1 Prompts Psicanalíticos
 
 #### Estrutura dos Prompts:
+
 ```
 Analise a seguinte lembrança sob perspectiva psicanalítica freudiana:
 
@@ -127,6 +141,7 @@ Lembrança: [TEXTO_DO_PACIENTE]
 ### 5.2 Validação dos Resultados
 
 #### Critérios de Avaliação:
+
 - **Concordância profissional**: Comparação com análise humana
 - **Coerência teórica**: Alinhamento com conceitos freudianos
 - **Utilidade clínica**: Relevância para o processo terapêutico
@@ -137,6 +152,7 @@ Lembrança: [TEXTO_DO_PACIENTE]
 ### 6.1 Aplicações Existentes
 
 #### Apps de Saúde Mental:
+
 - **Wysa**: Chatbot terapêutico com IA
 - **Woebot**: CBT automatizada
 - **Ginger**: Terapia on-demand
@@ -145,6 +161,7 @@ Lembrança: [TEXTO_DO_PACIENTE]
 ### 6.2 Lacunas Identificadas
 
 #### O que não existe ainda:
+
 - **Análise psicanalítica específica**: Foco em conceitos freudianos
 - **Detecção de lembranças encobridoras**: Algoritmos especializados
 - **Interface de livre associação**: Design para narrativa não estruturada
@@ -153,11 +170,13 @@ Lembrança: [TEXTO_DO_PACIENTE]
 ## 7. Contribuições Esperadas
 
 ### 7.1 Inovações Tecnológicas
+
 - **Prompts psicanalíticos**: Primeira aplicação sistemática
 - **Interface terapêutica**: Design baseado em princípios clínicos
 - **Análise de padrões**: Algoritmos para detecção de defesas
 
 ### 7.2 Impacto Clínico
+
 - **Democratização**: Acesso a insights psicanalíticos
 - **Eficiência**: Otimização do tempo terapêutico
 - **Formação**: Ferramenta para estudantes de psicanálise

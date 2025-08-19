@@ -175,7 +175,7 @@ Forneça uma síntese empática e orientada para o desenvolvimento pessoal, dest
   /// Valida se o texto é adequado para análise
   static ValidationResult validateMemoryText(String text) {
     final trimmedText = text.trim();
-    
+
     if (trimmedText.isEmpty) {
       return ValidationResult(
         isValid: false,
@@ -210,26 +210,26 @@ Forneça uma síntese empática e orientada para o desenvolvimento pessoal, dest
     ];
 
     final lowerText = trimmedText.toLowerCase();
-    
+
     // Verificar conteúdo crítico primeiro
     for (final keyword in criticalKeywords) {
       if (lowerText.contains(keyword)) {
         return ValidationResult(
           isValid: false,
           message: 'Esta lembrança contém conteúdo que indica risco imediato. '
-                   'Por favor, procure ajuda profissional urgente ou ligue 188 (CVV).',
+              'Por favor, procure ajuda profissional urgente ou ligue 188 (CVV).',
           needsProfessionalHelp: true,
         );
       }
     }
-    
+
     // Verificar conteúdo sensível - permite análise com aviso
     for (final keyword in sensitiveKeywords) {
       if (lowerText.contains(keyword)) {
         return ValidationResult(
           isValid: true, // Permite análise
           message: 'Conteúdo sensível detectado. A análise será feita com cuidado especial. '
-                   'Recomendamos discutir com um profissional qualificado.',
+              'Recomendamos discutir com um profissional qualificado.',
           needsProfessionalHelp: false,
           isSensitiveContent: true,
         );
@@ -280,7 +280,7 @@ enum AnalysisType {
         return 'Análise de Sonhos';
     }
   }
-  
+
   String get prompt {
     switch (this) {
       case AnalysisType.complete:

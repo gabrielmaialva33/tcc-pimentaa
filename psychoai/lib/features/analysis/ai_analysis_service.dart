@@ -7,7 +7,7 @@ import 'models/analysis_result.dart';
 /// Serviço para análise de lembranças usando IA NVIDIA
 class AIAnalysisService {
   final NvidiaClient _client;
-  
+
   AIAnalysisService() : _client = NvidiaClient();
 
   /// Analisa uma lembrança usando IA especializada em psicanálise
@@ -24,10 +24,12 @@ class AIAnalysisService {
       if (!validation.isValid) {
         throw AnalysisException(
           validation.message ?? 'Texto inválido',
-          code: validation.needsProfessionalHelp ? 'NEEDS_PROFESSIONAL_HELP' : 'INVALID_INPUT',
+          code: validation.needsProfessionalHelp
+              ? 'NEEDS_PROFESSIONAL_HELP'
+              : 'INVALID_INPUT',
         );
       }
-      
+
       // Preparar prompt base
       final basePrompt = FreudianPrompts.fillTemplate(
         analysisType.prompt,
@@ -36,7 +38,7 @@ class AIAnalysisService {
         intensity: emotionalIntensity,
         previousAnalyses: previousContext,
       );
-      
+
       // Se é conteúdo sensível, adicionar aviso ao prompt
       String finalPrompt = basePrompt;
       if (validation.isSensitiveContent) {
@@ -49,7 +51,7 @@ $basePrompt
 
       // Configurar modelo baseado no tipo de análise
       final modelConfig = _getModelConfig(analysisType);
-      
+
       // Fazer requisição para NVIDIA API
       final response = await _client.sendChatCompletion(
         prompt: finalPrompt,
@@ -94,7 +96,6 @@ $basePrompt
       );
 
       return result;
-
     } on NvidiaException catch (e) {
       throw AnalysisException(
         _translateNvidiaError(e.message),
@@ -111,8 +112,7 @@ $basePrompt
 
   /// Analisa múltiplas lembranças para identificar padrões gerais
   Future<PatternAnalysisResult> analyzePatterns(
-    List<AnalysisResult> previousAnalyses,
-  ) async {
+      List<AnalysisResult> previousAnalyses,) async {
     if (previousAnalyses.length < 2) {
       throw AnalysisException(
         'São necessárias pelo menos 2 análises para detectar padrões.',
@@ -131,7 +131,8 @@ Insights: ${analysis.insights.take(3).join('; ')}
           .join('\n---\n');
 
       final prompt = '''
-Como especialista em psicanálise, analise os padrões recorrentes nestas ${previousAnalyses.length} lembranças:
+Como especialista em psicanálise, analise os padrões recorrentes nestas ${previousAnalyses
+          .length} lembranças:
 
 $context
 
@@ -159,7 +160,6 @@ Forneça uma análise integrada e construtiva.
         patternsText: response.content,
         timestamp: DateTime.now(),
       );
-
     } catch (e) {
       throw AnalysisException(
         'Erro ao analisar padrões: $e',
@@ -192,7 +192,8 @@ Forneça uma análise integrada e construtiva.
       case AnalysisType.defenseMechanisms:
       case AnalysisType.transference:
         return ModelConfig(
-          model: 'mistralai/mixtral-8x22b-instruct', // Melhor para análises complexas
+          model: 'mistralai/mixtral-8x22b-instruct',
+          // Melhor para análises complexas
           temperature: 0.6,
           maxTokens: 2048,
         );
@@ -208,12 +209,15 @@ Forneça uma análise integrada e construtiva.
   /// Extrai insights estruturados do texto de análise
   List<String> _extractInsights(String analysisText) {
     final insights = <String>[];
-    
+
     // Buscar seções de insights
     final patterns = [
-      RegExp(r'##?\s*.*INSIGHTS.*\n(.*?)(?=##|$)', dotAll: true, caseSensitive: false),
-      RegExp(r'##?\s*.*AUTOCONHECIMENTO.*\n(.*?)(?=##|$)', dotAll: true, caseSensitive: false),
-      RegExp(r'- ([^-\n]+(?:reflexão|insight|compreensão|padrão)[^-\n]*)', caseSensitive: false),
+      RegExp(r'##?\s*.*INSIGHTS.*\n(.*?)(?=##|$)', dotAll: true,
+          caseSensitive: false),
+      RegExp(r'##?\s*.*AUTOCONHECIMENTO.*\n(.*?)(?=##|$)', dotAll: true,
+          caseSensitive: false),
+      RegExp(r'- ([^-\n]+(?:reflexão|insight|compreensão|padrão)[^-\n]*)',
+          caseSensitive: false),
     ];
 
     for (final pattern in patterns) {
@@ -237,7 +241,7 @@ Forneça uma análise integrada e construtiva.
   /// Extrai indicadores de lembranças encobridoras
   List<String> _extractScreenMemoryIndicators(String analysisText) {
     final indicators = <String>[];
-    
+
     final pattern = RegExp(
       r'##?\s*.*(?:ENCOBRIDORA|SCREEN|OCULTA).*\n(.*?)(?=##|$)',
       dotAll: true,
@@ -264,7 +268,7 @@ Forneça uma análise integrada e construtiva.
   /// Extrai mecanismos de defesa identificados
   List<String> _extractDefenseMechanisms(String analysisText) {
     final mechanisms = <String>[];
-    
+
     final knownMechanisms = [
       'negação', 'projeção', 'racionalização', 'sublimação', 'repressão',
       'formação reativa', 'isolamento', 'regressão', 'deslocamento'
@@ -275,7 +279,7 @@ Forneça uma análise integrada e construtiva.
         '${mechanism}[^.]*',
         caseSensitive: false,
       );
-      
+
       if (pattern.hasMatch(analysisText)) {
         mechanisms.add(mechanism);
       }
@@ -287,7 +291,7 @@ Forneça uma análise integrada e construtiva.
   /// Extrai sugestões terapêuticas
   List<String> _extractTherapeuticSuggestions(String analysisText) {
     final suggestions = <String>[];
-    
+
     final pattern = RegExp(
       r'##?\s*.*(?:SUGESTÕES|TERAPÊUTICA|EXPLORAÇÃO).*\n(.*?)(?=##|$)',
       dotAll: true,
@@ -330,7 +334,11 @@ Forneça uma análise integrada e construtiva.
 
   /// Gera ID único para análise
   String _generateAnalysisId() {
-    return 'analysis_${DateTime.now().millisecondsSinceEpoch}_${DateTime.now().microsecond}';
+    return 'analysis_${DateTime
+        .now()
+        .millisecondsSinceEpoch}_${DateTime
+        .now()
+        .microsecond}';
   }
 
   /// Verifica saúde da API

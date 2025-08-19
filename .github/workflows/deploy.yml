@@ -2,47 +2,47 @@ name: Deploy PsychoAI to GitHub Pages
 
 on:
   push:
-    branches: [main, master]
+    branches: [ main, master ]
   pull_request:
-    branches: [main, master]
+    branches: [ main, master ]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.32.6'
           channel: 'stable'
-          
+
       - name: Enable Flutter Web
         run: flutter config --enable-web
-        
+
       - name: Get dependencies
         run: |
           cd psychoai
           flutter pub get
-          
+
       - name: Analyze code
         run: |
           cd psychoai
           flutter analyze
-          
+
       - name: Run tests
         run: |
           cd psychoai
           flutter test
-          
+
       - name: Build for web
         run: |
           cd psychoai
           flutter build web --base-href /tcc-pimentaa/ --release
-          
+
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v3

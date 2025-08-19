@@ -8,7 +8,7 @@ class HeroAnimations {
   static const String emotionSelectorTag = 'emotion_selector';
   static const String analysisCardTag = 'analysis_card';
   static const String memoryFieldTag = 'memory_field';
-  
+
   /// Hero animation para transição do logo
   static Widget buildLogoHero({
     required String tag,
@@ -25,13 +25,11 @@ class HeroAnimations {
           child: child,
         ),
       ),
-      flightShuttleBuilder: (
-        BuildContext flightContext,
-        Animation<double> animation,
-        HeroFlightDirection flightDirection,
-        BuildContext fromHeroContext,
-        BuildContext toHeroContext,
-      ) {
+      flightShuttleBuilder: (BuildContext flightContext,
+          Animation<double> animation,
+          HeroFlightDirection flightDirection,
+          BuildContext fromHeroContext,
+          BuildContext toHeroContext,) {
         return AnimatedBuilder(
           animation: animation,
           builder: (context, child) {
@@ -65,18 +63,16 @@ class HeroAnimations {
           child: child,
         ),
       ),
-      flightShuttleBuilder: (
-        BuildContext flightContext,
-        Animation<double> animation,
-        HeroFlightDirection flightDirection,
-        BuildContext fromHeroContext,
-        BuildContext toHeroContext,
-      ) {
+      flightShuttleBuilder: (BuildContext flightContext,
+          Animation<double> animation,
+          HeroFlightDirection flightDirection,
+          BuildContext fromHeroContext,
+          BuildContext toHeroContext,) {
         final tween = ColorTween(
           begin: const Color(0xFF6B5B95),
           end: const Color(0xFF9A8BC4),
         );
-        
+
         return AnimatedBuilder(
           animation: animation,
           builder: (context, child) {
@@ -86,7 +82,8 @@ class HeroAnimations {
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: tween.evaluate(animation)?.withValues(alpha: 0.3) ?? Colors.transparent,
+                    color: tween.evaluate(animation)?.withValues(alpha: 0.3) ??
+                        Colors.transparent,
                     blurRadius: 8 * animation.value,
                     offset: Offset(0, 4 * animation.value),
                   ),
@@ -116,13 +113,11 @@ class HeroAnimations {
           child: child,
         ),
       ),
-      flightShuttleBuilder: (
-        BuildContext flightContext,
-        Animation<double> animation,
-        HeroFlightDirection flightDirection,
-        BuildContext fromHeroContext,
-        BuildContext toHeroContext,
-      ) {
+      flightShuttleBuilder: (BuildContext flightContext,
+          Animation<double> animation,
+          HeroFlightDirection flightDirection,
+          BuildContext fromHeroContext,
+          BuildContext toHeroContext,) {
         return AnimatedBuilder(
           animation: animation,
           builder: (context, child) {
@@ -133,7 +128,8 @@ class HeroAnimations {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.1 * animation.value),
+                      color: Colors.black.withValues(
+                          alpha: 0.1 * animation.value),
                       blurRadius: 20 * animation.value,
                       offset: Offset(0, 10 * animation.value),
                     ),

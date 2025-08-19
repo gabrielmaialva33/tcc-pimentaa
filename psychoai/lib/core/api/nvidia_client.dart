@@ -5,27 +5,29 @@ import 'nvidia_config.dart';
 /// Cliente HTTP para comunicação com a API NVIDIA
 class NvidiaClient {
   late final Dio _dio;
-  
+
   NvidiaClient() {
     _dio = Dio(BaseOptions(
       baseUrl: NvidiaConfig.baseUrl,
       connectTimeout: Duration(seconds: NvidiaConfig.timeoutSeconds),
       receiveTimeout: Duration(seconds: NvidiaConfig.timeoutSeconds),
-      sendTimeout: Duration(seconds: NvidiaConfig.timeoutSeconds), // Timeout para envio
+      sendTimeout: Duration(seconds: NvidiaConfig.timeoutSeconds),
+      // Timeout para envio
       headers: NvidiaConfig.defaultHeaders,
     ));
-    
+
     // Interceptors para logging e tratamento de erros
     if (kDebugMode) {
       _dio.interceptors.add(LogInterceptor(
-        requestBody: false, // Não logar o corpo por privacidade
+        requestBody: false,
+        // Não logar o corpo por privacidade
         responseBody: false,
         requestHeader: true,
         responseHeader: false,
         logPrint: (obj) => debugPrint('[NVIDIA API] $obj'),
       ));
     }
-    
+
     // Interceptor para retry automático
     _dio.interceptors.add(
       InterceptorsWrapper(
@@ -46,7 +48,7 @@ class NvidiaClient {
       ),
     );
   }
-  
+
   /// Envia uma requisição de chat completion para análise psicanalítica
   Future<NvidiaResponse> sendChatCompletion({
     required String prompt,
@@ -59,11 +61,12 @@ class NvidiaClient {
       // Validar tamanho do prompt
       if (prompt.length > NvidiaConfig.maxPromptLength) {
         throw NvidiaException(
-          'Prompt muito longo. Máximo: ${NvidiaConfig.maxPromptLength} caracteres',
+          'Prompt muito longo. Máximo: ${NvidiaConfig
+              .maxPromptLength} caracteres',
           code: 'PROMPT_TOO_LONG',
         );
       }
-      
+
       final requestData = {
         'model': model,
         'messages': [
@@ -78,14 +81,13 @@ class NvidiaClient {
         'stream': false,
         ...?additionalParams,
       };
-      
+
       final response = await _dio.post(
         NvidiaConfig.chatCompletionsEndpoint,
         data: requestData,
       );
-      
+
       return NvidiaResponse.fromJson(response.data);
-      
     } on DioException catch (e) {
       throw _handleDioException(e);
     } catch (e) {
@@ -95,7 +97,7 @@ class NvidiaClient {
       );
     }
   }
-  
+
   /// Verifica status da API
   Future<bool> checkApiHealth() async {
     try {
@@ -110,12 +112,12 @@ class NvidiaClient {
       return false;
     }
   }
-  
+
   /// Lista modelos disponíveis (simulado - NVIDIA não tem endpoint público)
   List<ModelInfo> getAvailableModels() {
     return NvidiaConfig.availableModels.values.toList();
   }
-  
+
   /// Calcula custo estimado de uma requisição
   double estimateCost({
     required String prompt,
@@ -125,47 +127,47 @@ class NvidiaClient {
     // Estimativa básica - ajustar conforme pricing real da NVIDIA
     final inputTokens = (prompt.length / 4).ceil(); // ~4 chars per token
     final outputTokens = maxTokens;
-    
+
     // Preços estimados por 1k tokens (ajustar conforme tabela real)
     final inputCostPer1k = model.contains('70b') ? 0.003 : 0.001;
     final outputCostPer1k = model.contains('70b') ? 0.004 : 0.002;
-    
+
     final inputCost = (inputTokens / 1000) * inputCostPer1k;
     final outputCost = (outputTokens / 1000) * outputCostPer1k;
-    
+
     return inputCost + outputCost;
   }
-  
+
   /// Trata exceções do Dio
   NvidiaException _handleDioException(DioException e) {
     debugPrint('[NVIDIA API ERROR] Tipo: ${e.type}, Mensagem: ${e.message}');
     debugPrint('[NVIDIA API ERROR] Status Code: ${e.response?.statusCode}');
     debugPrint('[NVIDIA API ERROR] Response Data: ${e.response?.data}');
-    
+
     switch (e.type) {
       case DioExceptionType.connectionTimeout:
         return NvidiaException(
           'Tempo limite de conexão esgotado. Verifique sua conexão com a internet.',
           code: 'CONNECTION_TIMEOUT',
         );
-      
+
       case DioExceptionType.sendTimeout:
         return NvidiaException(
           'Tempo limite para envio de dados esgotado. Tente novamente.',
           code: 'SEND_TIMEOUT',
         );
-        
+
       case DioExceptionType.receiveTimeout:
         return NvidiaException(
           'Tempo limite para receber resposta esgotado. A análise pode estar demorando mais que o esperado.',
           code: 'RECEIVE_TIMEOUT',
         );
-      
+
       case DioExceptionType.badResponse:
         final statusCode = e.response?.statusCode;
-        final message = e.response?.data?['error']?['message'] ?? 
-                        'Erro HTTP $statusCode';
-        
+        final message = e.response?.data?['error']?['message'] ??
+            'Erro HTTP $statusCode';
+
         switch (statusCode) {
           case 401:
             return NvidiaException(
@@ -193,19 +195,19 @@ class NvidiaClient {
               code: 'HTTP_ERROR',
             );
         }
-      
+
       case DioExceptionType.cancel:
         return NvidiaException(
           'Análise cancelada pelo usuário.',
           code: 'CANCELLED',
         );
-      
+
       case DioExceptionType.connectionError:
         return NvidiaException(
           'Erro de conexão com a internet. Verifique sua conectividade.',
           code: 'CONNECTION_ERROR',
         );
-      
+
       default:
         return NvidiaException(
           'Erro de rede: ${e.message ?? "Erro desconhecido"}',
@@ -213,7 +215,7 @@ class NvidiaClient {
         );
     }
   }
-  
+
   /// Dispose do cliente
   void dispose() {
     _dio.close();
@@ -228,7 +230,7 @@ class NvidiaResponse {
   final String model;
   final List<Choice> choices;
   final Usage? usage;
-  
+
   NvidiaResponse({
     required this.id,
     required this.object,
@@ -237,7 +239,7 @@ class NvidiaResponse {
     required this.choices,
     this.usage,
   });
-  
+
   factory NvidiaResponse.fromJson(Map<String, dynamic> json) {
     return NvidiaResponse(
       id: json['id'] ?? '',
@@ -250,7 +252,7 @@ class NvidiaResponse {
       usage: json['usage'] != null ? Usage.fromJson(json['usage']) : null,
     );
   }
-  
+
   /// Retorna o texto da primeira resposta
   String get content => choices.isNotEmpty ? choices.first.message.content : '';
 }
@@ -260,13 +262,13 @@ class Choice {
   final int index;
   final Message message;
   final String? finishReason;
-  
+
   Choice({
     required this.index,
     required this.message,
     this.finishReason,
   });
-  
+
   factory Choice.fromJson(Map<String, dynamic> json) {
     return Choice(
       index: json['index'] ?? 0,
@@ -280,12 +282,12 @@ class Choice {
 class Message {
   final String role;
   final String content;
-  
+
   Message({
     required this.role,
     required this.content,
   });
-  
+
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
       role: json['role'] ?? '',
@@ -299,13 +301,13 @@ class Usage {
   final int promptTokens;
   final int completionTokens;
   final int totalTokens;
-  
+
   Usage({
     required this.promptTokens,
     required this.completionTokens,
     required this.totalTokens,
   });
-  
+
   factory Usage.fromJson(Map<String, dynamic> json) {
     return Usage(
       promptTokens: json['prompt_tokens'] ?? 0,
@@ -319,9 +321,9 @@ class Usage {
 class NvidiaException implements Exception {
   final String message;
   final String code;
-  
+
   NvidiaException(this.message, {required this.code});
-  
+
   @override
   String toString() => 'NvidiaException($code): $message';
 }

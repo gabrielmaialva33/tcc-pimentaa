@@ -32,19 +32,22 @@ class EmotionSelector extends StatelessWidget {
           ),
           const SizedBox(height: 8),
         ],
-        
+
         Wrap(
           spacing: 12,
           runSpacing: 12,
-          children: emotions.asMap().entries.map((entry) {
+          children: emotions
+              .asMap()
+              .entries
+              .map((entry) {
             final index = entry.key;
             final emotion = entry.value;
             final isSelected = selectedEmotions.contains(emotion.name);
-            
+
             return _buildEmotionChip(emotion, isSelected, index);
           }).toList(),
         ),
-        
+
         if (selectedEmotions.length >= maxSelections) ...[
           const SizedBox(height: 12),
           Container(
@@ -97,8 +100,8 @@ class EmotionSelector extends StatelessWidget {
             Text(
               emotion.name,
               style: TherapeuticStyles.emotionLabel.copyWith(
-                color: isSelected 
-                    ? AppColors.onPrimary 
+                color: isSelected
+                    ? AppColors.onPrimary
                     : AppColors.onSurface,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
               ),
@@ -129,7 +132,7 @@ class EmotionSelector extends StatelessWidget {
 
   void _handleEmotionSelection(String emotionName, bool selected) {
     List<String> newSelection = List.from(selectedEmotions);
-    
+
     if (selected) {
       if (newSelection.length < maxSelections) {
         newSelection.add(emotionName);
@@ -137,7 +140,7 @@ class EmotionSelector extends StatelessWidget {
     } else {
       newSelection.remove(emotionName);
     }
-    
+
     onEmotionsChanged(newSelection);
   }
 }
@@ -216,10 +219,11 @@ class SelectedEmotionsDisplay extends StatelessWidget {
                 spacing: 8,
                 children: selectedEmotions.map((emotionName) {
                   final emotion = allEmotions.firstWhere(
-                    (e) => e.name == emotionName,
-                    orElse: () => EmotionItem(emotionName, '❓', AppColors.accent),
+                        (e) => e.name == emotionName,
+                    orElse: () =>
+                        EmotionItem(emotionName, '❓', AppColors.accent),
                   );
-                  
+
                   return Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,
@@ -232,7 +236,8 @@ class SelectedEmotionsDisplay extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(emotion.emoji, style: const TextStyle(fontSize: 14)),
+                        Text(emotion.emoji,
+                            style: const TextStyle(fontSize: 14)),
                         const SizedBox(width: 4),
                         Text(
                           emotion.name,

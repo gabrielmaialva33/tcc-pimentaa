@@ -62,22 +62,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: Row(
                   children: List.generate(
                     _pages.length,
-                    (index) => Expanded(
-                      child: Container(
-                        height: 4,
-                        margin: const EdgeInsets.symmetric(horizontal: 2),
-                        decoration: BoxDecoration(
-                          color: index <= _currentPage
-                              ? AppColors.primary
-                              : AppColors.primary.withValues(alpha: 0.3),
-                          borderRadius: BorderRadius.circular(2),
+                        (index) =>
+                        Expanded(
+                          child: Container(
+                            height: 4,
+                            margin: const EdgeInsets.symmetric(horizontal: 2),
+                            decoration: BoxDecoration(
+                              color: index <= _currentPage
+                                  ? AppColors.primary
+                                  : AppColors.primary.withValues(alpha: 0.3),
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
                   ),
                 ),
               ),
-              
+
               // Content
               Expanded(
                 child: PageView.builder(
@@ -93,7 +94,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   },
                 ),
               ),
-              
+
               // Navigation buttons
               Padding(
                 padding: const EdgeInsets.all(24),
@@ -126,7 +127,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ],
                         ),
                       ),
-                    
+
                     // Next/Start button
                     CalmButton(
                       onPressed: _currentPage == _pages.length - 1
@@ -183,9 +184,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               .scale(begin: const Offset(0.8, 0.8))
               .then(delay: 200.ms)
               .shimmer(duration: 1000.ms),
-          
+
           const SizedBox(height: 48),
-          
+
           // Title
           Text(
             page.title,
@@ -198,9 +199,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               .animate()
               .fadeIn(delay: 300.ms, duration: 600.ms)
               .slideY(begin: 30, end: 0),
-          
+
           const SizedBox(height: 16),
-          
+
           // Subtitle
           Text(
             page.subtitle,
@@ -213,9 +214,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               .animate()
               .fadeIn(delay: 500.ms, duration: 600.ms)
               .slideY(begin: 30, end: 0),
-          
+
           const SizedBox(height: 32),
-          
+
           // Description
           Text(
             page.description,

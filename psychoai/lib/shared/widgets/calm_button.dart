@@ -85,29 +85,31 @@ class _CalmButtonState extends State<CalmButton>
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: widget.isLoading ? null : widget.onPressed,
-                  borderRadius: widget.borderRadius ?? BorderRadius.circular(16),
+                  borderRadius: widget.borderRadius ??
+                      BorderRadius.circular(16),
                   child: Container(
                     padding: widget.padding ??
-                        const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                        const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 16),
                     child: Center(
                       child: widget.isLoading
                           ? SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  widget.foregroundColor ?? AppColors.onPrimary,
-                                ),
-                              ),
-                            )
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            widget.foregroundColor ?? AppColors.onPrimary,
+                          ),
+                        ),
+                      )
                           : DefaultTextStyle(
-                              style: TextStyle(
-                                color: widget.foregroundColor ?? AppColors.onPrimary,
-                                fontWeight: FontWeight.w600,
-                              ),
-                              child: widget.child,
-                            ),
+                        style: TextStyle(
+                          color: widget.foregroundColor ?? AppColors.onPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        child: widget.child,
+                      ),
                     ),
                   ),
                 ),
@@ -124,13 +126,13 @@ class _CalmButtonState extends State<CalmButton>
     return LinearGradient(
       colors: _isPressed
           ? [
-              baseColor.withValues(alpha: 0.8),
-              baseColor.withValues(alpha: 0.9),
-            ]
+        baseColor.withValues(alpha: 0.8),
+        baseColor.withValues(alpha: 0.9),
+      ]
           : [
-              baseColor,
-              baseColor.withValues(alpha: 0.8),
-            ],
+        baseColor,
+        baseColor.withValues(alpha: 0.8),
+      ],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
     );
@@ -213,22 +215,22 @@ class CalmOutlinedButton extends StatelessWidget {
             child: Center(
               child: isLoading
                   ? SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          foregroundColor ?? AppColors.primary,
-                        ),
-                      ),
-                    )
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    foregroundColor ?? AppColors.primary,
+                  ),
+                ),
+              )
                   : DefaultTextStyle(
-                      style: TextStyle(
-                        color: foregroundColor ?? AppColors.primary,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      child: child,
-                    ),
+                style: TextStyle(
+                  color: foregroundColor ?? AppColors.primary,
+                  fontWeight: FontWeight.w600,
+                ),
+                child: child,
+              ),
             ),
           ),
         ),
